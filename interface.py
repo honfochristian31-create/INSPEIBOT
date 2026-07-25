@@ -124,12 +124,14 @@ def repondre(question, model, index, data, historique=[]):
         
         # Si la question est "quand", "et quand", "à quelle date"
         if question_lower in ["quand", "et quand", "à quelle date", "date"]:
-            if "concours" in dernier_sujet or "composition" in dernier_sujet:
+            if "concours" in dernier_sujet or "composition" in dernier_sujet or "epreuve" in dernier_sujet:
                 return "Le concours INSPEI 2026 aura lieu le **jeudi 10 septembre 2026**."
-            elif "inspei" in dernier_sujet:
+            elif "dossiers" in dernier_sujet or "inscription" in dernier_sujet or "déposer" in dernier_sujet or "dépôt" in dernier_sujet:
+                return "📅 **Dépôt des dossiers pour le concours INSPEI 2026** :\n\nLe dépôt des dossiers sera effectif en **début août 2026** (date précise à confirmer dans l'avis de concours officiel).\n\n📍 **Centres de dépôt** : INSPEI Abomey, ENS Natitingou, IFSIO Parakou, ENSET Lokossa, INMeS Cotonou, et ENS Porto-Novo.\n\n📌 **Inscription en ligne** : www.concours.enseignementsuperieur.gouv.bj"
+            elif "inspei" in dernier_sujet or "école" in dernier_sujet:
                 return "La formation à l'INSPEI dure deux ans, organisée en quatre semestres."
             else:
-                return "Pouvez-vous préciser de quoi vous parlez ?"
+                return "Pouvez-vous préciser de quoi vous parlez ? (concours, inscription, formation...)"
 
         # Si la question est "et", "et quoi", "quoi d'autre", "autre chose"
         if question_lower in ["et", "et quoi", "quoi d'autre", "autre chose"]:
