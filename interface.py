@@ -75,16 +75,15 @@ def repondre(question, model, index, data, historique=[]):
     if est_salutation(question) and len(historique) == 0:
         return reponse_salutation()
     
-    # 1. DÉTECTION PRIORITAIRE DES QUESTIONS DE LOCALISATION
+    # 1. DÉTECTION RADICALE DES QUESTIONS DE LOCALISATION
     question_lower = question.lower().strip()
-    mots_localisation = ["ou", "où", "localisation", "adresse", "situé", "trouve"]
     
-    # Si la question contient un mot de localisation ET fait référence à l'INSPEI
-    est_localisation = any(mot in question_lower for mot in mots_localisation)
-    parle_inspei = any(mot in question_lower for mot in ["inspei", "institut", "école", "campus", "institution"])
+    # Règle brute : si "inspei" + ("ou" ou "où" ou "situé" ou "localisation" ou "adresse")
+    contient_inspei = "inspei" in question_lower
+    contient_localisation = any(mot in question_lower for mot in ["ou", "où", "situé", "localisation", "adresse", "trouve"])
     
-    if est_localisation and parle_inspei:
-        # On force la recherche de la question "Où se trouve l'INSPEI ?"
+    if contient_inspei and contient_localisation:
+        # Forcer la réponse d'adresse
         resultats_force = rechercher("Où se trouve l'INSPEI ?", model, index, data, k=1)
         if resultats_force:
             return resultats_force[0]['reponse']
