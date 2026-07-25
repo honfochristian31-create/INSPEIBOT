@@ -95,11 +95,11 @@ def repondre(question, model, index, data, historique=[]):
         else:
             return "Je suis à votre disposition pour toute question sur l'INSPEI."
     
-    # --- Si la question est trop courte (1 ou 2 mots) on demande de préciser ---
-    if len(question.strip().split()) <= 2:
-        return "Pouvez-vous préciser votre question sur l'INSPEI ? Je suis là pour vous renseigner sur les admissions, les filières, les écoles, la vie étudiante, etc."
+    # --- RÈGLE : "C'EST QUOI" (description générale) ---
+    if ("quoi" in question_lower or "definition" in question_lower or "c'est quoi" in question_lower) and "inspei" in question_lower:
+        return "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est un établissement public rattaché à l'UNSTIM (Université Nationale des Sciences, Technologies, Ingénierie et Mathématiques). Il a été officiellement créé par l'arrêté N°719/MESRS/... du 23/12/2020, mais a démarré ses activités dès 2016-2017. Sa mission est de former des bacheliers scientifiques pour les grandes écoles d'ingénieurs du Bénin. La formation dure deux ans et débouche sur le CPEI."
     
-    # --- RÈGLE ULTRA-RADICALE POUR LA LOCALISATION ---
+    # --- RÈGLE POUR LA LOCALISATION ---
     if "inspei" in question_lower:
         mots_localisation = ["ou", "où", "u", "est", "trouve", "situé", "localisation", "adresse", "emplacement", "cote"]
         for mot in mots_localisation:
@@ -114,6 +114,10 @@ def repondre(question, model, index, data, historique=[]):
     # --- RÈGLE POUR LES MATIÈRES ---
     if question_lower in ["les matieres", "matieres", "les matière", "matière"]:
         return "Les matières enseignées à l'INSPEI sont réparties sur 4 semestres. Voici le programme :\n\nSemestre 1 : Algorithmique, Thermodynamique, Maths 1, Chimie de l'Ingénieur, EPS, TEMC, Probabilités et Statistiques, Statique Graphique et Analytique.\n\nSemestre 2 : Analyse Numérique, Graphe et Optimisation, Maths 2, Cinématique et Dynamique, Langage (C/Python), RDM, Normes et Mesures, Anglais technique.\n\nSemestre 3 : TEMC, Recherche Opérationnelle, Mécanique des Fluides, Maths 3, Physique des Matériaux, Géométrie Descriptive, Dessin Technique et DAO, Électricité Générale.\n\nSemestre 4 : Maths 4, Matlab, MPA, Sciences Biologiques pour l'Ingénieur, Transfert Thermique, Ondes Électromagnétiques, Anglais Technique Avancé, EPS."
+    
+    # --- Si la question est trop courte ---
+    if len(question.strip().split()) <= 2:
+        return "Pouvez-vous préciser votre question sur l'INSPEI ? Je suis là pour vous renseigner sur les admissions, les filières, les écoles, la vie étudiante, etc."
     
     # 2. Recherche normale
     resultats = rechercher(question, model, index, data, k=3)
@@ -227,25 +231,6 @@ st.markdown("""
         border-top: 1px solid #eee;
         margin-top: 2rem;
     }
-    .conversation-btn {
-        width: 100%;
-        text-align: left;
-        padding: 8px 12px;
-        margin: 2px 0;
-        border-radius: 6px;
-        border: 1px solid #e0e0e0;
-        background: white;
-        cursor: pointer;
-        font-size: 0.9rem;
-        transition: background 0.2s;
-    }
-    .conversation-btn:hover {
-        background: #f0f2f6;
-    }
-    .conversation-btn.active {
-        background: #e0e7ff;
-        border-color: #4a6cf7;
-    }
 </style>
 <div class="main-header">
     <h1>🎓 Assistant INSPEI</h1>
@@ -286,9 +271,7 @@ def get_active_conversation():
     return None
 
 def generer_titre(question):
-    """Génère un titre à partir de la première question"""
     question_lower = question.lower()
-    
     mots_cles = {
         "admission": "Admission",
         "concours": "Concours",
@@ -306,7 +289,6 @@ def generer_titre(question):
         "campus": "Campus",
         "abomey": "Localisation",
         "situé": "Localisation",
-        "situer": "Localisation",
         "bourse": "Bourses",
         "internat": "Internat",
         "administrateur": "Administration",
@@ -314,11 +296,9 @@ def generer_titre(question):
         "directeur": "Direction",
         "responsable": "Administration"
     }
-    
     for mot, titre in mots_cles.items():
         if mot in question_lower:
             return f"INSPEI - {titre}"
-    
     mots = question.split()[:5]
     if len(mots) >= 2:
         return f"INSPEI - {' '.join(mots).capitalize()}"
@@ -329,8 +309,7 @@ with st.sidebar:
     st.markdown("### 💬 Conversations")
     
     if st.button("➕ Nouvelle conversation", use_container_width=True):
-        titre = "INSPEI - Nouvelle conversation"
-        nouvelle_conversation(titre)
+        nouvelle_conversation()
         st.rerun()
     
     st.markdown("---")
@@ -338,11 +317,9 @@ with st.sidebar:
     if st.session_state.conversations:
         for convo in st.session_state.conversations:
             is_active = convo["id"] == st.session_state.current_convo_id
-            
             display_title = convo["titre"]
             if len(display_title) > 25:
                 display_title = display_title[:25] + "..."
-            
             if st.button(
                 f"{'📌' if is_active else '💬'} {display_title}",
                 key=f"convo_{convo['id']}",
@@ -351,14 +328,13 @@ with st.sidebar:
                 charger_conversation(convo["id"])
                 st.rerun()
     else:
-        st.info("Aucune conversation active. Cliquez sur 'Nouvelle conversation' pour commencer.")
+        st.info("Aucune conversation active.")
 
 # ---------- 9. ZONE PRINCIPALE ----------
 if not st.session_state.conversations:
     nouvelle_conversation("INSPEI - Bienvenue")
 
 active_convo = get_active_conversation()
-
 if active_convo is None:
     st.warning("⚠️ Aucune conversation sélectionnée.")
     st.stop()
@@ -370,10 +346,8 @@ for message in active_convo["messages"]:
 # ---------- 10. INPUT ----------
 if prompt := st.chat_input("Posez votre question..."):
     active_convo["messages"].append({"role": "user", "content": prompt})
-    
     if len(active_convo["messages"]) == 1:
-        titre = generer_titre(prompt)
-        active_convo["titre"] = titre
+        active_convo["titre"] = generer_titre(prompt)
     
     with st.chat_message("user"):
         st.markdown(prompt)
@@ -385,11 +359,6 @@ if prompt := st.chat_input("Posez votre question..."):
             st.markdown(reponse)
     
     active_convo["messages"].append({"role": "assistant", "content": reponse})
-    
-    if active_convo["titre"] == "INSPEI - Nouvelle conversation" and len(active_convo["messages"]) >= 2:
-        titre = generer_titre(prompt)
-        active_convo["titre"] = titre
-    
     st.rerun()
 
 # ---------- 11. PIED DE PAGE ----------
