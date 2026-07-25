@@ -40,6 +40,10 @@
     "answer": "Le parcours est identique pour tous : deux années de classes préparatoires avec un tronc commun en mathématiques, physique, chimie, et sciences de l'ingénieur. La première année couvre les semestres 1 et 2, la deuxième année les semestres 3 et 4."
   },
   {
+    "question": "Explique-moi le parcours à l'INSPEI",
+    "answer": "Le parcours à l'INSPEI est unique : deux ans de classes préparatoires (4 semestres) avec un tronc commun en mathématiques, physique, chimie et sciences de l'ingénieur, débouchant sur le CPEI et l'accès aux écoles d'ingénieurs (ENSGEP, ENSGMM, ENSTP)."
+  },
+  {
     "question": "Quels sont les débouchés après l'INSPEI ?",
     "answer": "Après l'INSPEI, les étudiants intègrent les écoles d'ingénieurs de l'UNSTIM : ENSGEP (Génie Energétique), ENSGMM (Génie Mathématique), ou ENSTP (Travaux Publics). Ils y poursuivent un cycle de 3 ans pour devenir ingénieurs."
   },
@@ -56,20 +60,136 @@
     "answer": "Après l'INSPEI, on peut intégrer l'ENSGEP (Ecole Nationale Supérieure de Génie Energétique et Procédés), l'ENSGMM (Ecole Nationale Supérieure de Génie Mathématique et Modélisation), et l'ENSTP (Ecole Nationale Supérieure des Travaux Publics). Ces trois écoles délivrent un diplôme d'ingénieur de niveau Bac+5 en 3 ans après les classes préparatoires."
   },
   {
+    "question": "Quelle école choisir après l'INSPEI ?",
+    "answer": "Après l'INSPEI, vous pouvez choisir l'ENSGEP (Génie Energétique), l'ENSGMM (Génie Mathématique) ou l'ENSTP (Travaux Publics) en fonction de vos affinités pour l'énergie, les mathématiques appliquées, ou le génie civil."
+  },
+  {
     "question": "Qu'est-ce que l'ENSGEP ?",
     "answer": "L'ENSGEP est l'Ecole Nationale Supérieure de Génie Energétique et Procédés. C'est une école d'ingénieurs de l'UNSTIM qui forme des spécialistes dans les domaines de l'énergie, de la thermique et des procédés industriels. Les étudiants y acquièrent des compétences en production d'énergie, efficacité énergétique, énergies renouvelables, et conception de procédés chimiques et industriels. Les débouchés incluent les secteurs de l'énergie, de l'industrie pétrolière, de la chimie, et de l'environnement. La formation dure 3 ans après les classes préparatoires."
+  },
+  {
+    "question": "Donne-moi des infos sur l'ENSGEP",
+    "answer": "L'ENSGEP est l'Ecole Nationale Supérieure de Génie Energétique et Procédés. Elle forme des ingénieurs et techniciens en génie énergétique, froid-climatisation et équipements motorisés. Elle dispose d'un laboratoire pluridisciplinaire et a ouvert ses portes en 2018-2019."
+  },
+  {
+    "question": "Qu'est-ce qu'on fait à l'ENSGEP ?",
+    "answer": "À l'ENSGEP, on étudie le génie énergétique et les procédés industriels. Les étudiants apprennent à concevoir, dimensionner et mettre en place des unités de production, tout en se spécialisant en énergies renouvelables ou en froid-climatisation."
+  },
+  {
+    "question": "Quels sont les débouchés de l'ENSGEP ?",
+    "answer": "Les débouchés de l'ENSGEP incluent les secteurs de l'énergie, de l'industrie pétrolière, de la chimie, et de l'environnement. Les diplômés travaillent dans la production d'énergie, l'efficacité énergétique, les énergies renouvelables, et la conception de procédés industriels."
+  },
+  {
+    "question": "Tu peux me parler des débouchés de l'ENSGEP ?",
+    "answer": "Les débouchés de l'ENSGEP incluent les secteurs de l'énergie, de l'industrie pétrolière, de la chimie, et de l'environnement avec des postes comme Ingénieur industriel, Ingénieur en énergies renouvelables, ou Ingénieur Bureau d'études."
   },
   {
     "question": "Qu'est-ce que l'ENSGMM ?",
     "answer": "L'ENSGMM est l'Ecole Nationale Supérieure de Génie Mathématique et Modélisation. C'est une école d'ingénieurs de l'UNSTIM qui forme des experts en mathématiques appliquées, en modélisation et en recherche opérationnelle. Les spécialités proposées sont : Modélisation et Simulation Numérique, Informatique et Logistique, et Modélisation Aléatoire, Statistique et Finances. Les débouchés incluent les secteurs de la finance, de la logistique, de l'informatique, de la recherche, et de l'industrie. La formation dure 3 ans après les classes préparatoires."
   },
   {
+    "question": "C'est quoi l'ENSGMM en fait ?",
+    "answer": "L'ENSGMM est l'Ecole Nationale Supérieure de Génie Mathématique et Modélisation. C'est une école d'ingénieurs de l'UNSTIM qui forme des experts en mathématiques appliquées, en modélisation et en recherche opérationnelle."
+  },
+  {
+    "question": "A quoi ça sert l'ENSGMM ?",
+    "answer": "L'ENSGMM sert à former des ingénieurs capables de concevoir, analyser et mettre en œuvre des modèles mathématiques avancés pour résoudre des problèmes complexes dans des secteurs comme la santé, la finance, la robotique et la logistique."
+  },
+  {
+    "question": "Quels sont les métiers après l'ENSGMM ?",
+    "answer": "Après l'ENSGMM, les diplômés peuvent devenir Ingénieur en modélisation, Analyste financier, Spécialiste en logistique, Expert en cryptographie, Ingénieur en recherche opérationnelle, ou Data Scientist, travaillant dans la finance, la santé, l'industrie ou la recherche."
+  },
+  {
+    "question": "Quelle est la mission de l'ENSGMM ?",
+    "answer": "L'ENSGMM a pour mission de former des ingénieurs en mathématiques appliquées, capables de concevoir, analyser et mettre en œuvre des modèles mathématiques avancés pour résoudre des problèmes complexes dans divers secteurs : santé, finance, cryptographie, robotique, agroalimentaire, sciences sociales, sociologie, psychologie et politique."
+  },
+  {
+    "question": "Quelles sont les spécialités proposées à l'ENSGMM ?",
+    "answer": "L'ENSGMM propose trois spécialités : 1) Modélisation et Simulation Numérique, 2) Modélisation Aléatoire, Statistique et Finance, 3) Informatique, Logistique et Recherche Opérationnelle."
+  },
+  {
+    "question": "Quels sont les débouchés de la spécialité Modélisation et Simulation Numérique ?",
+    "answer": "Les débouchés incluent : la conception et simulation de systèmes mécaniques et physiques complexes, la prévision de paramètres atmosphériques, les bureaux de calculs scientifiques, les études et conseils techniques, et la recherche et développement."
+  },
+  {
+    "question": "Quels sont les débouchés de la spécialité Modélisation Aléatoire, Statistique et Finance ?",
+    "answer": "Les débouchés incluent : la banque et finance, la modélisation des marchés financiers, la gestion de portefeuilles, et la gestion des risques."
+  },
+  {
+    "question": "Quels sont les débouchés de la spécialité Informatique, Logistique et Recherche Opérationnelle ?",
+    "answer": "Les débouchés incluent : la modélisation et optimisation de flux (personnes, marchandises, informations), l'optimisation des trajets et chaînes de production, les systèmes d'information, les sociétés innovantes, et la recherche et développement en logiciels et bases de données."
+  },
+  {
+    "question": "Quelles sont les qualités requises pour intégrer l'ENSGMM ?",
+    "answer": "Les étudiants doivent être capables de participer à la modélisation mathématique et informatique de systèmes continus ou discrets, proposer des traitements algorithmiques pertinents, évaluer le comportement de systèmes physiques ou de méthodes informatiques, et travailler en équipe pluridisciplinaire."
+  },
+  {
+    "question": "Quels sont les partenaires de l'ENSGMM ?",
+    "answer": "L'ENSGMM collabore avec : l'INSPEI, la FaST (Faculté des Sciences et Techniques), la CIPMA (Chaire Internationale en Physique Mathématique), la DGAE (Direction Générale de l'Economie Appliquée), et les sociétés MIFY, Drwintech, Tics Maters, et Greentech Innovation (GTI)."
+  },
+  {
+    "question": "Quels sont les secteurs d'activité de l'ENSGMM ?",
+    "answer": "Les diplômés de l'ENSGMM travaillent dans : la santé (biologie/médecine, dynamique des populations, statistiques, études cliniques), la finance (banque/assurance, conception de produits financiers), la cryptographie et robotique, l'agroalimentaire, et les sciences sociales (sociologie, psychologie, politique)."
+  },
+  {
+    "question": "Comment entrer à l'ENSGMM ?",
+    "answer": "Pour entrer à l'ENSGMM, il faut avoir effectué deux années en cycle préparatoire (INSPEI ou équivalent) et être sélectionné soit en tant que boursier, soit à titre payant à l'issue d'un concours d'entrée."
+  },
+  {
     "question": "Qu'est-ce que l'ENSTP ?",
     "answer": "L'ENSTP est l'Ecole Nationale Supérieure des Travaux Publics. C'est une école d'ingénieurs de l'UNSTIM qui forme des ingénieurs spécialisés dans le génie civil, la construction et les infrastructures. Les étudiants y apprennent la conception et la réalisation de bâtiments, de routes, de ponts, de barrages, et d'ouvrages hydrauliques. Les débouchés incluent les entreprises de BTP, les bureaux d'études, les collectivités territoriales, et les ministères en charge des infrastructures. La formation dure 3 ans après les classes préparatoires."
   },
   {
+    "question": "Quels sont les débouchés de l'ENSTP ?",
+    "answer": "Les débouchés de l'ENSTP incluent les entreprises de BTP, les bureaux d'études, les collectivités territoriales, et les ministères en charge des infrastructures. Les diplômés conçoivent et réalisent des bâtiments, des routes, des ponts, des barrages et des ouvrages hydrauliques."
+  },
+  {
+    "question": "Quelle est la mission de l'ENSGEP ?",
+    "answer": "L'ENSGEP a pour mission de former des ingénieurs et techniciens dans le domaine des sciences et technologies, spécifiquement en génie énergétique, froid-climatisation et équipements motorisés, capables de concevoir, étudier, dimensionner et mettre en place des unités de production dans divers secteurs d'activités."
+  },
+  {
+    "question": "Quelles formations propose l'ENSGEP ?",
+    "answer": "L'ENSGEP propose trois formations : 1) Un cycle d'Ingénieur en Génie Energétique et Procédés (Bac+5), 2) Une Licence Professionnelle en Froid et Climatisation (Bac+3), 3) Une Licence Professionnelle en Equipements Motorisés (Bac+3)."
+  },
+  {
+    "question": "Quels sont les débouchés du cycle d'ingénieur à l'ENSGEP ?",
+    "answer": "Les débouchés incluent : Ingénieur industriel, Chef d'usine, Ingénieur Bureau d'études, Ingénieur conseil et commercial près des fabricants d'équipements énergétiques, Ingénieur en énergies renouvelables, et prestation en privé en génie énergétique."
+  },
+  {
+    "question": "Quels sont les débouchés de la Licence Professionnelle en Froid et Climatisation ?",
+    "answer": "Les débouchés incluent : Technicien en installation, mise en service et maintenance d'installations frigorifiques près des PME et Institutions, ou s'installer à son propre compte pour les prestations de service en froid et climatisation."
+  },
+  {
+    "question": "Quels sont les débouchés de la Licence Professionnelle en Equipements Motorisés ?",
+    "answer": "Les débouchés incluent : Technicien en installation et maintenance des équipements motorisés, Electromécanicien, Technicien en Mécanique automobile, Technicien en Installation et Maintenance de matériels électroménagers, Technicien en Installation et Maintenance des engins de travaux publics, Technicien en Installation et Maintenance des groupes électrogènes, ou s'installer à son propre compte."
+  },
+  {
+    "question": "Quelles sont les conditions d'accès au cycle d'ingénieur à l'ENSGEP ?",
+    "answer": "Pour accéder au cycle d'ingénieur, il faut : avoir terminé les classes préparatoires à l'INSPEI, ou réussir un test d'entrée après deux ans de classe préparatoire scientifique, ou être titulaire d'une licence professionnelle en Energie renouvelable, Génie mécanique et productique, Génie industriel et maintenance, Energie renouvelable et maintenance des systèmes énergétiques, Physique ou tout autre diplôme équivalent."
+  },
+  {
+    "question": "Quelles sont les conditions d'accès à la Licence Professionnelle à l'ENSGEP ?",
+    "answer": "Pour la Licence Professionnelle, l'accès se fait sur classement des nouveaux bacheliers des séries C, D, E, DT/FC et DEAT par le ministère (sélection à titre de boursiers, partiellement payant ou entièrement payant) ou sur étude de dossiers pour les anciens bacheliers (entièrement payant)."
+  },
+  {
+    "question": "Quand l'ENSGEP a-t-elle ouvert ses portes ?",
+    "answer": "L'ENSGEP a ouvert ses portes au cours de l'année académique 2018-2019. La première promotion du cycle d'ingénieur a été mise sur le marché en décembre 2021."
+  },
+  {
+    "question": "Quelles sont les missions supplémentaires de l'ENSGEP ?",
+    "answer": "En plus de la formation, l'ENSGEP assure : la recherche scientifique et l'innovation technologique en énergétique, la formation continue des personnels, et l'assistance technique ou conseil auprès des pouvoirs publics, établissements publics et entreprises privées."
+  },
+  {
+    "question": "Est-ce que l'ENSGEP a des laboratoires ?",
+    "answer": "Oui, l'ENSGEP dispose d'un laboratoire pluridisciplinaire pour les travaux pratiques de ses étudiants et collabore avec plusieurs laboratoires publics et privés pour renforcer la professionnalisation de ses formations."
+  },
+  {
     "question": "Où se trouve l'INSPEI ?",
     "answer": "L'INSPEI est situé en République du Bénin, dans le Département du Zou, à Abomey, à environ 1 km de la place Goho, sur la route RNIE2 en allant vers Bohicon, dans l'enceinte de l'ENEAM d'Abomey (Quartier Sogbo-Aliho)."
+  },
+  {
+    "question": "L'INSPEI c'est où exactement ?",
+    "answer": "L'INSPEI est exactement situé à Abomey, dans le Département du Zou, à environ 1 km de la place Goho sur la route RNIE2, dans l'enceinte de l'ENEAM, quartier Sogbo-Aliho."
   },
   {
     "question": "Quelle est l'adresse de l'INSPEI ?",
@@ -128,12 +248,20 @@
     "answer": "L'INSPEI est dirigé par le Dr (MC) AKOWANOU Christian D. (Maître de Conférences des Universités du CAMES), spécialisé en Physiques-Mathématiques Appliquées."
   },
   {
+    "question": "Qui est le patron de l'INSPEI ?",
+    "answer": "Le Directeur de l'INSPEI est le Dr (MC) AKOWANOU Christian D., Maître de Conférences en Physiques-Mathématiques Appliquées."
+  },
+  {
     "question": "Quels sont les principaux responsables de l'INSPEI ?",
     "answer": "L'équipe dirigeante comprend : Dr (MC) AKOWANOU Christian D. (Directeur), Dr. Bernard N. TOKPOHOZIN (Chef du Service de la Scolarité et des Examens), GBEGNITO Wilfried Hodonou (Secrétaire général), et AKPAVOU Chédrac (Conducteur de Bus)."
   },
   {
     "question": "Quelle est la durée de la formation à l'INSPEI ?",
     "answer": "La formation dure deux (2) ans, organisée en quatre (4) semestres."
+  },
+  {
+    "question": "Ça dure combien de temps la formation à l'INSPEI ?",
+    "answer": "La formation à l'INSPEI dure deux (2) ans, organisée en quatre (4) semestres."
   },
   {
     "question": "Quel est le diplôme délivré à l'issue de la formation ?",
@@ -174,6 +302,10 @@
   {
     "question": "L'INSPEI propose-t-il une cantine ?",
     "answer": "Oui, l'INSPEI propose un service de restauration trois fois par jour (petit-déjeuner, déjeuner, dîner), géré par le COUS/UAC."
+  },
+  {
+    "question": "Est-ce qu'il y a la cantine à l'INSPEI ?",
+    "answer": "Oui, l'INSPEI dispose d'un service de restauration (cantine) proposant trois repas par jour (petit-déjeuner, déjeuner, dîner), géré par le COUS/UAC."
   },
   {
     "question": "Qu'est-ce que le COUS/UAC ?",
@@ -228,6 +360,10 @@
     "answer": "RDM signifie Résistance des Matériaux. C'est une matière enseignée à l'INSPEI qui étudie le comportement des matériaux soumis à des forces et des contraintes."
   },
   {
+    "question": "C'est quoi la RDM ?",
+    "answer": "RDM signifie Résistance des Matériaux. C'est une matière enseignée à l'INSPEI qui étudie le comportement des matériaux soumis à des forces et des contraintes."
+  },
+  {
     "question": "L'INSPEI forme-t-il des ingénieurs ?",
     "answer": "L'INSPEI ne forme pas directement des ingénieurs. Il prépare les étudiants aux concours des écoles d'ingénieurs de l'UNSTIM. La formation d'ingénieur se fait après, dans les écoles ENSGEP, ENSGMM et ENSTP."
   },
@@ -236,20 +372,16 @@
     "answer": "L'ENSGMM propose trois spécialités principales : la Modélisation et Simulation Numérique, l'Informatique et Recherche Opérationnelle, et la Modélisation Aléatoire, Statistique et Finances."
   },
   {
-    "question": "Quels sont les débouchés de l'ENSGEP ?",
-    "answer": "Les débouchés de l'ENSGEP incluent les secteurs de l'énergie, de l'industrie pétrolière, de la chimie, et de l'environnement. Les diplômés travaillent dans la production d'énergie, l'efficacité énergétique, les énergies renouvelables, et la conception de procédés industriels."
-  },
-  {
-    "question": "Quels sont les débouchés de l'ENSTP ?",
-    "answer": "Les débouchés de l'ENSTP incluent les entreprises de BTP, les bureaux d'études, les collectivités territoriales, et les ministères en charge des infrastructures. Les diplômés conçoivent et réalisent des bâtiments, des routes, des ponts, des barrages et des ouvrages hydrauliques."
-  },
-  {
     "question": "Qu'est-ce que l'UNSTIM ?",
     "answer": "L'UNSTIM est l'Université Nationale des Sciences, Technologies, Ingénierie et Mathématiques. C'est l'université de rattachement de l'INSPEI. Elle regroupe plusieurs écoles d'ingénieurs et instituts de formation scientifique au Bénin."
   },
   {
     "question": "Qu'est-ce que les classes préparatoires ?",
     "answer": "Les classes préparatoires sont une formation de deux ans (Bac+2) qui prépare les étudiants aux concours d'entrée des grandes écoles d'ingénieurs. Elles offrent un enseignement intensif en mathématiques, physique, chimie et sciences de l'ingénieur."
+  },
+  {
+    "question": "C'est quoi les classes préparatoires exactement ?",
+    "answer": "Les classes préparatoires sont une formation post-bac de deux ans (Bac+2) qui prépare les étudiants aux concours d'entrée des grandes écoles d'ingénieurs à travers un enseignement intensif en sciences fondamentales."
   },
   {
     "question": "Pourquoi choisir l'INSPEI ?",
