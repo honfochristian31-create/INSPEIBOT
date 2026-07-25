@@ -53,19 +53,19 @@
   },
   {
     "question": "Quelles écoles d'ingénieur peut-on intégrer après l'INSPEI ?",
-    "answer": "Après l'INSPEI, on peut intégrer l'ENSGEP (Ecole Nationale Supérieure de Génie Energétique et Procédés), l'ENSGMM (Ecole Nationale Supérieure de Génie Mathématique et Modélisation), et l'ENSTP (Ecole Nationale Supérieure des Travaux Publics)."
+    "answer": "Après l'INSPEI, on peut intégrer l'ENSGEP (Ecole Nationale Supérieure de Génie Energétique et Procédés), l'ENSGMM (Ecole Nationale Supérieure de Génie Mathématique et Modélisation), et l'ENSTP (Ecole Nationale Supérieure des Travaux Publics). Ces trois écoles délivrent un diplôme d'ingénieur de niveau Bac+5 en 3 ans après les classes préparatoires."
   },
   {
     "question": "Qu'est-ce que l'ENSGEP ?",
-    "answer": "L'ENSGEP est l'Ecole Nationale Supérieure de Génie Energétique et Procédés. C'est une école d'ingénieurs de l'UNSTIM qui forme des spécialistes dans les domaines de l'énergie, de la thermique et des procédés industriels."
+    "answer": "L'ENSGEP est l'Ecole Nationale Supérieure de Génie Energétique et Procédés. C'est une école d'ingénieurs de l'UNSTIM qui forme des spécialistes dans les domaines de l'énergie, de la thermique et des procédés industriels. Les étudiants y acquièrent des compétences en production d'énergie, efficacité énergétique, énergies renouvelables, et conception de procédés chimiques et industriels. Les débouchés incluent les secteurs de l'énergie, de l'industrie pétrolière, de la chimie, et de l'environnement. La formation dure 3 ans après les classes préparatoires."
   },
   {
     "question": "Qu'est-ce que l'ENSGMM ?",
-    "answer": "L'ENSGMM est l'Ecole Nationale Supérieure de Génie Mathématique et Modélisation. C'est une école d'ingénieurs de l'UNSTIM qui forme des experts en mathématiques appliquées, en modélisation et en recherche opérationnelle."
+    "answer": "L'ENSGMM est l'Ecole Nationale Supérieure de Génie Mathématique et Modélisation. C'est une école d'ingénieurs de l'UNSTIM qui forme des experts en mathématiques appliquées, en modélisation et en recherche opérationnelle. Les spécialités proposées sont : Modélisation et Simulation Numérique, Informatique et Logistique, et Modélisation Aléatoire, Statistique et Finances. Les débouchés incluent les secteurs de la finance, de la logistique, de l'informatique, de la recherche, et de l'industrie. La formation dure 3 ans après les classes préparatoires."
   },
   {
     "question": "Qu'est-ce que l'ENSTP ?",
-    "answer": "L'ENSTP est l'Ecole Nationale Supérieure des Travaux Publics. C'est une école d'ingénieurs de l'UNSTIM qui forme des ingénieurs spécialisés dans le génie civil, la construction et les infrastructures."
+    "answer": "L'ENSTP est l'Ecole Nationale Supérieure des Travaux Publics. C'est une école d'ingénieurs de l'UNSTIM qui forme des ingénieurs spécialisés dans le génie civil, la construction et les infrastructures. Les étudiants y apprennent la conception et la réalisation de bâtiments, de routes, de ponts, de barrages, et d'ouvrages hydrauliques. Les débouchés incluent les entreprises de BTP, les bureaux d'études, les collectivités territoriales, et les ministères en charge des infrastructures. La formation dure 3 ans après les classes préparatoires."
   },
   {
     "question": "Où se trouve l'INSPEI ?",
@@ -230,5 +230,29 @@
   {
     "question": "L'INSPEI forme-t-il des ingénieurs ?",
     "answer": "L'INSPEI ne forme pas directement des ingénieurs. Il prépare les étudiants aux concours des écoles d'ingénieurs de l'UNSTIM. La formation d'ingénieur se fait après, dans les écoles ENSGEP, ENSGMM et ENSTP."
+  },
+  {
+    "question": "Quels sont les spécialités proposées à l'ENSGMM ?",
+    "answer": "L'ENSGMM propose trois spécialités principales : la Modélisation et Simulation Numérique, l'Informatique et Recherche Opérationnelle, et la Modélisation Aléatoire, Statistique et Finances."
+  },
+  {
+    "question": "Quels sont les débouchés de l'ENSGEP ?",
+    "answer": "Les débouchés de l'ENSGEP incluent les secteurs de l'énergie, de l'industrie pétrolière, de la chimie, et de l'environnement. Les diplômés travaillent dans la production d'énergie, l'efficacité énergétique, les énergies renouvelables, et la conception de procédés industriels."
+  },
+  {
+    "question": "Quels sont les débouchés de l'ENSTP ?",
+    "answer": "Les débouchés de l'ENSTP incluent les entreprises de BTP, les bureaux d'études, les collectivités territoriales, et les ministères en charge des infrastructures. Les diplômés conçoivent et réalisent des bâtiments, des routes, des ponts, des barrages et des ouvrages hydrauliques."
+  },
+  {
+    "question": "Qu'est-ce que l'UNSTIM ?",
+    "answer": "L'UNSTIM est l'Université Nationale des Sciences, Technologies, Ingénierie et Mathématiques. C'est l'université de rattachement de l'INSPEI. Elle regroupe plusieurs écoles d'ingénieurs et instituts de formation scientifique au Bénin."
+  },
+  {
+    "question": "Qu'est-ce que les classes préparatoires ?",
+    "answer": "Les classes préparatoires sont une formation de deux ans (Bac+2) qui prépare les étudiants aux concours d'entrée des grandes écoles d'ingénieurs. Elles offrent un enseignement intensif en mathématiques, physique, chimie et sciences de l'ingénieur."
+  },
+  {
+    "question": "Pourquoi choisir l'INSPEI ?",
+    "answer": "L'INSPEI est une école d'excellence qui offre une formation scientifique de haut niveau, un encadrement de qualité, un internat avec bourse, et un accès privilégié aux grandes écoles d'ingénieurs de l'UNSTIM. C'est la voie royale pour devenir ingénieur au Bénin."
   }
 ]
