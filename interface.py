@@ -99,13 +99,46 @@ def repondre(question, model, index, data, historique=[]):
     if question_lower.strip() in ["inspei", "inspéi", "insp"]:
         return "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est une école préparatoire aux grandes écoles d'ingénieurs du Bénin, située à Abomey. Que souhaitez-vous savoir ? (Admission, filières, écoles, concours, vie étudiante...) 😊"
     
-    # --- RÈGLE : "Inspei quand ?" (date du concours) ---
+    # --- RÈGLE : "Inspei quand ?" ---
     if "inspei" in question_lower and "quand" in question_lower:
         return "📅 **Concours INSPEI 2026** :\n\nLe concours d'entrée à l'INSPEI aura lieu le **jeudi 10 septembre 2026**.\n\n📌 **Conditions** : 12/20 au baccalauréat et moins de 22 ans au 31 décembre 2026.\n📌 **Dépôt des dossiers** : début août 2026.\n📌 **Centres d'examen** : Abomey (ENSTP/UNSTIM), Cotonou (CEG Gbégamey, Collège Catholique ND des Apôtres, CEG Ste Rita, CEG les Pylônes) et Parakou (IFSIO).\n\nSource : Arrêté N°2026-0224/..."
     
     # --- RÈGLE : "C'est où" (sans mention d'INSPEI) ---
-    if question_lower in ["c'est où", "cest ou", "c est ou", "où", "ou", "c'est ou"]:
+    if question_lower in ["c'est où", "cest ou", "c est ou", "c'est ou"]:
         return "Si vous cherchez la localisation de l'INSPEI, il est situé à Abomey, quartier Sogbo-Aliho, à environ 1 km de la place Goho sur la route RNIE2. Si vous cherchez autre chose, précisez votre question."
+    
+    # --- RÈGLE : SUIVI CONTEXTUEL POUR LES QUESTIONS COURTES ---
+    if len(question.strip().split()) <= 2 and historique:
+        # Récupérer la dernière question de l'utilisateur
+        dernier_echange = historique[-1] if historique else None
+        dernier_sujet = dernier_echange["content"].lower() if dernier_echange else ""
+        
+        # Si la question est "ou", "où", "ou ça", "où ça"
+        if question_lower in ["ou", "où", "ou ça", "où ça", "ou se passe", "où se passe"]:
+            if "concours" in dernier_sujet or "composition" in dernier_sujet or "epreuve" in dernier_sujet:
+                return "📅 **Lieu du concours INSPEI 2026** :\n\nLes épreuves se déroulent dans les centres suivants :\n📍 **Abomey** : ENSTP/UNSTIM\n📍 **Cotonou** : CEG Gbégamey, Collège Catholique ND des Apôtres, CEG Ste Rita, CEG les Pylônes\n📍 **Parakou** : IFSIO\n\n📌 **Date** : jeudi 10 septembre 2026"
+            elif "inspei" in dernier_sujet or "école" in dernier_sujet:
+                return "L'INSPEI est situé à Abomey, quartier Sogbo-Aliho, à environ 1 km de la place Goho sur la route RNIE2."
+            else:
+                return "Pouvez-vous préciser de quoi vous parlez ? (concours, école, événement, etc.)"
+        
+        # Si la question est "quand", "et quand", "à quelle date"
+        if question_lower in ["quand", "et quand", "à quelle date", "date"]:
+            if "concours" in dernier_sujet or "composition" in dernier_sujet:
+                return "Le concours INSPEI 2026 aura lieu le **jeudi 10 septembre 2026**."
+            elif "inspei" in dernier_sujet:
+                return "La formation à l'INSPEI dure deux ans, organisée en quatre semestres."
+            else:
+                return "Pouvez-vous préciser de quoi vous parlez ?"
+
+        # Si la question est "et", "et quoi", "quoi d'autre", "autre chose"
+        if question_lower in ["et", "et quoi", "quoi d'autre", "autre chose"]:
+            if "concours" in dernier_sujet:
+                return "📌 **Plus d'informations sur le concours INSPEI 2026** :\n\n• **Dépôt des dossiers** : début août 2026\n• **Conditions** : 12/20 au baccalauréat et moins de 22 ans au 31/12/2026\n• **Inscription** : www.concours.enseignementsuperieur.gouv.bj\n• **Frais** : 5000 FCFA"
+            elif "inspei" in dernier_sujet or "école" in dernier_sujet:
+                return "📌 **Plus d'informations sur l'INSPEI** :\n\n• **Filière** : Classes Préparatoires (CPEI)\n• **Durée** : 2 ans\n• **Débouchés** : ENSGEP, ENSGMM, ENSTP\n• **Hébergement** : Internat avec bourse"
+            else:
+                return "Que voulez-vous savoir d'autre ?"
     
     # --- RÈGLE : "travailler" ---
     if "travailler" in question_lower or ("étude" in question_lower and "réussir" in question_lower):
@@ -146,7 +179,7 @@ def repondre(question, model, index, data, historique=[]):
     if question_lower in ["les matieres", "matieres", "les matière", "matière"]:
         return "Les matières enseignées à l'INSPEI sont réparties sur 4 semestres. Voici le programme :\n\nSemestre 1 : Algorithmique, Thermodynamique, Maths 1, Chimie de l'Ingénieur, EPS, TEMC, Probabilités et Statistiques, Statique Graphique et Analytique.\n\nSemestre 2 : Analyse Numérique, Graphe et Optimisation, Maths 2, Cinématique et Dynamique, Langage (C/Python), RDM, Normes et Mesures, Anglais technique.\n\nSemestre 3 : TEMC, Recherche Opérationnelle, Mécanique des Fluides, Maths 3, Physique des Matériaux, Géométrie Descriptive, Dessin Technique et DAO, Électricité Générale.\n\nSemestre 4 : Maths 4, Matlab, MPA, Sciences Biologiques pour l'Ingénieur, Transfert Thermique, Ondes Électromagnétiques, Anglais Technique Avancé, EPS."
     
-    # --- RÈGLE : "COMPOS" (date des épreuves) ---
+    # --- RÈGLE : "COMPOS" ---
     mots_compos = ["compos", "composition", "épreuve", "compose", "epreuve", "concours écrit", "on compose", "quand on compose", "date des épreuves", "composition"]
     if any(mot in question_lower for mot in mots_compos):
         if "quand" in question_lower or "date" in question_lower or "on compose" in question_lower or "composition" in question_lower:
@@ -158,6 +191,10 @@ def repondre(question, model, index, data, historique=[]):
     mots_date = ["date du concours", "concours date", "quand a lieu", "date concours", "à quelle date", "calendrier concours"]
     if any(mot in question_lower for mot in mots_date):
         return "📅 **Calendrier des concours 2026-2027** :\n\n**Jeudi 10 septembre 2026** : INMES, IFSIO, ENSPD, ENSTIC, ENEAM, IUEP-MA, INSPEI, INEPS.\n\n**Vendredi 11 septembre 2026** : ENS Porto-Novo, ENS Natitingou, ENSET Lokossa.\n\n📌 **Condition** : 12/20 au baccalauréat et moins de 22 ans au 31 décembre 2026.\n📌 **Dépôt des dossiers** : début août 2026.\n\nSource : Arrêté N°2026-0224/MESRS/..."
+    
+    # --- RÈGLE : "Le concours est où" ---
+    if ("concours" in question_lower or "composition" in question_lower or "epreuve" in question_lower) and ("ou" in question_lower or "où" in question_lower):
+        return "📅 **Lieu du concours INSPEI 2026** :\n\nLes épreuves du concours se dérouleront dans les centres d'examen suivants :\n\n📍 **Abomey** : ENSTP/UNSTIM\n📍 **Cotonou** : CEG Gbégamey, Collège Catholique Notre Dame des Apôtres, CEG Ste Rita, CEG les Pylônes\n📍 **Parakou** : IFSIO\n\n📌 **Date** : jeudi 10 septembre 2026\n📌 **Conditions** : 12/20 au baccalauréat et moins de 22 ans au 31/12/2026"
     
     # --- Si la question est trop courte (1 mot) ---
     if len(question.strip().split()) <= 1:
