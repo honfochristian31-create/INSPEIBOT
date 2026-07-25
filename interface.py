@@ -69,48 +69,7 @@ def reponse_salutation():
     ]
     return random.choice(responses)
 
-# ---------- 5. GÉNÉRATION DE TITRE ----------
-def generer_titre(question):
-    """Génère un titre à partir de la première question"""
-    question_lower = question.lower()
-    
-    mots_cles = {
-        "admission": "Admission",
-        "concours": "Concours",
-        "inscription": "Inscription",
-        "filière": "Filières",
-        "filiere": "Filières",
-        "école": "Écoles",
-        "ecole": "Écoles",
-        "ensgep": "ENSGEP",
-        "ensgmm": "ENSGMM",
-        "enstp": "ENSTP",
-        "matière": "Matières",
-        "matiere": "Matières",
-        "semestre": "Semestres",
-        "campus": "Campus",
-        "abomey": "Localisation",
-        "situé": "Localisation",
-        "situer": "Localisation",
-        "bourse": "Bourses",
-        "internat": "Internat",
-        "administrateur": "Administration",
-        "admin": "Administration",
-        "directeur": "Direction",
-        "responsable": "Administration"
-    }
-    
-    for mot, titre in mots_cles.items():
-        if mot in question_lower:
-            return f"INSPEI - {titre}"
-    
-    # Si aucun mot-clé trouvé
-    mots = question.split()[:5]
-    if len(mots) >= 2:
-        return f"INSPEI - {' '.join(mots).capitalize()}"
-    return "INSPEI - Nouvelle conversation"
-
-# ---------- 6. RÉPONSE PRINCIPALE ----------
+# ---------- 5. RÉPONSE PRINCIPALE ----------
 def repondre(question, model, index, data, historique=[]):
     # 0. Salutations
     if est_salutation(question) and len(historique) == 0:
@@ -121,6 +80,24 @@ def repondre(question, model, index, data, historique=[]):
     # --- RÈGLE : "repete" ou "répète" ---
     if question_lower in ["repete", "répète", "repetes", "répètes", "repeter", "répéter"]:
         return "Je suis à votre disposition pour toute question sur l'INSPEI. Que souhaitez-vous savoir ?"
+    
+    # --- RÈGLE : confirmations (OK, OUI, NON, MERCI, etc.) ---
+    mots_confirmation = ["ok", "oui", "non", "merci", "d'accord", "super", "parfait", "cool", "okay", "yes", "no", "si", "sisi"]
+    if question_lower.strip() in mots_confirmation:
+        if question_lower in ["ok", "d'accord", "super", "parfait", "cool", "okay"]:
+            return "Parfait ! 😊 N'hésitez pas si vous avez d'autres questions sur l'INSPEI, les admissions, les filières ou les écoles d'ingénieurs."
+        elif question_lower in ["merci", "thanks"]:
+            return "Je vous en prie ! 😊 C'est un plaisir de vous aider. Revenez quand vous voulez."
+        elif question_lower in ["oui", "yes", "si", "sisi"]:
+            return "Excellent ! Que voulez-vous savoir d'autre ?"
+        elif question_lower in ["non", "no"]:
+            return "Pas de problème. Si vous avez d'autres questions, je suis là pour vous aider."
+        else:
+            return "Je suis à votre disposition pour toute question sur l'INSPEI."
+    
+    # --- Si la question est trop courte (1 ou 2 mots) on demande de préciser ---
+    if len(question.strip().split()) <= 2:
+        return "Pouvez-vous préciser votre question sur l'INSPEI ? Je suis là pour vous renseigner sur les admissions, les filières, les écoles, la vie étudiante, etc."
     
     # --- RÈGLE ULTRA-RADICALE POUR LA LOCALISATION ---
     if "inspei" in question_lower:
@@ -219,7 +196,7 @@ RÈGLES DE RÉPONSE (À SUIVRE ABSOLUMENT) :
     except Exception as e:
         return "Désolé, une erreur s'est produite. Veuillez réessayer ou consulter le site officiel de l'INSPEI."
 
-# ---------- 7. INTERFACE STREAMLIT ----------
+# ---------- 6. INTERFACE STREAMLIT ----------
 st.set_page_config(
     page_title="Assistant INSPEI",
     page_icon="🎓",
@@ -283,12 +260,11 @@ if not data:
     st.warning("⚠️ Aucune donnée chargée. Vérifiez que le fichier data/inspei.json existe.")
     st.stop()
 
-# ---------- 8. GESTION DES CONVERSATIONS ----------
+# ---------- 7. GESTION DES CONVERSATIONS ----------
 if "conversations" not in st.session_state:
     st.session_state.conversations = []
     st.session_state.current_convo_id = None
 
-# Ajouter une nouvelle conversation
 def nouvelle_conversation(titre="INSPEI - Nouvelle conversation"):
     convo_id = len(st.session_state.conversations) + 1
     st.session_state.conversations.append({
@@ -300,22 +276,58 @@ def nouvelle_conversation(titre="INSPEI - Nouvelle conversation"):
     st.session_state.current_convo_id = convo_id
     return convo_id
 
-# Charger une conversation existante
 def charger_conversation(convo_id):
     st.session_state.current_convo_id = convo_id
 
-# Récupérer la conversation active
 def get_active_conversation():
     for convo in st.session_state.conversations:
         if convo["id"] == st.session_state.current_convo_id:
             return convo
     return None
 
-# ---------- 9. BARRE LATÉRALE - LISTE DES CONVERSATIONS ----------
+def generer_titre(question):
+    """Génère un titre à partir de la première question"""
+    question_lower = question.lower()
+    
+    mots_cles = {
+        "admission": "Admission",
+        "concours": "Concours",
+        "inscription": "Inscription",
+        "filière": "Filières",
+        "filiere": "Filières",
+        "école": "Écoles",
+        "ecole": "Écoles",
+        "ensgep": "ENSGEP",
+        "ensgmm": "ENSGMM",
+        "enstp": "ENSTP",
+        "matière": "Matières",
+        "matiere": "Matières",
+        "semestre": "Semestres",
+        "campus": "Campus",
+        "abomey": "Localisation",
+        "situé": "Localisation",
+        "situer": "Localisation",
+        "bourse": "Bourses",
+        "internat": "Internat",
+        "administrateur": "Administration",
+        "admin": "Administration",
+        "directeur": "Direction",
+        "responsable": "Administration"
+    }
+    
+    for mot, titre in mots_cles.items():
+        if mot in question_lower:
+            return f"INSPEI - {titre}"
+    
+    mots = question.split()[:5]
+    if len(mots) >= 2:
+        return f"INSPEI - {' '.join(mots).capitalize()}"
+    return "INSPEI - Nouvelle conversation"
+
+# ---------- 8. BARRE LATÉRALE ----------
 with st.sidebar:
     st.markdown("### 💬 Conversations")
     
-    # Bouton "Nouvelle conversation"
     if st.button("➕ Nouvelle conversation", use_container_width=True):
         titre = "INSPEI - Nouvelle conversation"
         nouvelle_conversation(titre)
@@ -323,13 +335,10 @@ with st.sidebar:
     
     st.markdown("---")
     
-    # Liste des conversations
     if st.session_state.conversations:
         for convo in st.session_state.conversations:
             is_active = convo["id"] == st.session_state.current_convo_id
-            btn_style = "active" if is_active else ""
             
-            # Afficher le titre ou un résumé
             display_title = convo["titre"]
             if len(display_title) > 25:
                 display_title = display_title[:25] + "..."
@@ -344,55 +353,46 @@ with st.sidebar:
     else:
         st.info("Aucune conversation active. Cliquez sur 'Nouvelle conversation' pour commencer.")
 
-# ---------- 10. ZONE PRINCIPALE ----------
-# Créer une première conversation si aucune n'existe
+# ---------- 9. ZONE PRINCIPALE ----------
 if not st.session_state.conversations:
     nouvelle_conversation("INSPEI - Bienvenue")
 
-# Récupérer la conversation active
 active_convo = get_active_conversation()
 
 if active_convo is None:
     st.warning("⚠️ Aucune conversation sélectionnée.")
     st.stop()
 
-# Afficher les messages de la conversation active
 for message in active_convo["messages"]:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# ---------- 11. GESTION DE L'INPUT ----------
+# ---------- 10. INPUT ----------
 if prompt := st.chat_input("Posez votre question..."):
-    # Ajouter la question à la conversation active
     active_convo["messages"].append({"role": "user", "content": prompt})
     
-    # Si c'est le premier message, générer un titre
     if len(active_convo["messages"]) == 1:
         titre = generer_titre(prompt)
         active_convo["titre"] = titre
     
-    # Afficher la question
     with st.chat_message("user"):
         st.markdown(prompt)
     
-    # Générer la réponse
     with st.chat_message("assistant"):
         with st.spinner("Réflexion en cours..."):
             historique = active_convo["messages"][:-1] if active_convo["messages"] else []
             reponse = repondre(prompt, model, index, data, historique)
             st.markdown(reponse)
     
-    # Ajouter la réponse à la conversation
     active_convo["messages"].append({"role": "assistant", "content": reponse})
     
-    # Mettre à jour le titre si la conversation a un titre générique
     if active_convo["titre"] == "INSPEI - Nouvelle conversation" and len(active_convo["messages"]) >= 2:
         titre = generer_titre(prompt)
         active_convo["titre"] = titre
     
     st.rerun()
 
-# ---------- 12. PIED DE PAGE ----------
+# ---------- 11. PIED DE PAGE ----------
 st.markdown("""
 <div class="footer">
     INSPEI &bull; Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur
