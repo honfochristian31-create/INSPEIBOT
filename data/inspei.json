@@ -1,39 +1,147 @@
 [
   {
     "question": "Qu'est-ce que l'INSPEI ?",
-    "answer": "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est un établissement public rattaché à l'UNSTIM (Université Nationale des Sciences, Technologies, Ingénierie et Mathématiques). Il a été officiellement créé par l'arrêté N°719/MESRS/DC/SGM/DAF/ UNSTIM/CJ/SA/049 SG2G0 du 23/12/2020, mais a démarré ses activités dès l'année académique 2016-2017. Sa mission est de former des bacheliers scientifiques pour les grandes écoles d'ingénieurs du Bénin."
+    "answer": "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est un établissement public rattaché à l'UNSTIM (Université Nationale des Sciences, Technologies, Ingénierie et Mathématiques). Il a été officiellement créé par l'arrêté N°719/MESRS/... du 23/12/2020, mais a démarré ses activités dès 2016-2017. Sa mission est de former des bacheliers scientifiques pour les grandes écoles d'ingénieurs du Bénin."
+  },
+  {
+    "question": "Qu'est-ce que l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur ?",
+    "answer": "C'est l'INSPEI, un établissement public béninois rattaché à l'UNSTIM, qui forme des bacheliers scientifiques aux grandes écoles d'ingénieurs."
+  },
+  {
+    "question": "C'est quoi l'INSPEI ?",
+    "answer": "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est une école préparatoire aux grandes écoles d'ingénieurs du Bénin, située à Abomey."
   },
   {
     "question": "Quelle est la filière proposée à l'INSPEI ?",
-    "answer": "L'INSPEI propose une filière unique : les Classes Préparatoires aux Etudes d'Ingénieur. Cette formation de deux ans (Bac+2) prépare les étudiants à intégrer les grandes écoles d'ingénieurs de l'UNSTIM. À l'issue de ces classes préparatoires, les étudiants peuvent accéder à l'ENSGEP (Ecole Nationale Supérieure de Génie Energétique et Procédés), à l'ENSGMM (Ecole Nationale Supérieure de Génie Mathématique et Modélisation), ou à l'ENSTP (Ecole Nationale Supérieure des Travaux Publics)."
+    "answer": "L'INSPEI propose une filière unique : les Classes Préparatoires aux Etudes d'Ingénieur (CPEI). Cette formation de deux ans (Bac+2) prépare les étudiants à intégrer les grandes écoles d'ingénieurs de l'UNSTIM : l'ENSGEP, l'ENSGMM ou l'ENSTP."
+  },
+  {
+    "question": "Quelles sont les filières à l'INSPEI ?",
+    "answer": "L'INSPEI propose une filière unique : les Classes Préparatoires aux Etudes d'Ingénieur (CPEI). Il n'y a pas de spécialisation pendant les deux ans. La spécialisation se fait après, dans les écoles d'ingénieurs (ENSGEP, ENSGMM, ENSTP)."
+  },
+  {
+    "question": "Y a-t-il plusieurs filières à l'INSPEI ?",
+    "answer": "Non, l'INSPEI propose une filière unique : les Classes Préparatoires aux Etudes d'Ingénieur (CPEI). Tous les étudiants suivent le même programme pendant les deux ans."
+  },
+  {
+    "question": "Quelles sont les options disponibles à l'INSPEI ?",
+    "answer": "Il n'y a pas d'options à l'INSPEI. La formation est un tronc commun de deux ans. Les options apparaissent après, dans les écoles d'ingénieurs (ENSGEP, ENSGMM, ENSTP)."
+  },
+  {
+    "question": "Peut-on choisir sa filière à l'INSPEI ?",
+    "answer": "Non, la filière est unique : les Classes Préparatoires. Le choix de la spécialité se fait à la fin des deux ans, lors de l'intégration dans une école d'ingénieurs (ENSGEP, ENSGMM ou ENSTP)."
+  },
+  {
+    "question": "Quel est le parcours pour chaque filière à l'INSPEI ?",
+    "answer": "L'INSPEI propose une filière unique : les Classes Préparatoires aux Études d'Ingénieur (CPEI). Le parcours est identique pour tous les étudiants pendant les deux premières années : 1ère année : S1 (EPS, Maths 1, Chimie de l'Ingénieur, TEMC, Probas/Stats, Statique Graphique/Analytique), S2 (Graphe/Optimisation, Maths 2, Cinématique/Dynamique, RDM, Anglais, Analyse Numérique, Analyse Dimensionnelle). 2ème année : S3 (TEMC, Mécanique des Fluides, Recherche Opérationnelle, EPS, Maths 3), S4 (Maths 4, Transfert Thermique, Statique de l'Ingénieur, Physique des Matériaux, Optimisation). À l'issue, les étudiants obtiennent le CPEI et peuvent intégrer l'ENSGEP, l'ENSGMM ou l'ENSTP."
+  },
+  {
+    "question": "Quel est le parcours type à l'INSPEI ?",
+    "answer": "Le parcours est identique pour tous : deux années de classes préparatoires avec un tronc commun en mathématiques, physique, chimie, et sciences de l'ingénieur. La première année couvre les semestres 1 et 2, la deuxième année les semestres 3 et 4."
+  },
+  {
+    "question": "Quels sont les débouchés après l'INSPEI ?",
+    "answer": "Après l'INSPEI, les étudiants intègrent les écoles d'ingénieurs de l'UNSTIM : ENSGEP (Génie Energétique), ENSGMM (Génie Mathématique), ou ENSTP (Travaux Publics). Ils y poursuivent un cycle de 3 ans pour devenir ingénieurs."
+  },
+  {
+    "question": "Qu'est-ce qu'on étudie à l'INSPEI ?",
+    "answer": "On étudie les mathématiques, la physique, la chimie, la mécanique, la thermodynamique, la résistance des matériaux, l'analyse numérique, les probabilités, la recherche opérationnelle, et l'anglais technique."
+  },
+  {
+    "question": "À quoi préparent les classes préparatoires de l'INSPEI ?",
+    "answer": "Les classes préparatoires de l'INSPEI préparent les étudiants aux concours d'entrée des grandes écoles d'ingénieurs de l'UNSTIM : ENSGEP, ENSGMM, ENSTP."
+  },
+  {
+    "question": "Quelles écoles d'ingénieur peut-on intégrer après l'INSPEI ?",
+    "answer": "Après l'INSPEI, on peut intégrer l'ENSGEP (Ecole Nationale Supérieure de Génie Energétique et Procédés), l'ENSGMM (Ecole Nationale Supérieure de Génie Mathématique et Modélisation), et l'ENSTP (Ecole Nationale Supérieure des Travaux Publics)."
+  },
+  {
+    "question": "Qu'est-ce que l'ENSGEP ?",
+    "answer": "L'ENSGEP est l'Ecole Nationale Supérieure de Génie Energétique et Procédés. C'est une école d'ingénieurs de l'UNSTIM qui forme des spécialistes dans les domaines de l'énergie, de la thermique et des procédés industriels."
+  },
+  {
+    "question": "Qu'est-ce que l'ENSGMM ?",
+    "answer": "L'ENSGMM est l'Ecole Nationale Supérieure de Génie Mathématique et Modélisation. C'est une école d'ingénieurs de l'UNSTIM qui forme des experts en mathématiques appliquées, en modélisation et en recherche opérationnelle."
+  },
+  {
+    "question": "Qu'est-ce que l'ENSTP ?",
+    "answer": "L'ENSTP est l'Ecole Nationale Supérieure des Travaux Publics. C'est une école d'ingénieurs de l'UNSTIM qui forme des ingénieurs spécialisés dans le génie civil, la construction et les infrastructures."
   },
   {
     "question": "Où se trouve l'INSPEI ?",
     "answer": "L'INSPEI est situé en République du Bénin, dans le Département du Zou, à Abomey, à environ 1 km de la place Goho, sur la route RNIE2 en allant vers Bohicon, dans l'enceinte de l'ENEAM d'Abomey (Quartier Sogbo-Aliho)."
   },
   {
+    "question": "Quelle est l'adresse de l'INSPEI ?",
+    "answer": "L'INSPEI est situé à Abomey, dans l'enceinte de l'ENEAM, quartier Sogbo-Aliho, à environ 1 km de la place Goho sur la route RNIE2."
+  },
+  {
+    "question": "Comment se rendre à l'INSPEI ?",
+    "answer": "L'INSPEI est situé à Abomey, à environ 1 km de la place Goho sur la route RNIE2 (direction Bohicon). Vous pouvez prendre un taxi-moto ou un taxi-brousse jusqu'à l'ENEAM d'Abomey. Le campus est facilement repérable."
+  },
+  {
     "question": "Quelles sont les conditions d'admission à l'INSPEI ?",
     "answer": "Pour être admis à l'INSPEI, il faut être de nationalité béninoise, âgé de 21 ans au plus au 31 décembre de l'année d'obtention du baccalauréat (les personnes en situation de handicap bénéficient d'une majoration de 5 ans), et être titulaire d'un baccalauréat scientifique (séries C, D ou E) des sessions 2024 ou 2025, avec au moins la mention Assez-Bien. La sélection se fait sur concours."
+  },
+  {
+    "question": "Quelles séries de baccalauréat sont acceptées à l'INSPEI ?",
+    "answer": "L'INSPEI accepte les bacheliers des séries scientifiques : Bac C (Mathématiques), Bac D (Sciences Expérimentales), et Bac E (Sciences et Techniques Industrielles)."
+  },
+  {
+    "question": "Y a-t-il une limite d'âge pour s'inscrire à l'INSPEI ?",
+    "answer": "Oui, l'âge maximum est de 21 ans au 31 décembre de l'année d'obtention du baccalauréat. Toutefois, les personnes en situation de handicap bénéficient d'une majoration de 5 ans."
+  },
+  {
+    "question": "Quelle mention minimale est requise pour être admis à l'INSPEI ?",
+    "answer": "Il est exigé d'avoir obtenu au moins la mention Assez-Bien au baccalauréat pour pouvoir postuler à l'INSPEI."
   },
   {
     "question": "Comment se déroule le concours d'entrée à l'INSPEI ?",
     "answer": "L'inscription au concours se fait en ligne sur www.concours.enseignementsuperieur.gouv.bj. Les frais de dossier sont de 5000 FCFA à verser au Trésor Public (Compte : BJ 6600 1001 0000 0010 1567 71). La date limite de dépôt des dossiers est fixée au jeudi 14 août 2025 à 17h. Les épreuves écrites se dérouleront le mardi 2 septembre 2025 dans les centres d'Abomey (ENSTP/UNSTIM), Cotonou (CEG Gbégamey, Collège Catholique ND des Apôtres, CEG Ste Rita, CEG les Pylônes) et Parakou (IFSIO)."
   },
   {
+    "question": "Quelles sont les dates importantes du concours d'entrée à l'INSPEI ?",
+    "answer": "Pour le concours 2025 : date limite de dépôt des dossiers : jeudi 14 août 2025 à 17h ; épreuves écrites : mardi 2 septembre 2025."
+  },
+  {
+    "question": "Quels sont les frais d'inscription au concours de l'INSPEI ?",
+    "answer": "Les frais de dossier sont de 5000 FCFA à verser au Trésor Public sur le compte : BJ 6600 1001 0000 0010 1567 71."
+  },
+  {
+    "question": "Où puis-je m'inscrire au concours de l'INSPEI ?",
+    "answer": "L'inscription se fait en ligne sur le site officiel des concours : www.concours.enseignementsuperieur.gouv.bj."
+  },
+  {
+    "question": "Où puis-je déposer mon dossier d'inscription à l'INSPEI ?",
+    "answer": "Les dossiers peuvent être déposés dans les centres suivants : INSPEI Abomey, ENS Natitingou, IFSIO Parakou, ENSET Lokossa, INMeS Cotonou, et ENS Porto-Novo."
+  },
+  {
+    "question": "Où se déroulent les épreuves du concours de l'INSPEI ?",
+    "answer": "Les épreuves se déroulent dans plusieurs centres : Abomey (ENSTP/UNSTIM), Cotonou (CEG Gbégamey, Collège Catholique Notre Dame des Apôtres, CEG Ste Rita, CEG les Pylônes) et Parakou (IFSIO)."
+  },
+  {
     "question": "Quel est le cadre juridique de l'INSPEI ?",
     "answer": "L'INSPEI a été créé par l'arrêté portant création, Attribution, Organisation et Fonctionnement (AOF) 2020 N°719/MESRS/DC/SGM/DAF/R-UNSTIM/ CJ/SA/049 SGG20 du 23 décembre 2020, bien que ses activités aient démarré dès l'année académique 2016-2017."
   },
   {
-    "question": "Qui dirige l'INSPEI et quels sont les principaux responsables ?",
-    "answer": "L'INSPEI est dirigé par le Dr (MC) AKOWANOU Christian D. (Maître de Conférences), spécialisé en Physiques-Mathématiques Appliquées. L'équipe dirigeante comprend également : Dr. Bernard N. TOKPOHOZIN (Chef du Service de la Scolarité et des Examens), GBEGNITO Wilfried Hodonou (Secrétaire général), et AKPAVOU Chédrac (Conducteur de Bus)."
+    "question": "Qui dirige l'INSPEI ?",
+    "answer": "L'INSPEI est dirigé par le Dr (MC) AKOWANOU Christian D. (Maître de Conférences des Universités du CAMES), spécialisé en Physiques-Mathématiques Appliquées."
   },
   {
-    "question": "Quelle est la durée de la formation et quel diplôme est délivré ?",
-    "answer": "La formation dure deux (2) ans, organisée en quatre (4) semestres. À l'issue de ces deux années, les apprenants obtiennent un Certificat Préparatoire aux Etudes d'Ingénieur (CPEI), qui est un diplôme de niveau Bac+2."
+    "question": "Quels sont les principaux responsables de l'INSPEI ?",
+    "answer": "L'équipe dirigeante comprend : Dr (MC) AKOWANOU Christian D. (Directeur), Dr. Bernard N. TOKPOHOZIN (Chef du Service de la Scolarité et des Examens), GBEGNITO Wilfried Hodonou (Secrétaire général), et AKPAVOU Chédrac (Conducteur de Bus)."
   },
   {
-    "question": "Quelles sont les écoles d'ingénieur accessibles après l'INSPEI ?",
-    "answer": "Après les classes préparatoires, les étudiants peuvent intégrer trois grandes écoles d'ingénieurs de l'UNSTIM : l'ENSGEP (Ecole Nationale Supérieure de Génie Energétique et Procédés), l'ENSGMM (Ecole Nationale Supérieure de Génie Mathématique et Modélisation), et l'ENSTP (Ecole Nationale Supérieure des Travaux Publics)."
+    "question": "Quelle est la durée de la formation à l'INSPEI ?",
+    "answer": "La formation dure deux (2) ans, organisée en quatre (4) semestres."
+  },
+  {
+    "question": "Quel est le diplôme délivré à l'issue de la formation ?",
+    "answer": "À l'issue des deux années, les apprenants obtiennent un Certificat Préparatoire aux Etudes d'Ingénieur (CPEI), qui est un diplôme de niveau Bac+2."
+  },
+  {
+    "question": "Qu'est-ce que le CPEI ?",
+    "answer": "Le CPEI est le Certificat Préparatoire aux Etudes d'Ingénieur. C'est le diplôme délivré par l'INSPEI à l'issue des deux années de formation (Bac+2) dans les Classes Préparatoires."
   },
   {
     "question": "Quelles sont les matières enseignées au premier semestre à l'INSPEI ?",
@@ -49,30 +157,78 @@
   },
   {
     "question": "Quelles sont les matières enseignées au quatrième semestre à l'INSPEI ?",
-    "answer": "Au quatrième semestre (S4), les matières enseignées sont : Mathématiques 4, ainsi que les autres matières restantes du programme (notamment le Transfert Thermique, la Statique de l'Ingénieur, la Physique des Matériaux, et l'Optimisation)."
+    "answer": "Au quatrième semestre (S4), les matières enseignées sont : Mathématiques 4, Transfert Thermique, Statique de l'Ingénieur, Physique des Matériaux, et Optimisation."
   },
   {
-    "question": "L'INSPEI propose-t-il un hébergement et une restauration ?",
-    "answer": "Oui, l'INSPEI propose des résidences universitaires modernes avec des chambres individuelles ou partagées, des espaces communs (réfectoires, zones de détente) et un accès sécurisé 24h/24. Un service de restauration est offert trois fois par jour (petit-déjeuner, déjeuner, dîner). Ce régime d'internat est administré par le COUS/UAC."
+    "question": "Quel est le programme complet de la formation à l'INSPEI ?",
+    "answer": "La formation à l'INSPEI s'étend sur 4 semestres. Semestre 1 : EPS, Maths 1, Chimie de l'Ingénieur, TEMC, Probas/Stats, Statique Graphique/Analytique. Semestre 2 : Graphe/Optimisation, Maths 2, Cinématique/Dynamique, RDM, Anglais, Analyse Numérique, Analyse Dimensionnelle. Semestre 3 : TEMC, Mécanique des Fluides, Recherche Opérationnelle, EPS, Maths 3. Semestre 4 : Maths 4, Transfert Thermique, Statique de l'Ingénieur, Physique des Matériaux, Optimisation."
+  },
+  {
+    "question": "L'INSPEI propose-t-il un hébergement ?",
+    "answer": "Oui, l'INSPEI propose des résidences universitaires modernes avec des chambres individuelles ou partagées, des espaces communs (réfectoires, zones de détente) et un accès sécurisé 24h/24."
+  },
+  {
+    "question": "Est-ce que l'INSPEI a des dortoirs ?",
+    "answer": "Oui, l'INSPEI dispose de résidences universitaires avec des chambres individuelles ou partagées, gérées par le COUS/UAC."
+  },
+  {
+    "question": "L'INSPEI propose-t-il une cantine ?",
+    "answer": "Oui, l'INSPEI propose un service de restauration trois fois par jour (petit-déjeuner, déjeuner, dîner), géré par le COUS/UAC."
+  },
+  {
+    "question": "Qu'est-ce que le COUS/UAC ?",
+    "answer": "Le COUS/UAC est le Centre des Œuvres Universitaires et Sociales de l'Université d'Abomey-Calavi. Il est chargé de l'hébergement et de la restauration des étudiants à l'INSPEI."
   },
   {
     "question": "Quelles sont les infrastructures disponibles à l'INSPEI ?",
-    "answer": "L'INSPEI dispose d'infrastructures modernes : des salles de classe spacieuses, un centre de documentation et de recherche, une plateforme numérique pour les cours en ligne, un terrain polyvalent pour les sports collectifs, ainsi que des clubs scientifiques et sportifs (football, basketball)."
+    "answer": "L'INSPEI dispose de salles de classe spacieuses, d'un centre de documentation et de recherche, d'une plateforme numérique pour les cours en ligne, d'un terrain polyvalent pour les sports collectifs, et de clubs scientifiques et sportifs (football, basketball)."
   },
   {
-    "question": "Quels événements sont prévus à l'INSPEI en 2025 ?",
-    "answer": "Plusieurs événements sont prévus en 2025 : une sortie pédagogique à la centrale solaire d'Onigbolo (lundi 21 avril), une sortie à la centrale thermique de Maria-Gléta (mardi 22 avril), et une journée d'orientation professionnelle (dimanche 15 juin) pour découvrir les filières et métiers d'ingénierie."
+    "question": "Y a-t-il des activités sportives à l'INSPEI ?",
+    "answer": "Oui, l'INSPEI dispose d'un terrain polyvalent pour les sports collectifs, et les étudiants peuvent participer à des compétitions sportives interuniversitaires, ainsi qu'à des clubs de football et de basketball."
+  },
+  {
+    "question": "Y a-t-il des clubs et associations à l'INSPEI ?",
+    "answer": "Oui, l'INSPEI encourage la vie associative avec des clubs scientifiques, des clubs de sport, et des événements culturels et artistiques."
+  },
+  {
+    "question": "Quels événements sont organisés à l'INSPEI en 2025 ?",
+    "answer": "En 2025, l'INSPEI organise : une sortie pédagogique à la centrale solaire d'Onigbolo (lundi 21 avril), une sortie à la centrale thermique de Maria-Gléta (mardi 22 avril), et une journée d'orientation professionnelle (dimanche 15 juin)."
   },
   {
     "question": "Quelles sont les promotions actuelles à l'INSPEI ?",
-    "answer": "Pour l'année académique 2025-2026 (ou en 2026), la 9ème promotion est en 2ème année, et la 10ème promotion est en 1ère année."
+    "answer": "Pour l'année académique 2025-2026 (en 2026), la 9ème promotion est en 2ème année, et la 10ème promotion est en 1ère année."
   },
   {
-    "question": "Quels sont les contacts pour joindre l'INSPEI ?",
-    "answer": "Vous pouvez contacter l'INSPEI par email à inspei@unstim.edu.bj. Le site officiel d'inscription aux concours est www.concours.enseignementsuperieur.gouv.bj. L'adresse postale est : Université d'Abomey, BP 123, Abomey, Bénin."
+    "question": "Comment contacter l'INSPEI ?",
+    "answer": "Vous pouvez contacter l'INSPEI par email à inspei@unstim.edu.bj. L'adresse postale est : Université d'Abomey, BP 123, Abomey, Bénin. Le site officiel d'inscription aux concours est www.concours.enseignementsuperieur.gouv.bj."
   },
   {
-    "question": "Quelles sont les ressources disponibles pour préparer les concours ?",
-    "answer": "Le site officiel met à disposition des épreuves des années précédentes pour se préparer au concours d'entrée : des annales de Mathématiques (2017 à 2024) et de Physique-Chimie-Technologie (2017 à 2024)."
+    "question": "Quel est le site officiel de l'INSPEI ?",
+    "answer": "Le site officiel est https://siteinspei.netlify.app. Le site d'inscription aux concours est www.concours.enseignementsuperieur.gouv.bj."
+  },
+  {
+    "question": "Quelles ressources sont disponibles pour préparer les concours de l'INSPEI ?",
+    "answer": "Le site officiel met à disposition des annales des concours : épreuves de Mathématiques (2017 à 2024) et de Physique-Chimie-Technologie (2017 à 2024)."
+  },
+  {
+    "question": "Y a-t-il des bourses pour les étudiants de l'INSPEI ?",
+    "answer": "Oui, les étudiants de l'INSPEI bénéficient d'une bourse substantielle pour mener à bien leurs études. L'hébergement et la restauration sont également pris en charge par le COUS/UAC."
+  },
+  {
+    "question": "Les étudiants de l'INSPEI sont-ils en internat ?",
+    "answer": "Oui, les apprenants de l'INSPEI sont soumis à un régime d'internat, ce qui signifie qu'ils vivent sur le campus et bénéficient de l'hébergement et de la restauration."
+  },
+  {
+    "question": "Qu'est-ce que la TEMC à l'INSPEI ?",
+    "answer": "TEMC signifie Techniques d'Expression et de Communication. C'est une matière enseignée à l'INSPEI qui permet aux étudiants de développer leurs compétences en communication écrite et orale."
+  },
+  {
+    "question": "Qu'est-ce que la RDM à l'INSPEI ?",
+    "answer": "RDM signifie Résistance des Matériaux. C'est une matière enseignée à l'INSPEI qui étudie le comportement des matériaux soumis à des forces et des contraintes."
+  },
+  {
+    "question": "L'INSPEI forme-t-il des ingénieurs ?",
+    "answer": "L'INSPEI ne forme pas directement des ingénieurs. Il prépare les étudiants aux concours des écoles d'ingénieurs de l'UNSTIM. La formation d'ingénieur se fait après, dans les écoles ENSGEP, ENSGMM et ENSTP."
   }
 ]
