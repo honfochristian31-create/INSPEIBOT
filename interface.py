@@ -65,9 +65,9 @@ def est_salutation(question):
 
 def reponse_salutation():
     responses = [
-        "Bonjour ! 😊 Je suis l'assistant INSPEI. Posez-moi vos questions sur l'admission, les filières, les écoles ou la vie étudiante.",
-        "Salut ! 👋 Comment puis-je vous aider ? Je connais tout sur l'INSPEI, les classes préparatoires et les écoles d'ingénieurs.",
-        "Bonjour et bienvenue ! 🎓 Je suis là pour vous renseigner sur l'INSPEI. De quoi voulez-vous parler ?"
+        "Bonjour ! 😊 Posez-moi vos questions sur l'INSPEI, les admissions, les filières, les écoles ou la vie étudiante.",
+        "Salut ! 👋 Comment puis-je vous aider ? Je suis là pour vous renseigner sur l'INSPEI et les classes préparatoires.",
+        "Bonjour et bienvenue ! 🎓 Que souhaitez-vous savoir sur l'INSPEI ?"
     ]
     return random.choice(responses)
 
@@ -102,7 +102,7 @@ def repondre(question, model, index, data, historique=[]):
     
     # 3b. Ajouter les résultats de la recherche
     if resultats:
-        contexte += "📚 INFORMATIONS DISPONIBLES DANS LA BASE :\n"
+        contexte += "📚 INFORMATIONS DISPONIBLES :\n"
         for i, res in enumerate(resultats[:3]):
             contexte += f"Document {i+1} :\n"
             contexte += f"Question : {res['question']}\n"
@@ -153,13 +153,46 @@ RÈGLES CRITIQUES (À SUIVRE ABSOLUMENT) :
 
 # ---------- 6. INTERFACE STREAMLIT ----------
 st.set_page_config(
-    page_title="Chatbot INSPEI",
+    page_title="Assistant INSPEI",
     page_icon="🎓",
     layout="centered"
 )
 
-st.title("🎓 Assistant INSPEI")
-st.markdown("Posez vos questions sur l'INSPEI (admission, campus, filières, écoles, etc.)")
+# En-tête personnalisé avec CSS
+st.markdown("""
+<style>
+    .main-header {
+        text-align: center;
+        padding: 1rem 0;
+    }
+    .main-header h1 {
+        font-size: 2.5rem;
+        color: #1a3a5c;
+        margin-bottom: 0;
+    }
+    .main-header p {
+        font-size: 1.1rem;
+        color: #555;
+        margin-top: 0;
+    }
+    .footer {
+        text-align: center;
+        padding: 1rem 0;
+        font-size: 0.85rem;
+        color: #888;
+        border-top: 1px solid #eee;
+        margin-top: 2rem;
+    }
+</style>
+""", unsafe_allow_html=True)
+
+# Titre personnalisé
+st.markdown("""
+<div class="main-header">
+    <h1>🎓 Assistant INSPEI</h1>
+    <p>Votre guide pour l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur</p>
+</div>
+""", unsafe_allow_html=True)
 
 # Charger le système
 data, model, index = charger_systeme()
@@ -188,7 +221,6 @@ if prompt := st.chat_input("Posez votre question..."):
     # Obtenir la réponse avec historique
     with st.chat_message("assistant"):
         with st.spinner("Réflexion en cours..."):
-            # Historique = tous les messages sauf le dernier (la question actuelle)
             historique = st.session_state.messages[:-1] if st.session_state.messages else []
             reponse = repondre(prompt, model, index, data, historique)
             st.markdown(reponse)
@@ -202,10 +234,9 @@ if st.sidebar.button("🔄 Nouvelle conversation"):
     st.session_state.messages = []
     st.rerun()
 
-st.sidebar.markdown("### ℹ️ À propos")
-st.sidebar.markdown("""
-Ce chatbot utilise :
-- **INSPEI** : Base de connaissances officielle
-- **Groq** : IA pour les questions complexes
-- **FAISS** : Recherche vectorielle
-""")
+# Pied de page discret
+st.markdown("""
+<div class="footer">
+    INSPEI &bull; Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur
+</div>
+""", unsafe_allow_html=True)
