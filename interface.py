@@ -32,7 +32,7 @@ def charger_systeme():
     
     return data, model, index
 
-# ---------- 3. RECHERCHE DANS LE JSON ----------
+# ---------- 3. RECHERCHE ----------
 def rechercher(question, model, index, data, k=3):
     if len(data) == 0 or model is None:
         return []
@@ -69,27 +69,35 @@ def reponse_salutation():
     ]
     return random.choice(responses)
 
-# ---------- 5. FONCTION PRINCIPALE ----------
+# ---------- 5. RÉPONSE PRINCIPALE ----------
 def repondre(question, model, index, data, historique=[]):
     # 0. Salutations
     if est_salutation(question) and len(historique) == 0:
         return reponse_salutation()
     
-    # 1. Détecter les questions très courtes sur la localisation
+    # 1. DÉTECTION PRIORITAIRE DES QUESTIONS DE LOCALISATION
+    question_lower = question.lower().strip()
     mots_localisation = ["ou", "où", "localisation", "adresse", "situé", "trouve"]
-    if len(question.split()) <= 4 and any(mot in question.lower() for mot in mots_localisation):
-        # Forcer la recherche de la question "Où se trouve l'INSPEI ?"
+    
+    # Si la question contient un mot de localisation ET fait référence à l'INSPEI
+    est_localisation = any(mot in question_lower for mot in mots_localisation)
+    parle_inspei = any(mot in question_lower for mot in ["inspei", "institut", "école", "campus", "institution"])
+    
+    if est_localisation and parle_inspei:
+        # On force la recherche de la question "Où se trouve l'INSPEI ?"
         resultats_force = rechercher("Où se trouve l'INSPEI ?", model, index, data, k=1)
-        if resultats_force and resultats_force[0]['similarite'] > 0.50:
+        if resultats_force:
             return resultats_force[0]['reponse']
+        else:
+            return "L'INSPEI est situé à Abomey, quartier Sogbo-Aliho, à environ 1 km de la place Goho sur la route RNIE2."
     
     # 2. Recherche normale
     resultats = rechercher(question, model, index, data, k=3)
     
-    # 3. Si similarité > 60% ou > 50% pour les questions courtes
+    # 3. Seuil adapté
     seuil = 0.60
     if len(question.split()) <= 3:
-        seuil = 0.45  # seuil plus bas pour les questions très courtes
+        seuil = 0.45
     
     if resultats and resultats[0]['similarite'] > seuil:
         return resultats[0]['reponse']
@@ -113,7 +121,7 @@ def repondre(question, model, index, data, historique=[]):
     else:
         contexte += "📚 Aucune information disponible.\n"
     
-    # 5. Prompt système (naturel, sans jargon)
+    # 5. Prompt système
     messages = [
         {"role": "system", "content": f"""Tu es un conseiller pédagogique expert de l'INSPEI (Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur) au Bénin.
 
