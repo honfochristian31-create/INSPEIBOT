@@ -75,20 +75,16 @@ def repondre(question, model, index, data, historique=[]):
     if est_salutation(question) and len(historique) == 0:
         return reponse_salutation()
     
-    # 1. DÉTECTION RADICALE DES QUESTIONS DE LOCALISATION
+    # --- RÈGLE ULTRA-RADICALE POUR LA LOCALISATION ---
     question_lower = question.lower().strip()
     
-    # Règle brute : si "inspei" + ("ou" ou "où" ou "situé" ou "localisation" ou "adresse")
-    contient_inspei = "inspei" in question_lower
-    contient_localisation = any(mot in question_lower for mot in ["ou", "où", "situé", "localisation", "adresse", "trouve"])
-    
-    if contient_inspei and contient_localisation:
-        # Forcer la réponse d'adresse
-        resultats_force = rechercher("Où se trouve l'INSPEI ?", model, index, data, k=1)
-        if resultats_force:
-            return resultats_force[0]['reponse']
-        else:
-            return "L'INSPEI est situé à Abomey, quartier Sogbo-Aliho, à environ 1 km de la place Goho sur la route RNIE2."
+    # Si la question parle de l'INSPEI ET contient un mot de localisation
+    if "inspei" in question_lower:
+        mots_localisation = ["ou", "où", "situé", "localisation", "adresse", "trouve", "emplacement"]
+        for mot in mots_localisation:
+            if mot in question_lower:
+                # On renvoie DIRECTEMENT l'adresse sans chercher dans FAISS
+                return "L'INSPEI est situé en République du Bénin, dans le Département du Zou, à Abomey, à environ 1 km de la place Goho, sur la route RNIE2 en allant vers Bohicon, à Sogbo-Aliho."
     
     # 2. Recherche normale
     resultats = rechercher(question, model, index, data, k=3)
