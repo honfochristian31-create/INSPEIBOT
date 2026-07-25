@@ -4,6 +4,10 @@
     "answer": "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est un établissement public rattaché à l'UNSTIM (Université Nationale des Sciences, Technologies, Ingénierie et Mathématiques). Il a été officiellement créé par l'arrêté N°719/MESRS/DC/SGM/DAF/ UNSTIM/CJ/SA/049 SG2G0 du 23/12/2020, mais a démarré ses activités dès l'année académique 2016-2017. Sa mission est de former des bacheliers scientifiques pour les grandes écoles d'ingénieurs du Bénin."
   },
   {
+    "question": "Quelle est la filière proposée à l'INSPEI ?",
+    "answer": "L'INSPEI propose une filière unique : les Classes Préparatoires aux Etudes d'Ingénieur. Cette formation de deux ans (Bac+2) prépare les étudiants à intégrer les grandes écoles d'ingénieurs de l'UNSTIM. À l'issue de ces classes préparatoires, les étudiants peuvent accéder à l'ENSGEP (Ecole Nationale Supérieure de Génie Energétique et Procédés), à l'ENSGMM (Ecole Nationale Supérieure de Génie Mathématique et Modélisation), ou à l'ENSTP (Ecole Nationale Supérieure des Travaux Publics)."
+  },
+  {
     "question": "Où se trouve l'INSPEI ?",
     "answer": "L'INSPEI est situé en République du Bénin, dans le Département du Zou, à Abomey, à environ 1 km de la place Goho, sur la route RNIE2 en allant vers Bohicon, dans l'enceinte de l'ENEAM d'Abomey (Quartier Sogbo-Aliho)."
   },
@@ -32,12 +36,20 @@
     "answer": "Après les classes préparatoires, les étudiants peuvent intégrer trois grandes écoles d'ingénieurs de l'UNSTIM : l'ENSGEP (Ecole Nationale Supérieure de Génie Energétique et Procédés), l'ENSGMM (Ecole Nationale Supérieure de Génie Mathématique et Modélisation), et l'ENSTP (Ecole Nationale Supérieure des Travaux Publics)."
   },
   {
-    "question": "Quelles sont les matières pour intégrer l'ENSGMM ?",
-    "answer": "Pour intégrer l'ENSGMM (Ecole Nationale Supérieure de Génie Mathématique et Modélisation), les Unités d'Enseignement (UE) spécifiques sont : Probabilité et Statistique, Analyse Numérique, Mathématiques IV, Optimisation et Recherche Opérationnelle, et la Modélisation des Phénomènes aléatoires."
+    "question": "Quelles sont les matières enseignées au premier semestre à l'INSPEI ?",
+    "answer": "Au premier semestre (S1), les matières enseignées sont : EPS (Education Physique et Sportive), Mathématiques 1, Chimie de l'Ingénieur, TEMC (Techniques d'Expression et de Communication), Probabilités et Statistiques, et Statique Graphique et Analytique."
   },
   {
-    "question": "Quelles sont les matières pour intégrer l'ENSGEP ?",
-    "answer": "Pour intégrer l'ENSGEP (Ecole Nationale Supérieure de Génie Energétique et Procédés), les Unités d'Enseignement (UE) sont : la Thermodynamique Technique, l'Analyse Numérique, la Mécanique des Fluides, Mathématique III, et le Transfert Thermique."
+    "question": "Quelles sont les matières enseignées au deuxième semestre à l'INSPEI ?",
+    "answer": "Au deuxième semestre (S2), les matières enseignées sont : Graphe et Optimisation, Mathématiques 2, Cinématique et Dynamique, RDM (Résistance des Matériaux), Anglais, Analyse Numérique, et Analyse Dimensionnelle."
+  },
+  {
+    "question": "Quelles sont les matières enseignées au troisième semestre à l'INSPEI ?",
+    "answer": "Au troisième semestre (S3), les matières enseignées sont : TEMC (Techniques d'Expression et de Communication), Mécanique des Fluides, Recherche Opérationnelle, EPS (Education Physique et Sportive), et Mathématiques 3."
+  },
+  {
+    "question": "Quelles sont les matières enseignées au quatrième semestre à l'INSPEI ?",
+    "answer": "Au quatrième semestre (S4), les matières enseignées sont : Mathématiques 4, ainsi que les autres matières restantes du programme (notamment le Transfert Thermique, la Statique de l'Ingénieur, la Physique des Matériaux, et l'Optimisation)."
   },
   {
     "question": "L'INSPEI propose-t-il un hébergement et une restauration ?",
