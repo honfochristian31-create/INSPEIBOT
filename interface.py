@@ -1,21 +1,27 @@
 import streamlit as st
 import json
 import numpy as np
+import random
 from sentence_transformers import SentenceTransformer
 import faiss
 import os
 from dotenv import load_dotenv
 from groq import Groq
 
-# Charger la clé API
+# ---------- 1. CONFIGURATION ----------
 load_dotenv()
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
-# Charger les données et créer l'index (une seule fois, au démarrage)
+# ---------- 2. CHARGEMENT DU SYSTÈME ----------
 @st.cache_resource
 def charger_systeme():
-    with open('data/inspei.json', 'r', encoding='utf-8') as f:
-        data = json.load(f)
+    """Charge le fichier JSON et crée l'index FAISS"""
+    try:
+        with open('data/inspei.json', 'r', encoding='utf-8') as f:
+            data = json.load(f)
+    except FileNotFoundError:
+        st.error("❌ Fichier data/inspei.json introuvable !")
+        return [], None, None
     
     textes = [f"Q: {item['question']} R: {item['answer']}" for item in data]
     model = SentenceTransformer('all-MiniLM-L6-v2')
@@ -27,64 +33,143 @@ def charger_systeme():
     
     return data, model, index
 
+# ---------- 3. RECHERCHE DANS LE JSON ----------
 def rechercher(question, model, index, data, k=3):
-    vecteur_question = model.encode([question])
-    vecteur_question = np.array(vecteur_question).astype('float32')
-    distances, indices = index.search(vecteur_question, k)
+    """Recherche les k questions/réponses les plus proches"""
+    if len(data) == 0 or model is None:
+        return []
     
-    resultats = []
-    for i, idx in enumerate(indices[0]):
-        if idx < len(data):
-            similarite = 1 / (1 + distances[0][i])
-            resultats.append({
-                'question': data[idx]['question'],
-                'reponse': data[idx]['answer'],
-                'similarite': float(similarite)
-            })
-    return resultats
+    try:
+        vecteur_question = model.encode([question])
+        vecteur_question = np.array(vecteur_question).astype('float32')
+        distances, indices = index.search(vecteur_question, k)
+        
+        resultats = []
+        for i, idx in enumerate(indices[0]):
+            if idx < len(data):
+                similarite = 1 / (1 + distances[0][i])
+                resultats.append({
+                    'question': data[idx]['question'],
+                    'reponse': data[idx]['answer'],
+                    'similarite': float(similarite)
+                })
+        return resultats
+    except Exception as e:
+        return []
 
-def repondre(question, model, index, data):
+# ---------- 4. SALUTATIONS ----------
+SALUTATIONS = ["bonjour", "salut", "cc", "coucou", "hello", "hi", "yo", "bonsoir", "slt"]
+
+def est_salutation(question):
+    return question.lower().strip() in SALUTATIONS
+
+def reponse_salutation():
+    responses = [
+        "Bonjour ! 😊 Je suis l'assistant INSPEI. Posez-moi vos questions sur l'admission, les filières, les écoles ou la vie étudiante.",
+        "Salut ! 👋 Comment puis-je vous aider ? Je connais tout sur l'INSPEI, les classes préparatoires et les écoles d'ingénieurs.",
+        "Bonjour et bienvenue ! 🎓 Je suis là pour vous renseigner sur l'INSPEI. De quoi voulez-vous parler ?"
+    ]
+    return random.choice(responses)
+
+# ---------- 5. RÉPONSE PRINCIPALE ----------
+def repondre(question, model, index, data, historique=[]):
+    """
+    Génère une réponse en utilisant :
+    - Le JSON si la similarité est > 60%
+    - Groq avec historique et contexte sinon
+    """
+    # 0. Gestion des salutations
+    if est_salutation(question) and len(historique) == 0:
+        return reponse_salutation()
+    
+    # 1. Recherche dans la base de connaissances
     resultats = rechercher(question, model, index, data, k=3)
     
-    if resultats and resultats[0]['similarite'] > 0.70:
+    # 2. Si similarité > 60%, réponse directe du JSON
+    if resultats and resultats[0]['similarite'] > 0.60:
         return resultats[0]['reponse']
     
+    # 3. Sinon, préparation du contexte pour Groq
     contexte = ""
-    for i, res in enumerate(resultats):
-        contexte += f"Document {i+1}:\nQuestion: {res['question']}\nRéponse: {res['reponse']}\n\n"
     
+    # 3a. Ajouter l'historique récent
+    if historique:
+        contexte += "📜 HISTORIQUE DE LA CONVERSATION :\n"
+        for msg in historique[-6:]:
+            role = "Utilisateur" if msg["role"] == "user" else "Assistant"
+            contexte += f"{role} : {msg['content']}\n"
+        contexte += "\n"
+    
+    # 3b. Ajouter les résultats de la recherche
+    if resultats:
+        contexte += "📚 INFORMATIONS DISPONIBLES DANS LA BASE :\n"
+        for i, res in enumerate(resultats[:3]):
+            contexte += f"Document {i+1} :\n"
+            contexte += f"Question : {res['question']}\n"
+            contexte += f"Réponse : {res['reponse']}\n\n"
+    else:
+        contexte += "📚 Aucune information trouvée dans la base.\n"
+    
+    # 4. Appel à Groq avec le contexte
     messages = [
         {"role": "system", "content": f"""Tu es un assistant expert de l'INSPEI (Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur) au Bénin.
 
-Voici des informations disponibles sur l'INSPEI :
+CONTEXTE DISPONIBLE :
 {contexte}
 
-RÈGLES :
-- Réponds uniquement en utilisant les informations du contexte.
-- Si l'information n'est pas dans le contexte, dis "Je ne trouve pas cette information dans ma base. Contacte le secrétariat de l'INSPEI pour plus de détails."
-- Sois clair, précis, et adapté à des étudiants béninois.
-- Utilise des emojis 🎓📚⚙️🇧🇯 pour rendre le ton dynamique."""},
+RÈGLES CRITIQUES (À SUIVRE ABSOLUMENT) :
+1. Utilise UNIQUEMENT les informations du contexte pour répondre.
+2. Si l'information n'est pas dans le contexte, réponds EXACTEMENT : 
+   "Je ne trouve pas cette information dans ma base. Consultez le site officiel https://siteinspei.netlify.app ou contactez l'INSPEI."
+3. **NE DIS PAS "Bonjour" ou "Salut"** à chaque réponse. Continue naturellement la conversation.
+4. Si c'est une question de suivi (ex: "Et les débouchés ?", "Explique mieux"), réfère-toi à l'historique.
+5. Sois clair, précis, et adapté à des étudiants béninois.
+6. Utilise un ton professionnel mais bienveillant. N'invente rien."""},
         {"role": "user", "content": question}
     ]
     
-    reponse = client.chat.completions.create(
-        model="llama-3.1-8b-instant",
-        messages=messages,
-        temperature=0.7,
-        max_tokens=500
-    )
-    
-    return reponse.choices[0].message.content
+    try:
+        reponse = client.chat.completions.create(
+            model="llama-3.1-8b-instant",
+            messages=messages,
+            temperature=0.5,
+            max_tokens=500
+        )
+        reponse_texte = reponse.choices[0].message.content
+        
+        # 5. VÉRIFICATION POST-GÉNÉRATION (fallback supplémentaire)
+        mots_suspects = ["je ne sais pas", "désolé", "je n'ai pas trouvé", "je ne trouve pas", "aucune information"]
+        if any(mot in reponse_texte.lower() for mot in mots_suspects):
+            return f"{reponse_texte}\n\n💡 Pour plus d'informations : https://siteinspei.netlify.app"
+        
+        if len(reponse_texte) < 30:
+            return "Je n'ai pas assez d'informations pour répondre. Consultez le site officiel https://siteinspei.netlify.app ou posez une question plus précise."
+        
+        return reponse_texte
+        
+    except Exception as e:
+        # 6. Fallback ultime (si Groq plante)
+        return f"❌ Une erreur est survenue. Veuillez réessayer ou consulter le site officiel : https://siteinspei.netlify.app"
 
-# ---------- INTERFACE STREAMLIT ----------
-st.set_page_config(page_title="Chatbot INSPEI", page_icon="🎓")
+# ---------- 6. INTERFACE STREAMLIT ----------
+st.set_page_config(
+    page_title="Chatbot INSPEI",
+    page_icon="🎓",
+    layout="centered"
+)
+
 st.title("🎓 Assistant INSPEI")
-st.markdown("Posez vos questions sur l'INSPEI (admission, campus, filières, etc.)")
+st.markdown("Posez vos questions sur l'INSPEI (admission, campus, filières, écoles, etc.)")
 
 # Charger le système
 data, model, index = charger_systeme()
 
-# Gérer l'historique des messages
+# Vérifier que tout est chargé
+if not data:
+    st.warning("⚠️ Aucune donnée chargée. Vérifiez que le fichier data/inspei.json existe.")
+    st.stop()
+
+# Initialiser l'historique des messages
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
@@ -93,15 +178,34 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# Input utilisateur
+# ---------- 7. GESTION DE L'INPUT UTILISATEUR ----------
 if prompt := st.chat_input("Posez votre question..."):
+    # Ajouter la question de l'utilisateur
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
     
+    # Obtenir la réponse avec historique
     with st.chat_message("assistant"):
         with st.spinner("Réflexion en cours..."):
-            reponse = repondre(prompt, model, index, data)
+            # Historique = tous les messages sauf le dernier (la question actuelle)
+            historique = st.session_state.messages[:-1] if st.session_state.messages else []
+            reponse = repondre(prompt, model, index, data, historique)
             st.markdown(reponse)
     
+    # Ajouter la réponse à l'historique
     st.session_state.messages.append({"role": "assistant", "content": reponse})
+
+# ---------- 8. BOUTON "NOUVELLE CONVERSATION" ----------
+st.sidebar.markdown("---")
+if st.sidebar.button("🔄 Nouvelle conversation"):
+    st.session_state.messages = []
+    st.rerun()
+
+st.sidebar.markdown("### ℹ️ À propos")
+st.sidebar.markdown("""
+Ce chatbot utilise :
+- **INSPEI** : Base de connaissances officielle
+- **Groq** : IA pour les questions complexes
+- **FAISS** : Recherche vectorielle
+""")
