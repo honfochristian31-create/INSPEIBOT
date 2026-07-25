@@ -467,4 +467,30 @@
     "question": "C'est quoi l'ENSGEP et l'ENSGMM ?",
     "answer": "L'ENSGEP est l'Ecole Nationale Supérieure de Génie Energétique et Procédés, spécialisée en énergie et thermique. L'ENSGMM est l'Ecole Nationale Supérieure de Génie Mathématique et Modélisation, spécialisée en mathématiques appliquées et modélisation. Toutes deux sont des écoles d'ingénieurs de l'UNSTIM accessibles après l'INSPEI."
   }
+  [
+  {
+    "question": "Parle moi de chaque école",
+    "answer": "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur, situé à Abomey. Il propose deux ans de classes préparatoires (CPEI) en mathématiques, physique, chimie et sciences de l'ingénieur, débouchant sur le CPEI. Après l'INSPEI, les étudiants peuvent intégrer trois écoles d'ingénieurs de l'UNSTIM :\n\n1. L'ENSGEP (Ecole Nationale Supérieure de Génie Energétique et Procédés) : spécialisée en énergie, thermique et procédés industriels. Elle propose un cycle d'ingénieur (Bac+5) et des licences pro en Froid-Climatisation et Equipements Motorisés.\n\n2. L'ENSGMM (Ecole Nationale Supérieure de Génie Mathématique et Modélisation) : spécialisée en mathématiques appliquées avec trois filières : Modélisation Numérique, Statistique-Finance, et Informatique-Logistique.\n\n3. L'ENSTP (Ecole Nationale Supérieure des Travaux Publics) : spécialisée en génie civil, construction et infrastructures (routes, ponts, barrages, bâtiments).\n\nToutes ces écoles sont rattachées à l'UNSTIM et délivrent des diplômes d'ingénieur reconnus."
+  },
+  {
+    "question": "Parle moi de toutes les écoles",
+    "answer": "L'INSPEI et ses écoles d'ingénieurs :\n\n- INSPEI : Classes préparatoires (2 ans) -> CPEI (Bac+2).\n- ENSGEP : Génie Energétique et Procédés (Bac+5 ingénieur, ou Bac+3 licences pro).\n- ENSGMM : Génie Mathématique et Modélisation (3 spécialités : Simulation, Finance/Stats, Logistique/RO).\n- ENSTP : Travaux Publics (Génie civil, infrastructures).\n\nToutes sont situées à Abomey et font partie de l'UNSTIM."
+  },
+  {
+    "question": "Parle moi de cette école",
+    "answer": "Si vous parlez de l'INSPEI, c'est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est une école préparatoire située à Abomey qui forme en deux ans les futurs ingénieurs. Après l'INSPEI, les étudiants intègrent l'ENSGEP (énergétique), l'ENSGMM (mathématiques) ou l'ENSTP (travaux publics). Si vous voulez des détails sur une école en particulier, posez-moi 'Parle-moi de l'ENSGEP' ou 'Parle-moi de l'ENSGMM'."
+  },
+  {
+    "question": "Présente moi les écoles",
+    "answer": "Voici les écoles du système INSPEI/UNSTIM :\n\n1. INSPEI : Classes préparatoires (2 ans, Bac+2). Matières : Maths, Physique, Chimie, Algo, Thermodynamique, RDM, etc.\n2. ENSGEP : Ingénieurs en énergie et procédés.\n3. ENSGMM : Ingénieurs en mathématiques appliquées et modélisation.\n4. ENSTP : Ingénieurs en génie civil et travaux publics.\n\nToutes sont situées à Abomey."
+  },
+  {
+    "question": "Quelles sont les écoles de l'UNSTIM",
+    "answer": "Les écoles d'ingénieurs de l'UNSTIM accessibles après l'INSPEI sont : l'ENSGEP (Génie Energétique et Procédés), l'ENSGMM (Génie Mathématique et Modélisation), et l'ENSTP (Travaux Publics). L'INSPEI est l'école préparatoire qui donne accès à ces trois écoles."
+  },
+  {
+    "question": "C'est quoi toutes ces écoles",
+    "answer": "L'INSPEI est la classe préparatoire (2 ans). Les écoles d'ingénieurs qui viennent après sont : l'ENSGEP (énergie), l'ENSGMM (maths appliquées) et l'ENSTP (génie civil). Elles font toutes partie de l'UNSTIM et forment des ingénieurs Bac+5."
+  }
+]
 ]
