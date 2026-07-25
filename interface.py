@@ -103,17 +103,19 @@ def repondre(question, model, index, data, historique=[]):
     if "inspei" in question_lower and "quand" in question_lower:
         return "📅 **Concours INSPEI 2026** :\n\nLe concours d'entrée à l'INSPEI aura lieu le **jeudi 10 septembre 2026**.\n\n📌 **Conditions** : 12/20 au baccalauréat et moins de 22 ans au 31 décembre 2026.\n📌 **Dépôt des dossiers** : début août 2026.\n📌 **Centres d'examen** : Abomey (ENSTP/UNSTIM), Cotonou (CEG Gbégamey, Collège Catholique ND des Apôtres, CEG Ste Rita, CEG les Pylônes) et Parakou (IFSIO).\n\nSource : Arrêté N°2026-0224/..."
     
+    # --- RÈGLE : "Épreuves et matières" ---
+    if ("epreuves" in question_lower or "épreuves" in question_lower or "matieres" in question_lower or "matières" in question_lower) and ("concours" in question_lower or "inspei" in question_lower):
+        return "📚 **Épreuves et matières du concours INSPEI 2026** :\n\nLes épreuves du concours d'entrée à l'INSPEI portent sur les matières suivantes :\n\n📐 **Mathématiques** : Algèbre, Analyse, Géométrie, Probabilités\n⚛️ **Physique** : Mécanique, Électricité, Optique, Thermodynamique\n🧪 **Chimie** : Chimie générale, Chimie organique, Chimie des solutions\n🛠️ **Technologie** : Sciences de l'ingénieur, Mécanique, Électrotechnique\n\n📌 **Format** : Épreuves écrites\n📌 **Date** : jeudi 10 septembre 2026\n📌 **Inscription** : www.concours.enseignementsuperieur.gouv.bj"
+    
     # --- RÈGLE : "C'est où" (sans mention d'INSPEI) ---
     if question_lower in ["c'est où", "cest ou", "c est ou", "c'est ou"]:
         return "Si vous cherchez la localisation de l'INSPEI, il est situé à Abomey, quartier Sogbo-Aliho, à environ 1 km de la place Goho sur la route RNIE2. Si vous cherchez autre chose, précisez votre question."
     
-    # --- RÈGLE : SUIVI CONTEXTUEL POUR LES QUESTIONS COURTES ---
+    # --- RÈGLE : SUIVI CONTEXTUEL ---
     if len(question.strip().split()) <= 2 and historique:
-        # Récupérer la dernière question de l'utilisateur
         dernier_echange = historique[-1] if historique else None
         dernier_sujet = dernier_echange["content"].lower() if dernier_echange else ""
         
-        # Si la question est "ou", "où", "ou ça", "où ça"
         if question_lower in ["ou", "où", "ou ça", "où ça", "ou se passe", "où se passe"]:
             if "concours" in dernier_sujet or "composition" in dernier_sujet or "epreuve" in dernier_sujet:
                 return "📅 **Lieu du concours INSPEI 2026** :\n\nLes épreuves se déroulent dans les centres suivants :\n📍 **Abomey** : ENSTP/UNSTIM\n📍 **Cotonou** : CEG Gbégamey, Collège Catholique ND des Apôtres, CEG Ste Rita, CEG les Pylônes\n📍 **Parakou** : IFSIO\n\n📌 **Date** : jeudi 10 septembre 2026"
@@ -122,18 +124,16 @@ def repondre(question, model, index, data, historique=[]):
             else:
                 return "Pouvez-vous préciser de quoi vous parlez ? (concours, école, événement, etc.)"
         
-        # Si la question est "quand", "et quand", "à quelle date"
         if question_lower in ["quand", "et quand", "à quelle date", "date"]:
             if "concours" in dernier_sujet or "composition" in dernier_sujet or "epreuve" in dernier_sujet:
                 return "Le concours INSPEI 2026 aura lieu le **jeudi 10 septembre 2026**."
             elif "dossiers" in dernier_sujet or "inscription" in dernier_sujet or "déposer" in dernier_sujet or "dépôt" in dernier_sujet:
-                return "📅 **Dépôt des dossiers pour le concours INSPEI 2026** :\n\nLe dépôt des dossiers sera effectif en **début août 2026** (date précise à confirmer dans l'avis de concours officiel).\n\n📍 **Centres de dépôt** : INSPEI Abomey, ENS Natitingou, IFSIO Parakou, ENSET Lokossa, INMeS Cotonou, et ENS Porto-Novo.\n\n📌 **Inscription en ligne** : www.concours.enseignementsuperieur.gouv.bj"
+                return "📅 **Dépôt des dossiers pour le concours INSPEI 2026** :\n\nLe dépôt des dossiers sera effectif en **début août 2026**.\n\n📍 **Centres de dépôt** : INSPEI Abomey, ENS Natitingou, IFSIO Parakou, ENSET Lokossa, INMeS Cotonou, et ENS Porto-Novo.\n\n📌 **Inscription en ligne** : www.concours.enseignementsuperieur.gouv.bj"
             elif "inspei" in dernier_sujet or "école" in dernier_sujet:
                 return "La formation à l'INSPEI dure deux ans, organisée en quatre semestres."
             else:
                 return "Pouvez-vous préciser de quoi vous parlez ? (concours, inscription, formation...)"
 
-        # Si la question est "et", "et quoi", "quoi d'autre", "autre chose"
         if question_lower in ["et", "et quoi", "quoi d'autre", "autre chose"]:
             if "concours" in dernier_sujet:
                 return "📌 **Plus d'informations sur le concours INSPEI 2026** :\n\n• **Dépôt des dossiers** : début août 2026\n• **Conditions** : 12/20 au baccalauréat et moins de 22 ans au 31/12/2026\n• **Inscription** : www.concours.enseignementsuperieur.gouv.bj\n• **Frais** : 5000 FCFA"
@@ -177,8 +177,8 @@ def repondre(question, model, index, data, historique=[]):
     if any(mot in question_lower for mot in mots_admin):
         return "L'équipe dirigeante et administrative de l'INSPEI comprend : Dr (MC) AKOWANOU Christian D. (Directeur), Dr. Bernard N. TOKPOHOZIN (Chef du Service de la Scolarité et des Examens), GBEGNITO Wilfried Hodonou (Secrétaire général), le Comptable, le Chef matériel, et AKPAVOU Chédrac (Conducteur de Bus)."
     
-    # --- RÈGLE POUR LES MATIÈRES ---
-    if question_lower in ["les matieres", "matieres", "les matière", "matière"]:
+    # --- RÈGLE POUR LES MATIÈRES DE LA FORMATION ---
+    if question_lower in ["les matieres", "matieres", "les matière", "matière"] and "concours" not in question_lower:
         return "Les matières enseignées à l'INSPEI sont réparties sur 4 semestres. Voici le programme :\n\nSemestre 1 : Algorithmique, Thermodynamique, Maths 1, Chimie de l'Ingénieur, EPS, TEMC, Probabilités et Statistiques, Statique Graphique et Analytique.\n\nSemestre 2 : Analyse Numérique, Graphe et Optimisation, Maths 2, Cinématique et Dynamique, Langage (C/Python), RDM, Normes et Mesures, Anglais technique.\n\nSemestre 3 : TEMC, Recherche Opérationnelle, Mécanique des Fluides, Maths 3, Physique des Matériaux, Géométrie Descriptive, Dessin Technique et DAO, Électricité Générale.\n\nSemestre 4 : Maths 4, Matlab, MPA, Sciences Biologiques pour l'Ingénieur, Transfert Thermique, Ondes Électromagnétiques, Anglais Technique Avancé, EPS."
     
     # --- RÈGLE : "COMPOS" ---
