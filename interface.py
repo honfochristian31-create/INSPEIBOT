@@ -95,6 +95,11 @@ def repondre(question, model, index, data, historique=[]):
         else:
             return "Je suis à votre disposition pour toute question sur l'INSPEI."
     
+    # --- RÈGLE : "PLUS D INFOS" (demande de précision) ---
+    mots_plus_infos = ["plus d'infos", "plus d info", "plus d'informations", "plus dinfos", "en savoir plus", "plus de details", "plus de détails"]
+    if question_lower in mots_plus_infos or "plus" in question_lower and ("info" in question_lower or "detail" in question_lower):
+        return "Je peux vous donner plus d'informations sur un sujet spécifique. Dites-moi ce qui vous intéresse :\n\n• 📚 Les **matières** enseignées par semestre\n• 🎓 Les **écoles d'ingénieurs** (ENSGEP, ENSGMM, ENSTP)\n• 📝 Les **conditions d'admission** et le concours\n• 🏠 La **vie étudiante** (hébergement, restauration)\n• 📍 La **localisation** de l'INSPEI\n• 👨‍🏫 L'**administration** et les responsables\n• 💰 Les **frais et bourses**\n• 📅 Les **événements** et sorties pédagogiques\n\nPosez-moi votre question précise et je vous répondrai ! 😊"
+    
     # --- RÈGLE PRIORITAIRE : "C'EST QUOI" (définition) ---
     if ("quoi" in question_lower or "definition" in question_lower or "c'est quoi" in question_lower or "qu'est-ce" in question_lower) and "inspei" in question_lower:
         return "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est un établissement public rattaché à l'UNSTIM (Université Nationale des Sciences, Technologies, Ingénierie et Mathématiques). Il a été officiellement créé par l'arrêté N°719/MESRS/... du 23/12/2020, mais a démarré ses activités dès 2016-2017. Sa mission est de former des bacheliers scientifiques pour les grandes écoles d'ingénieurs du Bénin. La formation dure deux ans et débouche sur le CPEI."
