@@ -1,62 +1,66 @@
 [
   {
     "question": "Qu'est-ce que l'INSPEI ?",
-    "answer": "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. Créé officiellement par arrêté en 2020, il a démarré ses activités en 2016-2017. Il est rattaché à l'UNSTIM (Université Nationale des Sciences, Technologies, Ingénierie et Mathématiques). Sa mission est de former des bacheliers scientifiques pour les grandes écoles d'ingénieurs du Bénin."
+    "answer": "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est un établissement public rattaché à l'UNSTIM (Université Nationale des Sciences, Technologies, Ingénierie et Mathématiques). Il a été officiellement créé par l'arrêté N°719/MESRS/DC/SGM/DAF/ UNSTIM/CJ/SA/049 SG2G0 du 23/12/2020, mais a démarré ses activités dès l'année académique 2016-2017. Sa mission est de former des bacheliers scientifiques pour les grandes écoles d'ingénieurs du Bénin."
   },
   {
     "question": "Où se trouve l'INSPEI ?",
-    "answer": "L'INSPEI est situé en République du Bénin, dans le Département du Zou, à Abomey, au Quartier Sogbo-Aliho. Il se trouve à environ 1 km de la station d'essence JNP sur la route RIE qui mène à Adja. Il est abrité par le grand R+1 situé à l'opposé de l'Ecole Sino-Béninoise."
+    "answer": "L'INSPEI est situé en République du Bénin, dans le Département du Zou, à Abomey, à environ 1 km de la place Goho, sur la route RNIE2 en allant vers Bohicon, dans l'enceinte de l'ENEAM d'Abomey (Quartier Sogbo-Aliho)."
   },
   {
     "question": "Quelles sont les conditions d'admission à l'INSPEI ?",
-    "answer": "La formation est ouverte aux bacheliers des séries scientifiques (Bac C, D, E) ayant obtenu au moins la mention Assez-Bien. La sélection se fait sur concours organisé par la Direction des Examens et Concours (DEC) du MESRS. Les étudiants sont en internat et bénéficient d'une bourse substantielle."
+    "answer": "Pour être admis à l'INSPEI, il faut être de nationalité béninoise, âgé de 21 ans au plus au 31 décembre de l'année d'obtention du baccalauréat (les personnes en situation de handicap bénéficient d'une majoration de 5 ans), et être titulaire d'un baccalauréat scientifique (séries C, D ou E) des sessions 2024 ou 2025, avec au moins la mention Assez-Bien. La sélection se fait sur concours."
   },
   {
-    "question": "Quelle est la durée de la formation à l'INSPEI ?",
-    "answer": "La formation dure deux (2) ans, organisée en quatre (4) semestres. À l'issue de ces deux années, les apprenants obtiennent un Certificat Préparatoire aux Etudes d'Ingénieur (CPEI)."
-  },
-  {
-    "question": "Quel est l'objectif de la formation à l'INSPEI ?",
-    "answer": "L'objectif de l'INSPEI est de former des apprenants de qualité pour alimenter les écoles d'ingénieur de l'UNSTIM. La formation développe des compétences scientifiques dans le domaine des Sciences, Technologies, Ingénierie et Mathématiques (STIM)."
-  },
-  {
-    "question": "Qui dirige l'INSPEI ?",
-    "answer": "L'INSPEI est dirigé par le Dr Christian Djidjoho AKOWANOU, Maître de Conférences des Universités du CAMES, spécialisé en Physiques-Mathématiques Appliquées."
-  },
-  {
-    "question": "Quelles sont les écoles d'ingénieur accessibles après l'INSPEI ?",
-    "answer": "Après les classes préparatoires, les étudiants peuvent intégrer trois grandes écoles : l'ENSGEP (Ecole Nationale Supérieure de Génie Energétique et Procédés), l'ENSGMM (Ecole Nationale Supérieure de Génie Mathématique et Modélisation), et l'ENSTP (Ecole Nationale Supérieure des Travaux Publics)."
-  },
-  {
-    "question": "Comment contacter l'INSPEI ?",
-    "answer": "Vous pouvez contacter l'INSPEI par email à inspei@unstim.bj, ou par téléphone au +229 97692697 ou au +229 67850182."
-  },
-  {
-    "question": "Quel est le régime d'enseignement à l'INSPEI ?",
-    "answer": "Les apprenants de l'INSPEI sont soumis à un régime d'internat (ils vivent sur le campus). Ils bénéficient d'une bourse substantielle pour mener à bien leurs études. L'hébergement et la restauration sont assurés par le COUS/UAC (Centre des Œuvres Universitaires et Sociales)."
-  },
-  {
-    "question": "Quelle est la moyenne requise pour intégrer la filière de son choix après l'INSPEI ?",
-    "answer": "À l'issue des deux ans, un comité d'orientation sélectionne les étudiants pour les écoles d'ingénieur. La moyenne d'admission dans la filière du premier choix est généralement comprise entre 14 et 14,50 sur 20."
-  },
-  {
-    "question": "Quelles sont les matières enseignées pour intégrer l'ENSGMM ?",
-    "answer": "Pour intégrer l'ENSGMM (Ecole Nationale Supérieure de Génie Mathématique et Modélisation), les Unités d'Enseignement (UE) spécifiques sont : Probabilité et Statistique, Analyse Numérique, Mathématiques IV, Optimisation et Recherche Opérationnelle, et la Modélisation des Phénomènes aléatoires."
-  },
-  {
-    "question": "Quelles sont les matières enseignées pour intégrer l'ENSGEP ?",
-    "answer": "Pour intégrer l'ENSGEP (Ecole Nationale Supérieure de Génie Energétique et Procédés), les Unités d'Enseignement (UE) sont : la Thermodynamique Technique, l'Analyse Numérique, la Mécanique des Fluides, Mathématique III, et le Transfert Thermique."
-  },
-  {
-    "question": "Qui organise le concours d'entrée à l'INSPEI ?",
-    "answer": "Le concours d'entrée en 1ère année des classes préparatoires est organisé par la Direction des Examens et Concours (DEC) du Ministère de l'Enseignement Supérieur et de la Recherche Scientifique (MESRS)."
+    "question": "Comment se déroule le concours d'entrée à l'INSPEI ?",
+    "answer": "L'inscription au concours se fait en ligne sur www.concours.enseignementsuperieur.gouv.bj. Les frais de dossier sont de 5000 FCFA à verser au Trésor Public (Compte : BJ 6600 1001 0000 0010 1567 71). La date limite de dépôt des dossiers est fixée au jeudi 14 août 2025 à 17h. Les épreuves écrites se dérouleront le mardi 2 septembre 2025 dans les centres d'Abomey (ENSTP/UNSTIM), Cotonou (CEG Gbégamey, Collège Catholique ND des Apôtres, CEG Ste Rita, CEG les Pylônes) et Parakou (IFSIO)."
   },
   {
     "question": "Quel est le cadre juridique de l'INSPEI ?",
-    "answer": "L'INSPEI a été créée par l'arrêté portant création, Attribution, Organisation et Fonctionnement (AOF) 2020 N°719/MESRS/DC/SGM/DAF/R-UNSTIM/ CJ/SA/049 SGG20 du 23 décembre 2020, bien que ses activités aient démarré dès l'année académique 2016-2017."
+    "answer": "L'INSPEI a été créé par l'arrêté portant création, Attribution, Organisation et Fonctionnement (AOF) 2020 N°719/MESRS/DC/SGM/DAF/R-UNSTIM/ CJ/SA/049 SGG20 du 23 décembre 2020, bien que ses activités aient démarré dès l'année académique 2016-2017."
   },
   {
-    "question": "Qu'est-ce que le CPEI ?",
-    "answer": "Le CPEI signifie Certificat Préparatoire aux Etudes d'Ingénieur. C'est le diplôme délivré par l'INSPEI à l'issue des deux années de formation (Bac+2) dans les Classes Préparatoires."
+    "question": "Qui dirige l'INSPEI et quels sont les principaux responsables ?",
+    "answer": "L'INSPEI est dirigé par le Dr (MC) AKOWANOU Christian D. (Maître de Conférences), spécialisé en Physiques-Mathématiques Appliquées. L'équipe dirigeante comprend également : Dr. Bernard N. TOKPOHOZIN (Chef du Service de la Scolarité et des Examens), GBEGNITO Wilfried Hodonou (Secrétaire général), et AKPAVOU Chédrac (Conducteur de Bus)."
+  },
+  {
+    "question": "Quelle est la durée de la formation et quel diplôme est délivré ?",
+    "answer": "La formation dure deux (2) ans, organisée en quatre (4) semestres. À l'issue de ces deux années, les apprenants obtiennent un Certificat Préparatoire aux Etudes d'Ingénieur (CPEI), qui est un diplôme de niveau Bac+2."
+  },
+  {
+    "question": "Quelles sont les écoles d'ingénieur accessibles après l'INSPEI ?",
+    "answer": "Après les classes préparatoires, les étudiants peuvent intégrer trois grandes écoles d'ingénieurs de l'UNSTIM : l'ENSGEP (Ecole Nationale Supérieure de Génie Energétique et Procédés), l'ENSGMM (Ecole Nationale Supérieure de Génie Mathématique et Modélisation), et l'ENSTP (Ecole Nationale Supérieure des Travaux Publics)."
+  },
+  {
+    "question": "Quelles sont les matières pour intégrer l'ENSGMM ?",
+    "answer": "Pour intégrer l'ENSGMM (Ecole Nationale Supérieure de Génie Mathématique et Modélisation), les Unités d'Enseignement (UE) spécifiques sont : Probabilité et Statistique, Analyse Numérique, Mathématiques IV, Optimisation et Recherche Opérationnelle, et la Modélisation des Phénomènes aléatoires."
+  },
+  {
+    "question": "Quelles sont les matières pour intégrer l'ENSGEP ?",
+    "answer": "Pour intégrer l'ENSGEP (Ecole Nationale Supérieure de Génie Energétique et Procédés), les Unités d'Enseignement (UE) sont : la Thermodynamique Technique, l'Analyse Numérique, la Mécanique des Fluides, Mathématique III, et le Transfert Thermique."
+  },
+  {
+    "question": "L'INSPEI propose-t-il un hébergement et une restauration ?",
+    "answer": "Oui, l'INSPEI propose des résidences universitaires modernes avec des chambres individuelles ou partagées, des espaces communs (réfectoires, zones de détente) et un accès sécurisé 24h/24. Un service de restauration est offert trois fois par jour (petit-déjeuner, déjeuner, dîner). Ce régime d'internat est administré par le COUS/UAC."
+  },
+  {
+    "question": "Quelles sont les infrastructures disponibles à l'INSPEI ?",
+    "answer": "L'INSPEI dispose d'infrastructures modernes : des salles de classe spacieuses, un centre de documentation et de recherche, une plateforme numérique pour les cours en ligne, un terrain polyvalent pour les sports collectifs, ainsi que des clubs scientifiques et sportifs (football, basketball)."
+  },
+  {
+    "question": "Quels événements sont prévus à l'INSPEI en 2025 ?",
+    "answer": "Plusieurs événements sont prévus en 2025 : une sortie pédagogique à la centrale solaire d'Onigbolo (lundi 21 avril), une sortie à la centrale thermique de Maria-Gléta (mardi 22 avril), et une journée d'orientation professionnelle (dimanche 15 juin) pour découvrir les filières et métiers d'ingénierie."
+  },
+  {
+    "question": "Quelles sont les promotions actuelles à l'INSPEI ?",
+    "answer": "Pour l'année académique 2025-2026 (ou en 2026), la 9ème promotion est en 2ème année, et la 10ème promotion est en 1ère année."
+  },
+  {
+    "question": "Quels sont les contacts pour joindre l'INSPEI ?",
+    "answer": "Vous pouvez contacter l'INSPEI par email à inspei@unstim.edu.bj. Le site officiel d'inscription aux concours est www.concours.enseignementsuperieur.gouv.bj. L'adresse postale est : Université d'Abomey, BP 123, Abomey, Bénin."
+  },
+  {
+    "question": "Quelles sont les ressources disponibles pour préparer les concours ?",
+    "answer": "Le site officiel met à disposition des épreuves des années précédentes pour se préparer au concours d'entrée : des annales de Mathématiques (2017 à 2024) et de Physique-Chimie-Technologie (2017 à 2024)."
   }
 ]
