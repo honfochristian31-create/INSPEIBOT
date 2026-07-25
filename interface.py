@@ -99,30 +99,34 @@ def repondre(question, model, index, data, historique=[]):
     if question_lower.strip() in ["inspei", "inspéi", "insp"]:
         return "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est une école préparatoire aux grandes écoles d'ingénieurs du Bénin, située à Abomey. Que souhaitez-vous savoir ? (Admission, filières, écoles, concours, vie étudiante...) 😊"
     
+    # --- RÈGLE : "Inspei quand ?" (date du concours) ---
+    if "inspei" in question_lower and "quand" in question_lower:
+        return "📅 **Concours INSPEI 2026** :\n\nLe concours d'entrée à l'INSPEI aura lieu le **jeudi 10 septembre 2026**.\n\n📌 **Conditions** : 12/20 au baccalauréat et moins de 22 ans au 31 décembre 2026.\n📌 **Dépôt des dossiers** : début août 2026.\n📌 **Centres d'examen** : Abomey (ENSTP/UNSTIM), Cotonou (CEG Gbégamey, Collège Catholique ND des Apôtres, CEG Ste Rita, CEG les Pylônes) et Parakou (IFSIO).\n\nSource : Arrêté N°2026-0224/..."
+    
     # --- RÈGLE : "C'est où" (sans mention d'INSPEI) ---
     if question_lower in ["c'est où", "cest ou", "c est ou", "où", "ou", "c'est ou"]:
         return "Si vous cherchez la localisation de l'INSPEI, il est situé à Abomey, quartier Sogbo-Aliho, à environ 1 km de la place Goho sur la route RNIE2. Si vous cherchez autre chose, précisez votre question."
     
     # --- RÈGLE : "travailler" ---
-    if "travailler" in question_lower or "étude" in question_lower and "réussir" in question_lower:
+    if "travailler" in question_lower or ("étude" in question_lower and "réussir" in question_lower):
         return "Pour réussir à l'INSPEI, voici quelques conseils :\n\n📚 **Organisez-vous** : établissez un emploi du temps quotidien.\n📝 **Révisez régulièrement** : les classes préparatoires exigent un travail constant.\n👨‍🏫 **Demandez de l'aide** : n'hésitez pas à solliciter vos enseignants.\n⏰ **Prenez des pauses** : le repos est essentiel.\n🎯 **Fixez-vous des objectifs** : restez motivé pour les concours.\n\nL'INSPEI est exigeant, mais avec de la discipline, vous réussirez ! 💪"
     
     # --- RÈGLE : "transfert" ---
     if "transfert" in question_lower or "transférer" in question_lower or "changer d'école" in question_lower:
         return "Si vous souhaitez des informations sur un transfert vers l'INSPEI ou un changement d'établissement, je vous invite à contacter directement le secrétariat de l'INSPEI (inspei@unstim.edu.bj) ou à consulter le site officiel. Les modalités de transfert sont gérées au cas par cas par l'administration."
     
-    # --- RÈGLE : "COMMENT FAIRE" (demande de méthode) ---
+    # --- RÈGLE : "COMMENT FAIRE" ---
     mots_comment = ["comment faire", "comment je fais", "comment puis-je", "que dois-je", "je fais comment", "comment procéder"]
     if any(mot in question_lower for mot in mots_comment):
         if "info" in question_lower or "plus" in question_lower:
             return "Pour obtenir plus d'informations, vous pouvez :\n\n🌐 Consulter le site officiel : https://siteinspei.netlify.app\n📧 Envoyer un email à : inspei@unstim.edu.bj\n📞 Contacter l'INSPEI au : +229 97692697 / +229 67850182\n📍 Vous rendre à l'adresse : Abomey, quartier Sogbo-Aliho\n📝 Vous inscrire sur : www.concours.enseignementsuperieur.gouv.bj\n\nOu posez-moi une question précise sur les matières, l'admission, les écoles, etc. ! 😊"
     
-    # --- RÈGLE : "PLUS D INFOS" (avec adresses directement) ---
+    # --- RÈGLE : "PLUS D INFOS" ---
     mots_plus_infos = ["plus d'infos", "plus d info", "plus d'informations", "plus dinfos", "en savoir plus", "plus de details", "plus de détails"]
     if question_lower in mots_plus_infos or ("plus" in question_lower and ("info" in question_lower or "detail" in question_lower)):
         return "Voici les coordonnées et adresses utiles pour obtenir plus d'informations sur l'INSPEI :\n\n🌐 **Site officiel** : https://siteinspei.netlify.app\n📧 **Email** : inspei@unstim.edu.bj\n📍 **Adresse physique** : République du Bénin, Département du Zou, Abomey, quartier Sogbo-Aliho (à environ 1 km de la place Goho sur la route RNIE2)\n📝 **Site d'inscription aux concours** : www.concours.enseignementsuperieur.gouv.bj\n📞 **Téléphone** : +229 97692697 / +229 67850182\n\nSi vous avez besoin d'informations plus précises sur un sujet spécifique (matières, admission, écoles, etc.), n'hésitez pas à me poser la question directement ! 😊"
     
-    # --- RÈGLE PRIORITAIRE : "C'EST QUOI" (définition) ---
+    # --- RÈGLE PRIORITAIRE : "C'EST QUOI" ---
     if ("quoi" in question_lower or "definition" in question_lower or "c'est quoi" in question_lower or "qu'est-ce" in question_lower) and "inspei" in question_lower:
         return "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est un établissement public rattaché à l'UNSTIM (Université Nationale des Sciences, Technologies, Ingénierie et Mathématiques). Il a été officiellement créé par l'arrêté N°719/MESRS/... du 23/12/2020, mais a démarré ses activités dès 2016-2017. Sa mission est de former des bacheliers scientifiques pour les grandes écoles d'ingénieurs du Bénin. La formation dure deux ans et débouche sur le CPEI."
     
@@ -146,7 +150,7 @@ def repondre(question, model, index, data, historique=[]):
     mots_compos = ["compos", "composition", "épreuve", "compose", "epreuve", "concours écrit", "on compose", "quand on compose", "date des épreuves", "composition"]
     if any(mot in question_lower for mot in mots_compos):
         if "quand" in question_lower or "date" in question_lower or "on compose" in question_lower or "composition" in question_lower:
-            return "📅 **Date des épreuves du concours INSPEI 2026** :\n\nLes épreuves écrites se dérouleront le **vendredi 11 septembre 2026**.\n\n📍 **Centres d'examen** : Abomey (ENSTP/UNSTIM), Cotonou (CEG Gbégamey, Collège Catholique ND des Apôtres, CEG Ste Rita, CEG les Pylônes) et Parakou (IFSIO).\n\n📝 **Matières évaluées** : Mathématiques, Physique, Chimie et Technologie.\n\n📌 **Conditions** : 12/20 au baccalauréat et moins de 22 ans au 31 décembre 2026.\n\n📌 **Dépôt des dossiers** : début août 2026.\n\nPour plus de détails, consultez l'avis de concours sur www.concours.enseignementsuperieur.gouv.bj."
+            return "📅 **Date des épreuves du concours INSPEI 2026** :\n\nLes épreuves écrites se dérouleront le **jeudi 10 septembre 2026**.\n\n📍 **Centres d'examen** : Abomey (ENSTP/UNSTIM), Cotonou (CEG Gbégamey, Collège Catholique ND des Apôtres, CEG Ste Rita, CEG les Pylônes) et Parakou (IFSIO).\n\n📝 **Matières évaluées** : Mathématiques, Physique, Chimie et Technologie.\n\n📌 **Conditions** : 12/20 au baccalauréat et moins de 22 ans au 31 décembre 2026.\n\n📌 **Dépôt des dossiers** : début août 2026.\n\nPour plus de détails, consultez l'avis de concours sur www.concours.enseignementsuperieur.gouv.bj."
         else:
             return "Les épreuves du concours d'entrée à l'INSPEI se déroulent en centres d'examen : Abomey (ENSTP/UNSTIM), Cotonou (CEG Gbégamey, Collège Catholique ND des Apôtres, CEG Ste Rita, CEG les Pylônes) et Parakou (IFSIO). Les matières évaluées sont les Mathématiques, la Physique, la Chimie et la Technologie. Consultez l'avis de concours officiel pour les détails précis de l'année en cours sur www.concours.enseignementsuperieur.gouv.bj."
     
