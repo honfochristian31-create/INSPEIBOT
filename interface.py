@@ -76,7 +76,7 @@ def repondre(question, model, index, data, historique=[]):
     """
     Génère une réponse en utilisant :
     - Le JSON si la similarité est > 60%
-    - Groq avec historique et contexte sinon
+    - Groq avec contexte si besoin (sans mentionner l'historique)
     """
     # 0. Gestion des salutations
     if est_salutation(question) and len(historique) == 0:
@@ -89,12 +89,12 @@ def repondre(question, model, index, data, historique=[]):
     if resultats and resultats[0]['similarite'] > 0.60:
         return resultats[0]['reponse']
     
-    # 3. Sinon, préparation du contexte pour Groq
+    # 3. Préparation du contexte (utilisé en arrière-plan, jamais mentionné)
     contexte = ""
     
-    # 3a. Ajouter l'historique récent
+    # 3a. Ajouter l'historique récent (utilisé silencieusement)
     if historique:
-        contexte += "📜 HISTORIQUE DE LA CONVERSATION :\n"
+        contexte += "📜 CONVERSATION :\n"
         for msg in historique[-6:]:
             role = "Utilisateur" if msg["role"] == "user" else "Assistant"
             contexte += f"{role} : {msg['content']}\n"
@@ -108,23 +108,32 @@ def repondre(question, model, index, data, historique=[]):
             contexte += f"Question : {res['question']}\n"
             contexte += f"Réponse : {res['reponse']}\n\n"
     else:
-        contexte += "📚 Aucune information trouvée dans la base.\n"
+        contexte += "📚 Aucune information disponible.\n"
     
-    # 4. Appel à Groq avec le contexte
+    # 4. Appel à Groq avec le prompt naturel
     messages = [
-        {"role": "system", "content": f"""Tu es un assistant expert de l'INSPEI (Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur) au Bénin.
+        {"role": "system", "content": f"""Tu es un conseiller pédagogique expert de l'INSPEI (Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur) au Bénin.
 
-CONTEXTE DISPONIBLE :
+Voici les informations dont tu disposes :
 {contexte}
 
-RÈGLES CRITIQUES (À SUIVRE ABSOLUMENT) :
-1. Utilise UNIQUEMENT les informations du contexte pour répondre.
-2. Si l'information n'est pas dans le contexte, réponds EXACTEMENT : 
-   "Je ne trouve pas cette information dans ma base. Consultez le site officiel https://siteinspei.netlify.app ou contactez l'INSPEI."
-3. **NE DIS PAS "Bonjour" ou "Salut"** à chaque réponse. Continue naturellement la conversation.
-4. Si c'est une question de suivi (ex: "Et les débouchés ?", "Explique mieux"), réfère-toi à l'historique.
-5. Sois clair, précis, et adapté à des étudiants béninois.
-6. Utilise un ton professionnel mais bienveillant. N'invente rien."""},
+RÈGLES DE RÉPONSE (À SUIVRE ABSOLUMENT) :
+
+1. **Ton identité** : Tu es un conseiller pédagogique expérimenté. Tu parles de façon naturelle, comme un humain.
+
+2. **Si tu connais la réponse** : Réponds de manière claire, précise et bienveillante, en t'appuyant sur les informations ci-dessus.
+
+3. **Si tu ne connais pas la réponse** : 
+   - Ne dis JAMAIS : "je ne trouve pas dans ma base", "selon les documents", "d'après les données", "historique", "fichiers", "entraînement".
+   - Dis plutôt naturellement : "Je ne dispose pas de cette information précise pour le moment. Je vous conseille de consulter le site officiel de l'INSPEI ou de contacter directement le secrétariat pour obtenir des détails."
+   - Ou bien : "Je n'ai pas d'information sur ce point précis. N'hésitez pas à contacter l'administration de l'INSPEI qui pourra vous renseigner."
+
+4. **Interdictions formelles** :
+   - Ne mentionne JAMAIS que tu utilises une "base de données", des "documents", un "historique" ou une "mémoire".
+   - Ne dis pas "Bonjour" ou "Salut" à chaque message. Continue naturellement la conversation.
+   - Sois concis, va à l'essentiel, mais reste professionnel.
+
+5. **Questions de suivi** : Si on te demande "Et les débouchés ?" ou "Explique mieux", réponds en faisant le lien avec ce que tu as dit précédemment, mais sans jamais dire "comme je l'ai mentionné dans l'historique". Dis simplement "Comme je vous l'indiquais..." ou "Pour compléter..."."""},
         {"role": "user", "content": question}
     ]
     
@@ -137,19 +146,24 @@ RÈGLES CRITIQUES (À SUIVRE ABSOLUMENT) :
         )
         reponse_texte = reponse.choices[0].message.content
         
-        # 5. VÉRIFICATION POST-GÉNÉRATION (fallback supplémentaire)
-        mots_suspects = ["je ne sais pas", "désolé", "je n'ai pas trouvé", "je ne trouve pas", "aucune information"]
-        if any(mot in reponse_texte.lower() for mot in mots_suspects):
-            return f"{reponse_texte}\n\n💡 Pour plus d'informations : https://siteinspei.netlify.app"
+        # 5. VÉRIFICATION POST-GÉNÉRATION (suppression des termes techniques)
+        termes_techniques = ["base de données", "documents", "historique", "fichiers", "entraînement", "data", "corpus"]
+        for terme in termes_techniques:
+            if terme in reponse_texte.lower():
+                reponse_texte = reponse_texte.replace(terme, "à ma connaissance")
+                reponse_texte = reponse_texte.replace("dans ma base", "pour le moment")
+                reponse_texte = reponse_texte.replace("selon les documents", "")
+                reponse_texte = reponse_texte.replace("qui m'ont été fournis", "")
+                reponse_texte = reponse_texte.replace("https://siteinspei.netlify.app", "le site officiel")
         
+        # 6. Si la réponse est trop courte
         if len(reponse_texte) < 30:
-            return "Je n'ai pas assez d'informations pour répondre. Consultez le site officiel https://siteinspei.netlify.app ou posez une question plus précise."
+            return "Je n'ai pas assez d'informations pour répondre à cette question. Je vous conseille de consulter le site officiel de l'INSPEI ou de contacter directement le secrétariat."
         
         return reponse_texte
         
     except Exception as e:
-        # 6. Fallback ultime (si Groq plante)
-        return f"❌ Une erreur est survenue. Veuillez réessayer ou consulter le site officiel : https://siteinspei.netlify.app"
+        return "Désolé, une erreur s'est produite. Veuillez réessayer ou consulter le site officiel de l'INSPEI."
 
 # ---------- 6. INTERFACE STREAMLIT ----------
 st.set_page_config(
@@ -158,7 +172,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# En-tête personnalisé avec CSS
+# En-tête personnalisé
 st.markdown("""
 <style>
     .main-header {
@@ -184,10 +198,6 @@ st.markdown("""
         margin-top: 2rem;
     }
 </style>
-""", unsafe_allow_html=True)
-
-# Titre personnalisé
-st.markdown("""
 <div class="main-header">
     <h1>🎓 Assistant INSPEI</h1>
     <p>Votre guide pour l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur</p>
@@ -239,4 +249,4 @@ st.markdown("""
 <div class="footer">
     INSPEI &bull; Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur
 </div>
-""", unsafe_allow_html=True)
+""", unsafe_allow_html=True)v
