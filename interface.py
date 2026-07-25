@@ -95,6 +95,22 @@ def repondre(question, model, index, data, historique=[]):
         else:
             return "Je suis à votre disposition pour toute question sur l'INSPEI."
     
+    # --- RÈGLE : "Inspei" seul ---
+    if question_lower.strip() in ["inspei", "inspéi", "insp"]:
+        return "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est une école préparatoire aux grandes écoles d'ingénieurs du Bénin, située à Abomey. Que souhaitez-vous savoir ? (Admission, filières, écoles, concours, vie étudiante...) 😊"
+    
+    # --- RÈGLE : "C'est où" (sans mention d'INSPEI) ---
+    if question_lower in ["c'est où", "cest ou", "c est ou", "où", "ou", "c'est ou"]:
+        return "Si vous cherchez la localisation de l'INSPEI, il est situé à Abomey, quartier Sogbo-Aliho, à environ 1 km de la place Goho sur la route RNIE2. Si vous cherchez autre chose, précisez votre question."
+    
+    # --- RÈGLE : "travailler" ---
+    if "travailler" in question_lower or "étude" in question_lower and "réussir" in question_lower:
+        return "Pour réussir à l'INSPEI, voici quelques conseils :\n\n📚 **Organisez-vous** : établissez un emploi du temps quotidien.\n📝 **Révisez régulièrement** : les classes préparatoires exigent un travail constant.\n👨‍🏫 **Demandez de l'aide** : n'hésitez pas à solliciter vos enseignants.\n⏰ **Prenez des pauses** : le repos est essentiel.\n🎯 **Fixez-vous des objectifs** : restez motivé pour les concours.\n\nL'INSPEI est exigeant, mais avec de la discipline, vous réussirez ! 💪"
+    
+    # --- RÈGLE : "transfert" ---
+    if "transfert" in question_lower or "transférer" in question_lower or "changer d'école" in question_lower:
+        return "Si vous souhaitez des informations sur un transfert vers l'INSPEI ou un changement d'établissement, je vous invite à contacter directement le secrétariat de l'INSPEI (inspei@unstim.edu.bj) ou à consulter le site officiel. Les modalités de transfert sont gérées au cas par cas par l'administration."
+    
     # --- RÈGLE : "COMMENT FAIRE" (demande de méthode) ---
     mots_comment = ["comment faire", "comment je fais", "comment puis-je", "que dois-je", "je fais comment", "comment procéder"]
     if any(mot in question_lower for mot in mots_comment):
@@ -131,14 +147,18 @@ def repondre(question, model, index, data, historique=[]):
     if any(mot in question_lower for mot in mots_compos):
         return "Les épreuves du concours d'entrée à l'INSPEI se déroulent généralement en centres d'examen : Abomey (ENSTP/UNSTIM), Cotonou (CEG Gbégamey, Collège Catholique Notre Dame des Apôtres, CEG Ste Rita, CEG les Pylônes) et Parakou (IFSIO). Les matières évaluées sont les Mathématiques, la Physique, la Chimie et la Technologie. Consultez l'avis de concours officiel pour les détails précis de l'année en cours sur www.concours.enseignementsuperieur.gouv.bj."
     
-    # --- Si la question est trop courte ---
-    if len(question.strip().split()) <= 2:
+    # --- RÈGLE : "DATE CONCOURS" ---
+    mots_date = ["date du concours", "concours date", "quand a lieu", "date concours", "à quelle date", "calendrier concours"]
+    if any(mot in question_lower for mot in mots_date):
+        return "📅 **Calendrier des concours 2026-2027** :\n\n**Jeudi 10 septembre 2026** : INMES, IFSIO, ENSPD, ENSTIC, ENEAM, IUEP-MA, INSPEI, INEPS.\n\n**Vendredi 11 septembre 2026** : ENS Porto-Novo, ENS Natitingou, ENSET Lokossa.\n\n📌 **Condition** : 12/20 au baccalauréat et moins de 22 ans au 31 décembre 2026.\n📌 **Dépôt des dossiers** : début août 2026.\n\nSource : Arrêté N°2026-0224/MESRS/..."
+    
+    # --- Si la question est trop courte (1 mot) ---
+    if len(question.strip().split()) <= 1:
         return "Pouvez-vous préciser votre question sur l'INSPEI ? Je suis là pour vous renseigner sur les admissions, les filières, les écoles, la vie étudiante, etc."
     
-    # 2. Recherche normale dans le JSON
+    # --- RECHERCHE NORMALE ---
     resultats = rechercher(question, model, index, data, k=3)
     
-    # 3. Seuil adapté
     seuil = 0.60
     if len(question.split()) <= 3:
         seuil = 0.45
@@ -146,9 +166,8 @@ def repondre(question, model, index, data, historique=[]):
     if resultats and resultats[0]['similarite'] > seuil:
         return resultats[0]['reponse']
     
-    # 4. Préparation du contexte pour Groq
+    # --- GROQ ---
     contexte = ""
-    
     if historique:
         for msg in historique[-6:]:
             role = "Utilisateur" if msg["role"] == "user" else "Assistant"
@@ -162,7 +181,6 @@ def repondre(question, model, index, data, historique=[]):
     else:
         contexte += "Aucune information disponible.\n"
     
-    # 5. Prompt système
     messages = [
         {"role": "system", "content": f"""Tu es un conseiller pédagogique expert de l'INSPEI (Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur) au Bénin.
 
@@ -198,7 +216,6 @@ RÈGLES DE RÉPONSE (À SUIVRE ABSOLUMENT) :
         )
         reponse_texte = reponse.choices[0].message.content
         
-        # Nettoyage des termes techniques
         termes_techniques = ["base de données", "documents", "historique", "fichiers", "entraînement", "data", "corpus", "contexte"]
         for terme in termes_techniques:
             if terme in reponse_texte.lower():
