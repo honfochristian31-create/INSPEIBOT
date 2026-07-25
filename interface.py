@@ -15,7 +15,6 @@ client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 # ---------- 2. CHARGEMENT DU SYSTÈME ----------
 @st.cache_resource
 def charger_systeme():
-    """Charge le fichier JSON et crée l'index FAISS"""
     try:
         with open('data/inspei.json', 'r', encoding='utf-8') as f:
             data = json.load(f)
@@ -35,7 +34,6 @@ def charger_systeme():
 
 # ---------- 3. RECHERCHE DANS LE JSON ----------
 def rechercher(question, model, index, data, k=3):
-    """Recherche les k questions/réponses les plus proches"""
     if len(data) == 0 or model is None:
         return []
     
@@ -71,28 +69,34 @@ def reponse_salutation():
     ]
     return random.choice(responses)
 
-# ---------- 5. RÉPONSE PRINCIPALE ----------
+# ---------- 5. FONCTION PRINCIPALE ----------
 def repondre(question, model, index, data, historique=[]):
-    """
-    Génère une réponse en utilisant :
-    - Le JSON si la similarité est > 60%
-    - Groq avec contexte si besoin (sans mentionner l'historique)
-    """
-    # 0. Gestion des salutations
+    # 0. Salutations
     if est_salutation(question) and len(historique) == 0:
         return reponse_salutation()
     
-    # 1. Recherche dans la base de connaissances
+    # 1. Détecter les questions très courtes sur la localisation
+    mots_localisation = ["ou", "où", "localisation", "adresse", "situé", "trouve"]
+    if len(question.split()) <= 4 and any(mot in question.lower() for mot in mots_localisation):
+        # Forcer la recherche de la question "Où se trouve l'INSPEI ?"
+        resultats_force = rechercher("Où se trouve l'INSPEI ?", model, index, data, k=1)
+        if resultats_force and resultats_force[0]['similarite'] > 0.50:
+            return resultats_force[0]['reponse']
+    
+    # 2. Recherche normale
     resultats = rechercher(question, model, index, data, k=3)
     
-    # 2. Si similarité > 60%, réponse directe du JSON
-    if resultats and resultats[0]['similarite'] > 0.60:
+    # 3. Si similarité > 60% ou > 50% pour les questions courtes
+    seuil = 0.60
+    if len(question.split()) <= 3:
+        seuil = 0.45  # seuil plus bas pour les questions très courtes
+    
+    if resultats and resultats[0]['similarite'] > seuil:
         return resultats[0]['reponse']
     
-    # 3. Préparation du contexte (utilisé en arrière-plan, jamais mentionné)
+    # 4. Préparation du contexte pour Groq
     contexte = ""
     
-    # 3a. Ajouter l'historique récent (utilisé silencieusement)
     if historique:
         contexte += "📜 CONVERSATION :\n"
         for msg in historique[-6:]:
@@ -100,7 +104,6 @@ def repondre(question, model, index, data, historique=[]):
             contexte += f"{role} : {msg['content']}\n"
         contexte += "\n"
     
-    # 3b. Ajouter les résultats de la recherche
     if resultats:
         contexte += "📚 INFORMATIONS DISPONIBLES :\n"
         for i, res in enumerate(resultats[:3]):
@@ -110,7 +113,7 @@ def repondre(question, model, index, data, historique=[]):
     else:
         contexte += "📚 Aucune information disponible.\n"
     
-    # 4. Appel à Groq avec le prompt naturel
+    # 5. Prompt système (naturel, sans jargon)
     messages = [
         {"role": "system", "content": f"""Tu es un conseiller pédagogique expert de l'INSPEI (Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur) au Bénin.
 
@@ -126,14 +129,13 @@ RÈGLES DE RÉPONSE (À SUIVRE ABSOLUMENT) :
 3. **Si tu ne connais pas la réponse** : 
    - Ne dis JAMAIS : "je ne trouve pas dans ma base", "selon les documents", "d'après les données", "historique", "fichiers", "entraînement".
    - Dis plutôt naturellement : "Je ne dispose pas de cette information précise pour le moment. Je vous conseille de consulter le site officiel de l'INSPEI ou de contacter directement le secrétariat pour obtenir des détails."
-   - Ou bien : "Je n'ai pas d'information sur ce point précis. N'hésitez pas à contacter l'administration de l'INSPEI qui pourra vous renseigner."
 
 4. **Interdictions formelles** :
    - Ne mentionne JAMAIS que tu utilises une "base de données", des "documents", un "historique" ou une "mémoire".
    - Ne dis pas "Bonjour" ou "Salut" à chaque message. Continue naturellement la conversation.
    - Sois concis, va à l'essentiel, mais reste professionnel.
 
-5. **Questions de suivi** : Si on te demande "Et les débouchés ?" ou "Explique mieux", réponds en faisant le lien avec ce que tu as dit précédemment, mais sans jamais dire "comme je l'ai mentionné dans l'historique". Dis simplement "Comme je vous l'indiquais..." ou "Pour compléter..."."""},
+5. **Questions de suivi** : Réponds en faisant le lien avec ce que tu as dit précédemment, mais sans jamais dire "comme je l'ai mentionné dans l'historique". Dis simplement "Comme je vous l'indiquais..." ou "Pour compléter..."."""},
         {"role": "user", "content": question}
     ]
     
@@ -146,7 +148,7 @@ RÈGLES DE RÉPONSE (À SUIVRE ABSOLUMENT) :
         )
         reponse_texte = reponse.choices[0].message.content
         
-        # 5. VÉRIFICATION POST-GÉNÉRATION (suppression des termes techniques)
+        # Nettoyage des termes techniques
         termes_techniques = ["base de données", "documents", "historique", "fichiers", "entraînement", "data", "corpus"]
         for terme in termes_techniques:
             if terme in reponse_texte.lower():
@@ -156,7 +158,6 @@ RÈGLES DE RÉPONSE (À SUIVRE ABSOLUMENT) :
                 reponse_texte = reponse_texte.replace("qui m'ont été fournis", "")
                 reponse_texte = reponse_texte.replace("https://siteinspei.netlify.app", "le site officiel")
         
-        # 6. Si la réponse est trop courte
         if len(reponse_texte) < 30:
             return "Je n'ai pas assez d'informations pour répondre à cette question. Je vous conseille de consulter le site officiel de l'INSPEI ou de contacter directement le secrétariat."
         
@@ -172,7 +173,6 @@ st.set_page_config(
     layout="centered"
 )
 
-# En-tête personnalisé
 st.markdown("""
 <style>
     .main-header {
@@ -204,47 +204,37 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Charger le système
 data, model, index = charger_systeme()
 
-# Vérifier que tout est chargé
 if not data:
     st.warning("⚠️ Aucune donnée chargée. Vérifiez que le fichier data/inspei.json existe.")
     st.stop()
 
-# Initialiser l'historique des messages
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# Afficher les messages
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# ---------- 7. GESTION DE L'INPUT UTILISATEUR ----------
 if prompt := st.chat_input("Posez votre question..."):
-    # Ajouter la question de l'utilisateur
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
     
-    # Obtenir la réponse avec historique
     with st.chat_message("assistant"):
         with st.spinner("Réflexion en cours..."):
             historique = st.session_state.messages[:-1] if st.session_state.messages else []
             reponse = repondre(prompt, model, index, data, historique)
             st.markdown(reponse)
     
-    # Ajouter la réponse à l'historique
     st.session_state.messages.append({"role": "assistant", "content": reponse})
 
-# ---------- 8. BOUTON "NOUVELLE CONVERSATION" ----------
 st.sidebar.markdown("---")
 if st.sidebar.button("🔄 Nouvelle conversation"):
     st.session_state.messages = []
     st.rerun()
 
-# Pied de page discret
 st.markdown("""
 <div class="footer">
     INSPEI &bull; Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur
