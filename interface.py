@@ -142,10 +142,13 @@ def repondre(question, model, index, data, historique=[]):
     if question_lower in ["les matieres", "matieres", "les matière", "matière"]:
         return "Les matières enseignées à l'INSPEI sont réparties sur 4 semestres. Voici le programme :\n\nSemestre 1 : Algorithmique, Thermodynamique, Maths 1, Chimie de l'Ingénieur, EPS, TEMC, Probabilités et Statistiques, Statique Graphique et Analytique.\n\nSemestre 2 : Analyse Numérique, Graphe et Optimisation, Maths 2, Cinématique et Dynamique, Langage (C/Python), RDM, Normes et Mesures, Anglais technique.\n\nSemestre 3 : TEMC, Recherche Opérationnelle, Mécanique des Fluides, Maths 3, Physique des Matériaux, Géométrie Descriptive, Dessin Technique et DAO, Électricité Générale.\n\nSemestre 4 : Maths 4, Matlab, MPA, Sciences Biologiques pour l'Ingénieur, Transfert Thermique, Ondes Électromagnétiques, Anglais Technique Avancé, EPS."
     
-    # --- RÈGLE POUR "COMPOS" (épreuves du concours) ---
-    mots_compos = ["compos", "composition", "épreuve", "compose", "epreuve", "concours écrit"]
+    # --- RÈGLE : "COMPOS" (date des épreuves) ---
+    mots_compos = ["compos", "composition", "épreuve", "compose", "epreuve", "concours écrit", "on compose", "quand on compose", "date des épreuves", "composition"]
     if any(mot in question_lower for mot in mots_compos):
-        return "Les épreuves du concours d'entrée à l'INSPEI se déroulent généralement en centres d'examen : Abomey (ENSTP/UNSTIM), Cotonou (CEG Gbégamey, Collège Catholique Notre Dame des Apôtres, CEG Ste Rita, CEG les Pylônes) et Parakou (IFSIO). Les matières évaluées sont les Mathématiques, la Physique, la Chimie et la Technologie. Consultez l'avis de concours officiel pour les détails précis de l'année en cours sur www.concours.enseignementsuperieur.gouv.bj."
+        if "quand" in question_lower or "date" in question_lower or "on compose" in question_lower or "composition" in question_lower:
+            return "📅 **Date des épreuves du concours INSPEI 2026** :\n\nLes épreuves écrites se dérouleront le **vendredi 11 septembre 2026**.\n\n📍 **Centres d'examen** : Abomey (ENSTP/UNSTIM), Cotonou (CEG Gbégamey, Collège Catholique ND des Apôtres, CEG Ste Rita, CEG les Pylônes) et Parakou (IFSIO).\n\n📝 **Matières évaluées** : Mathématiques, Physique, Chimie et Technologie.\n\n📌 **Conditions** : 12/20 au baccalauréat et moins de 22 ans au 31 décembre 2026.\n\n📌 **Dépôt des dossiers** : début août 2026.\n\nPour plus de détails, consultez l'avis de concours sur www.concours.enseignementsuperieur.gouv.bj."
+        else:
+            return "Les épreuves du concours d'entrée à l'INSPEI se déroulent en centres d'examen : Abomey (ENSTP/UNSTIM), Cotonou (CEG Gbégamey, Collège Catholique ND des Apôtres, CEG Ste Rita, CEG les Pylônes) et Parakou (IFSIO). Les matières évaluées sont les Mathématiques, la Physique, la Chimie et la Technologie. Consultez l'avis de concours officiel pour les détails précis de l'année en cours sur www.concours.enseignementsuperieur.gouv.bj."
     
     # --- RÈGLE : "DATE CONCOURS" ---
     mots_date = ["date du concours", "concours date", "quand a lieu", "date concours", "à quelle date", "calendrier concours"]
