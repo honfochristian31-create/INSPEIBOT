@@ -95,9 +95,15 @@ def repondre(question, model, index, data, historique=[]):
         else:
             return "Je suis à votre disposition pour toute question sur l'INSPEI."
     
+    # --- RÈGLE : "COMMENT FAIRE" (demande de méthode) ---
+    mots_comment = ["comment faire", "comment je fais", "comment puis-je", "que dois-je", "je fais comment", "comment procéder"]
+    if any(mot in question_lower for mot in mots_comment):
+        if "info" in question_lower or "plus" in question_lower:
+            return "Pour obtenir plus d'informations, il vous suffit de poser une question précise sur l'un des sujets suivants :\n\n• Tapez 'Matières' pour connaître les matières par semestre\n• Tapez 'Écoles' pour en savoir plus sur l'ENSGEP, ENSGMM, ENSTP\n• Tapez 'Admission' pour les conditions d'admission et le concours\n• Tapez 'Vie étudiante' pour l'hébergement et la restauration\n• Tapez 'Localisation' pour savoir où se trouve l'INSPEI\n• Tapez 'Administration' pour les responsables\n• Tapez 'Frais' pour les frais et bourses\n• Tapez 'Événements' pour les sorties pédagogiques\n\nPosez votre question simplement, je suis là pour vous aider ! 😊"
+    
     # --- RÈGLE : "PLUS D INFOS" (demande de précision) ---
     mots_plus_infos = ["plus d'infos", "plus d info", "plus d'informations", "plus dinfos", "en savoir plus", "plus de details", "plus de détails"]
-    if question_lower in mots_plus_infos or "plus" in question_lower and ("info" in question_lower or "detail" in question_lower):
+    if question_lower in mots_plus_infos or ("plus" in question_lower and ("info" in question_lower or "detail" in question_lower)):
         return "Je peux vous donner plus d'informations sur un sujet spécifique. Dites-moi ce qui vous intéresse :\n\n• 📚 Les **matières** enseignées par semestre\n• 🎓 Les **écoles d'ingénieurs** (ENSGEP, ENSGMM, ENSTP)\n• 📝 Les **conditions d'admission** et le concours\n• 🏠 La **vie étudiante** (hébergement, restauration)\n• 📍 La **localisation** de l'INSPEI\n• 👨‍🏫 L'**administration** et les responsables\n• 💰 Les **frais et bourses**\n• 📅 Les **événements** et sorties pédagogiques\n\nPosez-moi votre question précise et je vous répondrai ! 😊"
     
     # --- RÈGLE PRIORITAIRE : "C'EST QUOI" (définition) ---
