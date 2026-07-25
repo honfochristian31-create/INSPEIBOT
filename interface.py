@@ -95,8 +95,8 @@ def repondre(question, model, index, data, historique=[]):
         else:
             return "Je suis à votre disposition pour toute question sur l'INSPEI."
     
-    # --- RÈGLE : "C'EST QUOI" (description générale) ---
-    if ("quoi" in question_lower or "definition" in question_lower or "c'est quoi" in question_lower) and "inspei" in question_lower:
+    # --- RÈGLE PRIORITAIRE : "C'EST QUOI" (définition) ---
+    if ("quoi" in question_lower or "definition" in question_lower or "c'est quoi" in question_lower or "qu'est-ce" in question_lower) and "inspei" in question_lower:
         return "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est un établissement public rattaché à l'UNSTIM (Université Nationale des Sciences, Technologies, Ingénierie et Mathématiques). Il a été officiellement créé par l'arrêté N°719/MESRS/... du 23/12/2020, mais a démarré ses activités dès 2016-2017. Sa mission est de former des bacheliers scientifiques pour les grandes écoles d'ingénieurs du Bénin. La formation dure deux ans et débouche sur le CPEI."
     
     # --- RÈGLE POUR LA LOCALISATION ---
@@ -115,11 +115,16 @@ def repondre(question, model, index, data, historique=[]):
     if question_lower in ["les matieres", "matieres", "les matière", "matière"]:
         return "Les matières enseignées à l'INSPEI sont réparties sur 4 semestres. Voici le programme :\n\nSemestre 1 : Algorithmique, Thermodynamique, Maths 1, Chimie de l'Ingénieur, EPS, TEMC, Probabilités et Statistiques, Statique Graphique et Analytique.\n\nSemestre 2 : Analyse Numérique, Graphe et Optimisation, Maths 2, Cinématique et Dynamique, Langage (C/Python), RDM, Normes et Mesures, Anglais technique.\n\nSemestre 3 : TEMC, Recherche Opérationnelle, Mécanique des Fluides, Maths 3, Physique des Matériaux, Géométrie Descriptive, Dessin Technique et DAO, Électricité Générale.\n\nSemestre 4 : Maths 4, Matlab, MPA, Sciences Biologiques pour l'Ingénieur, Transfert Thermique, Ondes Électromagnétiques, Anglais Technique Avancé, EPS."
     
+    # --- RÈGLE POUR "COMPOS" (épreuves du concours) ---
+    mots_compos = ["compos", "composition", "épreuve", "compose", "epreuve", "concours écrit"]
+    if any(mot in question_lower for mot in mots_compos):
+        return "Les épreuves du concours d'entrée à l'INSPEI se déroulent généralement en centres d'examen : Abomey (ENSTP/UNSTIM), Cotonou (CEG Gbégamey, Collège Catholique Notre Dame des Apôtres, CEG Ste Rita, CEG les Pylônes) et Parakou (IFSIO). Les matières évaluées sont les Mathématiques, la Physique, la Chimie et la Technologie. Consultez l'avis de concours officiel pour les détails précis de l'année en cours sur www.concours.enseignementsuperieur.gouv.bj."
+    
     # --- Si la question est trop courte ---
     if len(question.strip().split()) <= 2:
         return "Pouvez-vous préciser votre question sur l'INSPEI ? Je suis là pour vous renseigner sur les admissions, les filières, les écoles, la vie étudiante, etc."
     
-    # 2. Recherche normale
+    # 2. Recherche normale dans le JSON
     resultats = rechercher(question, model, index, data, k=3)
     
     # 3. Seuil adapté
@@ -238,7 +243,6 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Charger le système
 data, model, index = charger_systeme()
 
 if not data:
@@ -294,7 +298,10 @@ def generer_titre(question):
         "administrateur": "Administration",
         "admin": "Administration",
         "directeur": "Direction",
-        "responsable": "Administration"
+        "responsable": "Administration",
+        "compos": "Concours",
+        "composition": "Concours",
+        "épreuve": "Concours"
     }
     for mot, titre in mots_cles.items():
         if mot in question_lower:
