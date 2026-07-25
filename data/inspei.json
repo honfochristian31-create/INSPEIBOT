@@ -12,6 +12,14 @@
     "answer": "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est une école préparatoire aux grandes écoles d'ingénieurs du Bénin, située à Abomey."
   },
   {
+    "question": "Donne-moi des informations générales sur l'INSPEI",
+    "answer": "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est un établissement public rattaché à l'UNSTIM, situé à Abomey. Il propose une formation de deux ans en classes préparatoires, débouchant sur le CPEI et l'accès aux écoles d'ingénieurs ENSGEP, ENSGMM et ENSTP."
+  },
+  {
+    "question": "Parle-moi de l'INSPEI en général",
+    "answer": "L'INSPEI est une école préparatoire aux grandes écoles d'ingénieurs du Bénin. Elle forme des bacheliers scientifiques en 2 ans, avec un internat et une bourse, pour les préparer aux concours des écoles d'ingénieurs de l'UNSTIM."
+  },
+  {
     "question": "Quelle est la filière proposée à l'INSPEI ?",
     "answer": "L'INSPEI propose une filière unique : les Classes Préparatoires aux Etudes d'Ingénieur (CPEI). Cette formation de deux ans (Bac+2) prépare les étudiants à intégrer les grandes écoles d'ingénieurs de l'UNSTIM : l'ENSGEP, l'ENSGMM ou l'ENSTP."
   },
@@ -33,15 +41,11 @@
   },
   {
     "question": "Quel est le parcours pour chaque filière à l'INSPEI ?",
-    "answer": "L'INSPEI propose une filière unique : les Classes Préparatoires aux Études d'Ingénieur (CPEI). Le parcours est identique pour tous les étudiants pendant les deux premières années : 1ère année : S1 (EPS, Maths 1, Chimie de l'Ingénieur, TEMC, Probas/Stats, Statique Graphique/Analytique), S2 (Graphe/Optimisation, Maths 2, Cinématique/Dynamique, RDM, Anglais, Analyse Numérique, Analyse Dimensionnelle). 2ème année : S3 (TEMC, Mécanique des Fluides, Recherche Opérationnelle, EPS, Maths 3), S4 (Maths 4, Transfert Thermique, Statique de l'Ingénieur, Physique des Matériaux, Optimisation). À l'issue, les étudiants obtiennent le CPEI et peuvent intégrer l'ENSGEP, l'ENSGMM ou l'ENSTP."
+    "answer": "L'INSPEI propose une filière unique : les Classes Préparatoires aux Études d'Ingénieur (CPEI). Le parcours est identique pour tous les étudiants pendant les deux premières années : 1ère année : S1 (Algo, Thermodynamique, Maths 1, Chimie de l'Ingénieur, EPS, TEMC, Probas/Stats, Statique Graphique/Analytique), S2 (Analyse Numérique, Graphe/Optimisation, Maths 2, Cinématique/Dynamique, Langage (C/Python), RDM, Normes et Mesures, Anglais technique). 2ème année : S3 (TEMC, Recherche Opérationnelle, Mécanique des Fluides, Maths 3, Physique des Matériaux, Géométrie Descriptive, Dessin Technique et DAO, Électricité Générale), S4 (Maths 4, Matlab, MPA, Sciences Biologiques pour l'Ingénieur, Transfert Thermique, Ondes Électromagnétiques, Anglais Technique Avancé, EPS). À l'issue, les étudiants obtiennent le CPEI et peuvent intégrer l'ENSGEP, l'ENSGMM ou l'ENSTP."
   },
   {
     "question": "Quel est le parcours type à l'INSPEI ?",
-    "answer": "Le parcours est identique pour tous : deux années de classes préparatoires avec un tronc commun en mathématiques, physique, chimie, et sciences de l'ingénieur. La première année couvre les semestres 1 et 2, la deuxième année les semestres 3 et 4."
-  },
-  {
-    "question": "Explique-moi le parcours à l'INSPEI",
-    "answer": "Le parcours à l'INSPEI est unique : deux ans de classes préparatoires (4 semestres) avec un tronc commun en mathématiques, physique, chimie et sciences de l'ingénieur, débouchant sur le CPEI et l'accès aux écoles d'ingénieurs (ENSGEP, ENSGMM, ENSTP)."
+    "answer": "Le parcours est identique pour tous : deux années de classes préparatoires avec un tronc commun en mathématiques, physique, chimie, informatique, mécanique, thermodynamique, et sciences de l'ingénieur. La première année couvre les semestres 1 et 2, la deuxième année les semestres 3 et 4."
   },
   {
     "question": "Quels sont les débouchés après l'INSPEI ?",
@@ -49,7 +53,7 @@
   },
   {
     "question": "Qu'est-ce qu'on étudie à l'INSPEI ?",
-    "answer": "On étudie les mathématiques, la physique, la chimie, la mécanique, la thermodynamique, la résistance des matériaux, l'analyse numérique, les probabilités, la recherche opérationnelle, et l'anglais technique."
+    "answer": "On étudie les mathématiques, l'algorithmique, la thermodynamique, la physique, la chimie, la mécanique, la résistance des matériaux, l'analyse numérique, les probabilités, la recherche opérationnelle, le dessin technique, l'électricité, les ondes électromagnétiques, Matlab, et l'anglais technique."
   },
   {
     "question": "À quoi préparent les classes préparatoires de l'INSPEI ?",
@@ -58,10 +62,6 @@
   {
     "question": "Quelles écoles d'ingénieur peut-on intégrer après l'INSPEI ?",
     "answer": "Après l'INSPEI, on peut intégrer l'ENSGEP (Ecole Nationale Supérieure de Génie Energétique et Procédés), l'ENSGMM (Ecole Nationale Supérieure de Génie Mathématique et Modélisation), et l'ENSTP (Ecole Nationale Supérieure des Travaux Publics). Ces trois écoles délivrent un diplôme d'ingénieur de niveau Bac+5 en 3 ans après les classes préparatoires."
-  },
-  {
-    "question": "Quelle école choisir après l'INSPEI ?",
-    "answer": "Après l'INSPEI, vous pouvez choisir l'ENSGEP (Génie Energétique), l'ENSGMM (Génie Mathématique) ou l'ENSTP (Travaux Publics) en fonction de vos affinités pour l'énergie, les mathématiques appliquées, ou le génie civil."
   },
   {
     "question": "Qu'est-ce que l'ENSGEP ?",
@@ -76,12 +76,8 @@
     "answer": "À l'ENSGEP, on étudie le génie énergétique et les procédés industriels. Les étudiants apprennent à concevoir, dimensionner et mettre en place des unités de production, tout en se spécialisant en énergies renouvelables ou en froid-climatisation."
   },
   {
-    "question": "Quels sont les débouchés de l'ENSGEP ?",
-    "answer": "Les débouchés de l'ENSGEP incluent les secteurs de l'énergie, de l'industrie pétrolière, de la chimie, et de l'environnement. Les diplômés travaillent dans la production d'énergie, l'efficacité énergétique, les énergies renouvelables, et la conception de procédés industriels."
-  },
-  {
-    "question": "Tu peux me parler des débouchés de l'ENSGEP ?",
-    "answer": "Les débouchés de l'ENSGEP incluent les secteurs de l'énergie, de l'industrie pétrolière, de la chimie, et de l'environnement avec des postes comme Ingénieur industriel, Ingénieur en énergies renouvelables, ou Ingénieur Bureau d'études."
+    "question": "Parle-moi de l'ENSGEP",
+    "answer": "L'ENSGEP est l'Ecole Nationale Supérieure de Génie Energétique et Procédés, spécialisée en énergie, thermique et procédés industriels. Elle propose un cycle d'ingénieur (Bac+5) et deux licences professionnelles (Bac+3) en Froid-Climatisation et Equipements Motorisés."
   },
   {
     "question": "Qu'est-ce que l'ENSGMM ?",
@@ -94,6 +90,14 @@
   {
     "question": "A quoi ça sert l'ENSGMM ?",
     "answer": "L'ENSGMM sert à former des ingénieurs capables de concevoir, analyser et mettre en œuvre des modèles mathématiques avancés pour résoudre des problèmes complexes dans des secteurs comme la santé, la finance, la robotique et la logistique."
+  },
+  {
+    "question": "Parle-moi de l'ENSGMM",
+    "answer": "L'ENSGMM est l'Ecole Nationale Supérieure de Génie Mathématique et Modélisation. Elle forme des ingénieurs en mathématiques appliquées avec trois spécialités : Modélisation et Simulation Numérique, Modélisation Aléatoire-Statistique-Finance, et Informatique-Logistique-Recherche Opérationnelle."
+  },
+  {
+    "question": "Qu'est-ce que l'ENSTP ?",
+    "answer": "L'ENSTP est l'Ecole Nationale Supérieure des Travaux Publics. C'est une école d'ingénieurs de l'UNSTIM qui forme des ingénieurs spécialisés dans le génie civil, la construction et les infrastructures. Les étudiants y apprennent la conception et la réalisation de bâtiments, de routes, de ponts, de barrages, et d'ouvrages hydrauliques. Les débouchés incluent les entreprises de BTP, les bureaux d'études, les collectivités territoriales, et les ministères en charge des infrastructures. La formation dure 3 ans après les classes préparatoires."
   },
   {
     "question": "Quels sont les métiers après l'ENSGMM ?",
@@ -136,14 +140,6 @@
     "answer": "Pour entrer à l'ENSGMM, il faut avoir effectué deux années en cycle préparatoire (INSPEI ou équivalent) et être sélectionné soit en tant que boursier, soit à titre payant à l'issue d'un concours d'entrée."
   },
   {
-    "question": "Qu'est-ce que l'ENSTP ?",
-    "answer": "L'ENSTP est l'Ecole Nationale Supérieure des Travaux Publics. C'est une école d'ingénieurs de l'UNSTIM qui forme des ingénieurs spécialisés dans le génie civil, la construction et les infrastructures. Les étudiants y apprennent la conception et la réalisation de bâtiments, de routes, de ponts, de barrages, et d'ouvrages hydrauliques. Les débouchés incluent les entreprises de BTP, les bureaux d'études, les collectivités territoriales, et les ministères en charge des infrastructures. La formation dure 3 ans après les classes préparatoires."
-  },
-  {
-    "question": "Quels sont les débouchés de l'ENSTP ?",
-    "answer": "Les débouchés de l'ENSTP incluent les entreprises de BTP, les bureaux d'études, les collectivités territoriales, et les ministères en charge des infrastructures. Les diplômés conçoivent et réalisent des bâtiments, des routes, des ponts, des barrages et des ouvrages hydrauliques."
-  },
-  {
     "question": "Quelle est la mission de l'ENSGEP ?",
     "answer": "L'ENSGEP a pour mission de former des ingénieurs et techniciens dans le domaine des sciences et technologies, spécifiquement en génie énergétique, froid-climatisation et équipements motorisés, capables de concevoir, étudier, dimensionner et mettre en place des unités de production dans divers secteurs d'activités."
   },
@@ -184,12 +180,120 @@
     "answer": "Oui, l'ENSGEP dispose d'un laboratoire pluridisciplinaire pour les travaux pratiques de ses étudiants et collabore avec plusieurs laboratoires publics et privés pour renforcer la professionnalisation de ses formations."
   },
   {
-    "question": "Où se trouve l'INSPEI ?",
-    "answer": "L'INSPEI est situé en République du Bénin, dans le Département du Zou, à Abomey, à environ 1 km de la place Goho, sur la route RNIE2 en allant vers Bohicon, dans l'enceinte de l'ENEAM d'Abomey (Quartier Sogbo-Aliho)."
+    "question": "Quelles sont les matières du premier semestre à l'INSPEI ?",
+    "answer": "Au premier semestre (S1), les matières enseignées sont : Algorithmique (Algo), Thermodynamique, Mathématiques 1, Chimie de l'Ingénieur, EPS (Education Physique et Sportive), TEMC (Techniques d'Expression et de Communication), Probabilités et Statistiques, et Statique Graphique et Analytique."
   },
   {
-    "question": "L'INSPEI c'est où exactement ?",
-    "answer": "L'INSPEI est exactement situé à Abomey, dans le Département du Zou, à environ 1 km de la place Goho sur la route RNIE2, dans l'enceinte de l'ENEAM, quartier Sogbo-Aliho."
+    "question": "Quelles sont les matières du deuxième semestre à l'INSPEI ?",
+    "answer": "Au deuxième semestre (S2), les matières enseignées sont : Analyse Numérique, Graphe et Optimisation, Mathématiques 2, Cinématique et Dynamique, Langage (C, Python), RDM (Résistance des Matériaux), Normes et Mesures, et Anglais technique."
+  },
+  {
+    "question": "Quelles sont les matières du troisième semestre à l'INSPEI ?",
+    "answer": "Au troisième semestre (S3), les matières enseignées sont : TEMC (Techniques d'Expression et de Communication), Recherche Opérationnelle, Mécanique des Fluides, Mathématiques 3, Physique des Matériaux, Géométrie Descriptive, Dessin Technique et DAO, et Électricité Générale."
+  },
+  {
+    "question": "Quelles sont les matières du quatrième semestre à l'INSPEI ?",
+    "answer": "Au quatrième semestre (S4), les matières enseignées sont : Mathématiques 4, Matlab, MPA (Modélisation des Phénomènes Aléatoires), Sciences Biologiques pour l'Ingénieur, Transfert Thermique, Ondes Électromagnétiques, Anglais Technique Avancé, et EPS (Education Physique et Sportive)."
+  },
+  {
+    "question": "Qu'est-ce que l'Algo à l'INSPEI ?",
+    "answer": "Algo est l'abréviation d'Algorithmique. C'est une matière enseignée au premier semestre qui initie les étudiants à la conception et l'analyse d'algorithmes, la logique de programmation et la résolution de problèmes informatiques."
+  },
+  {
+    "question": "Qu'est-ce que la Thermodynamique à l'INSPEI ?",
+    "answer": "La Thermodynamique est une matière du premier semestre qui étudie les échanges d'énergie, les transformations de la matière, les principes fondamentaux de la thermique et les cycles thermodynamiques."
+  },
+  {
+    "question": "Qu'est-ce que l'Analyse Numérique à l'INSPEI ?",
+    "answer": "L'Analyse Numérique est une matière du deuxième semestre qui étudie les méthodes de résolution approchée de problèmes mathématiques à l'aide de calculs numériques et d'algorithmes, notamment pour les équations différentielles et les systèmes linéaires."
+  },
+  {
+    "question": "Qu'est-ce que la RDM à l'INSPEI ?",
+    "answer": "RDM signifie Résistance des Matériaux. C'est une matière du deuxième semestre qui étudie le comportement des matériaux soumis à des forces et des contraintes, la déformation des structures et les critères de rupture."
+  },
+  {
+    "question": "C'est quoi la RDM ?",
+    "answer": "RDM signifie Résistance des Matériaux. C'est une matière enseignée à l'INSPEI qui étudie le comportement des matériaux soumis à des forces et des contraintes."
+  },
+  {
+    "question": "Quels langages de programmation sont enseignés à l'INSPEI ?",
+    "answer": "Les langages de programmation enseignés à l'INSPEI sont le C et Python, dans le cadre de la matière Langage au deuxième semestre. Ces langages sont utilisés pour l'algorithmique, le calcul scientifique et la simulation."
+  },
+  {
+    "question": "Qu'est-ce que les Normes et Mesures à l'INSPEI ?",
+    "answer": "Normes et Mesures est une matière du deuxième semestre qui initie les étudiants aux systèmes d'unités (SI), aux instruments de mesure, à la métrologie et aux normes de qualité en ingénierie."
+  },
+  {
+    "question": "Qu'est-ce que le Dessin Technique et DAO à l'INSPEI ?",
+    "answer": "Dessin Technique et DAO est une matière du troisième semestre qui forme les étudiants à la lecture et la réalisation de plans techniques, ainsi qu'à l'utilisation des outils de Dessin Assisté par Ordinateur (DAO) pour la conception mécanique et architecturale."
+  },
+  {
+    "question": "Qu'est-ce que la Géométrie Descriptive à l'INSPEI ?",
+    "answer": "La Géométrie Descriptive est une matière du troisième semestre qui enseigne les techniques de représentation en 3D des objets sur un plan, un outil fondamental pour les ingénieurs en conception et en architecture."
+  },
+  {
+    "question": "Qu'est-ce que l'Électricité Générale à l'INSPEI ?",
+    "answer": "Électricité Générale est une matière du troisième semestre qui couvre les bases des circuits électriques, l'électrotechnique, les composants électroniques, les lois de Kirchhoff et les puissances électriques."
+  },
+  {
+    "question": "Qu'est-ce que Matlab à l'INSPEI ?",
+    "answer": "Matlab est un logiciel de calcul numérique et de programmation enseigné au quatrième semestre, utilisé pour la modélisation, l'analyse de données, la simulation en ingénierie et le traitement de signaux."
+  },
+  {
+    "question": "Qu'est-ce que le MPA à l'INSPEI ?",
+    "answer": "MPA signifie Modélisation des Phénomènes Aléatoires. C'est une matière du quatrième semestre qui enseigne les méthodes de modélisation et de simulation des processus aléatoires en ingénierie, en finance et en physique."
+  },
+  {
+    "question": "Qu'est-ce que les Sciences Biologiques pour l'Ingénieur à l'INSPEI ?",
+    "answer": "Sciences Biologiques pour l'Ingénieur est une matière du quatrième semestre qui introduit les concepts de biologie utiles aux ingénieurs, notamment en biomédical, en biotechnologie, en environnement et en génie des procédés biologiques."
+  },
+  {
+    "question": "Qu'est-ce que les Ondes Électromagnétiques à l'INSPEI ?",
+    "answer": "Ondes Électromagnétiques est une matière du quatrième semestre qui étudie la propagation des ondes, les phénomènes d'interférence, de diffraction, et leurs applications en télécommunications, en radar et en physique appliquée."
+  },
+  {
+    "question": "Qu'est-ce que le Transfert Thermique à l'INSPEI ?",
+    "answer": "Le Transfert Thermique est une matière du quatrième semestre qui étudie les modes de transfert de chaleur (conduction, convection, rayonnement) et leurs applications en ingénierie énergétique, en génie des procédés et en thermique des bâtiments."
+  },
+  {
+    "question": "Qu'est-ce que la Cinématique et Dynamique à l'INSPEI ?",
+    "answer": "Cinématique et Dynamique est une matière du deuxième semestre qui étudie le mouvement des corps (cinématique) et les causes de ce mouvement (dynamique), en analysant les forces, les torseurs et les lois de Newton."
+  },
+  {
+    "question": "Qu'est-ce que la Recherche Opérationnelle à l'INSPEI ?",
+    "answer": "La Recherche Opérationnelle est une matière du troisième semestre qui enseigne les méthodes d'optimisation, la programmation linéaire, la théorie des graphes et la gestion des flux pour résoudre des problèmes de gestion et de logistique."
+  },
+  {
+    "question": "Qu'est-ce que la Mécanique des Fluides à l'INSPEI ?",
+    "answer": "La Mécanique des Fluides est une matière du troisième semestre qui étudie le comportement des fluides (liquides et gaz), les équations de conservation, l'écoulement, les pertes de charge et les applications en hydraulique et en aérodynamique."
+  },
+  {
+    "question": "Qu'est-ce que l'Anglais Technique à l'INSPEI ?",
+    "answer": "L'Anglais Technique est une matière enseignée à l'INSPEI pour développer les compétences linguistiques spécifiques au domaine de l'ingénierie. Elle est présente au deuxième semestre (Anglais technique) et au quatrième semestre (Anglais Technique Avancé)."
+  },
+  {
+    "question": "Qu'est-ce que le Graph/Optimisation à l'INSPEI ?",
+    "answer": "Graphe et Optimisation est une matière du deuxième semestre qui étudie la théorie des graphes, les algorithmes de cheminement, la recherche opérationnelle et les méthodes d'optimisation combinatoire."
+  },
+  {
+    "question": "Qu'est-ce que la Physique des Matériaux à l'INSPEI ?",
+    "answer": "Physique des Matériaux est une matière du troisième semestre qui étudie la structure, les propriétés et le comportement des matériaux (métaux, polymères, céramiques, composites) en fonction des sollicitations mécaniques, thermiques et électriques."
+  },
+  {
+    "question": "Qu'est-ce que la Statique Graphique et Analytique à l'INSPEI ?",
+    "answer": "Statique Graphique et Analytique est une matière du premier semestre qui enseigne les méthodes de résolution des problèmes d'équilibre des forces et des structures, en utilisant des approches graphiques et analytiques."
+  },
+  {
+    "question": "Qu'est-ce que l'EPS à l'INSPEI ?",
+    "answer": "EPS signifie Education Physique et Sportive. C'est une matière enseignée à l'INSPEI pour le développement physique et sportif des étudiants. Elle est présente en S1, S3 et S4."
+  },
+  {
+    "question": "Qu'est-ce que la TEMC à l'INSPEI ?",
+    "answer": "TEMC signifie Techniques d'Expression et de Communication. C'est une matière enseignée à l'INSPEI qui permet aux étudiants de développer leurs compétences en communication écrite et orale. Elle est présente en S1 et S3."
+  },
+  {
+    "question": "Où se trouve l'INSPEI ?",
+    "answer": "L'INSPEI est situé en République du Bénin, dans le Département du Zou, à Abomey, à environ 1 km de la place Goho, sur la route RNIE2 en allant vers Bohicon, dans l'enceinte de l'ENEAM d'Abomey (Quartier Sogbo-Aliho)."
   },
   {
     "question": "Quelle est l'adresse de l'INSPEI ?",
@@ -272,26 +376,6 @@
     "answer": "Le CPEI est le Certificat Préparatoire aux Etudes d'Ingénieur. C'est le diplôme délivré par l'INSPEI à l'issue des deux années de formation (Bac+2) dans les Classes Préparatoires."
   },
   {
-    "question": "Quelles sont les matières enseignées au premier semestre à l'INSPEI ?",
-    "answer": "Au premier semestre (S1), les matières enseignées sont : EPS (Education Physique et Sportive), Mathématiques 1, Chimie de l'Ingénieur, TEMC (Techniques d'Expression et de Communication), Probabilités et Statistiques, et Statique Graphique et Analytique."
-  },
-  {
-    "question": "Quelles sont les matières enseignées au deuxième semestre à l'INSPEI ?",
-    "answer": "Au deuxième semestre (S2), les matières enseignées sont : Graphe et Optimisation, Mathématiques 2, Cinématique et Dynamique, RDM (Résistance des Matériaux), Anglais, Analyse Numérique, et Analyse Dimensionnelle."
-  },
-  {
-    "question": "Quelles sont les matières enseignées au troisième semestre à l'INSPEI ?",
-    "answer": "Au troisième semestre (S3), les matières enseignées sont : TEMC (Techniques d'Expression et de Communication), Mécanique des Fluides, Recherche Opérationnelle, EPS (Education Physique et Sportive), et Mathématiques 3."
-  },
-  {
-    "question": "Quelles sont les matières enseignées au quatrième semestre à l'INSPEI ?",
-    "answer": "Au quatrième semestre (S4), les matières enseignées sont : Mathématiques 4, Transfert Thermique, Statique de l'Ingénieur, Physique des Matériaux, et Optimisation."
-  },
-  {
-    "question": "Quel est le programme complet de la formation à l'INSPEI ?",
-    "answer": "La formation à l'INSPEI s'étend sur 4 semestres. Semestre 1 : EPS, Maths 1, Chimie de l'Ingénieur, TEMC, Probas/Stats, Statique Graphique/Analytique. Semestre 2 : Graphe/Optimisation, Maths 2, Cinématique/Dynamique, RDM, Anglais, Analyse Numérique, Analyse Dimensionnelle. Semestre 3 : TEMC, Mécanique des Fluides, Recherche Opérationnelle, EPS, Maths 3. Semestre 4 : Maths 4, Transfert Thermique, Statique de l'Ingénieur, Physique des Matériaux, Optimisation."
-  },
-  {
     "question": "L'INSPEI propose-t-il un hébergement ?",
     "answer": "Oui, l'INSPEI propose des résidences universitaires modernes avec des chambres individuelles ou partagées, des espaces communs (réfectoires, zones de détente) et un accès sécurisé 24h/24."
   },
@@ -352,24 +436,8 @@
     "answer": "Oui, les apprenants de l'INSPEI sont soumis à un régime d'internat, ce qui signifie qu'ils vivent sur le campus et bénéficient de l'hébergement et de la restauration."
   },
   {
-    "question": "Qu'est-ce que la TEMC à l'INSPEI ?",
-    "answer": "TEMC signifie Techniques d'Expression et de Communication. C'est une matière enseignée à l'INSPEI qui permet aux étudiants de développer leurs compétences en communication écrite et orale."
-  },
-  {
-    "question": "Qu'est-ce que la RDM à l'INSPEI ?",
-    "answer": "RDM signifie Résistance des Matériaux. C'est une matière enseignée à l'INSPEI qui étudie le comportement des matériaux soumis à des forces et des contraintes."
-  },
-  {
-    "question": "C'est quoi la RDM ?",
-    "answer": "RDM signifie Résistance des Matériaux. C'est une matière enseignée à l'INSPEI qui étudie le comportement des matériaux soumis à des forces et des contraintes."
-  },
-  {
     "question": "L'INSPEI forme-t-il des ingénieurs ?",
     "answer": "L'INSPEI ne forme pas directement des ingénieurs. Il prépare les étudiants aux concours des écoles d'ingénieurs de l'UNSTIM. La formation d'ingénieur se fait après, dans les écoles ENSGEP, ENSGMM et ENSTP."
-  },
-  {
-    "question": "Quels sont les spécialités proposées à l'ENSGMM ?",
-    "answer": "L'ENSGMM propose trois spécialités principales : la Modélisation et Simulation Numérique, l'Informatique et Recherche Opérationnelle, et la Modélisation Aléatoire, Statistique et Finances."
   },
   {
     "question": "Qu'est-ce que l'UNSTIM ?",
@@ -377,7 +445,7 @@
   },
   {
     "question": "Qu'est-ce que les classes préparatoires ?",
-    "answer": "Les classes préparatoires sont une formation de deux ans (Bac+2) qui prépare les étudiants aux concours d'entrée des grandes écoles d'ingénieurs. Elles offrent un enseignement intensif en mathématiques, physique, chimie et sciences de l'ingénieur."
+    "answer": "Les classes préparatoires sont une formation de deux ans (Bac+2) qui prépare les étudiants aux concours d'entrée des grandes écoles d'ingénieurs. Elles offrent un enseignement intensif en mathématiques, physique, chimie, informatique et sciences de l'ingénieur."
   },
   {
     "question": "C'est quoi les classes préparatoires exactement ?",
@@ -386,5 +454,13 @@
   {
     "question": "Pourquoi choisir l'INSPEI ?",
     "answer": "L'INSPEI est une école d'excellence qui offre une formation scientifique de haut niveau, un encadrement de qualité, un internat avec bourse, et un accès privilégié aux grandes écoles d'ingénieurs de l'UNSTIM. C'est la voie royale pour devenir ingénieur au Bénin."
+  },
+  {
+    "question": "Qu'est-ce que le Dessin Assisté par Ordinateur à l'INSPEI ?",
+    "answer": "Le DAO (Dessin Assisté par Ordinateur) est un outil de conception assistée par ordinateur enseigné dans le cadre de la matière Dessin Technique et DAO au troisième semestre. Il permet de réaliser des plans techniques et des modèles 3D à l'aide de logiciels spécialisés."
+  },
+  {
+    "question": "C'est quoi l'ENSGEP et l'ENSGMM ?",
+    "answer": "L'ENSGEP est l'Ecole Nationale Supérieure de Génie Energétique et Procédés, spécialisée en énergie et thermique. L'ENSGMM est l'Ecole Nationale Supérieure de Génie Mathématique et Modélisation, spécialisée en mathématiques appliquées et modélisation. Toutes deux sont des écoles d'ingénieurs de l'UNSTIM accessibles après l'INSPEI."
   }
 ]
