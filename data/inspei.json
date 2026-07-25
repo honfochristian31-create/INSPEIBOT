@@ -321,7 +321,7 @@
   },
   {
     "question": "Comment se déroule le concours d'entrée à l'INSPEI ?",
-    "answer": "L'inscription au concours se fait en ligne sur www.concours.enseignementsuperieur.gouv.bj. Les frais de dossier sont de 5000 FCFA à verser au Trésor Public (Compte : BJ 6600 1001 0000 0010 1567 71). La date limite de dépôt des dossiers est fixée au jeudi 14 août 2025 à 17h. Les épreuves écrites se dérouleront le mardi 2 septembre 2025 dans les centres d'Abomey (ENSTP/UNSTIM), Cotonou (CEG Gbégamey, Collège Catholique ND des Apôtres, CEG Ste Rita, CEG les Pylônes) et Parakou (IFSIO)."
+    "answer": "L'inscription au concours se fait en ligne sur www.concours.enseignementsuperieur.gouv.bj. Les frais de dossier sont de 5000 FCFA. Les modalités de paiement (numéro de compte Trésor) sont précisées chaque année dans l'avis de concours officiel publié sur le site du MESRS et sur la plateforme d'inscription. La date limite de dépôt des dossiers est fixée au jeudi 14 août 2025 à 17h. Les épreuves écrites se dérouleront le mardi 2 septembre 2025 dans les centres d'Abomey (ENSTP/UNSTIM), Cotonou (CEG Gbégamey, Collège Catholique ND des Apôtres, CEG Ste Rita, CEG les Pylônes) et Parakou (IFSIO)."
   },
   {
     "question": "Quelles sont les dates importantes du concours d'entrée à l'INSPEI ?",
@@ -329,7 +329,7 @@
   },
   {
     "question": "Quels sont les frais d'inscription au concours de l'INSPEI ?",
-    "answer": "Les frais de dossier sont de 5000 FCFA à verser au Trésor Public sur le compte : BJ 6600 1001 0000 0010 1567 71."
+    "answer": "Les frais de dossier sont de 5000 FCFA. Le numéro de compte Trésor Public et les modalités de paiement sont communiqués chaque année dans l'avis de concours officiel publié sur le site du MESRS (www.concours.enseignementsuperieur.gouv.bj)."
   },
   {
     "question": "Où puis-je m'inscrire au concours de l'INSPEI ?",
@@ -510,5 +510,9 @@
   {
     "question": "C'est quoi toutes ces écoles",
     "answer": "L'INSPEI est la classe préparatoire (2 ans). Les écoles d'ingénieurs qui viennent après sont : l'ENSGEP (énergie), l'ENSGMM (maths appliquées) et l'ENSTP (génie civil). Elles font toutes partie de l'UNSTIM et forment des ingénieurs Bac+5."
+  },
+  {
+    "question": "Comment payer les frais de concours de l'INSPEI ?",
+    "answer": "Les frais de dossier pour le concours de l'INSPEI sont de 5000 FCFA. Le numéro de compte Trésor Public et les modalités de paiement sont communiqués chaque année dans l'avis de concours officiel publié sur le site du MESRS (www.concours.enseignementsuperieur.gouv.bj). Il est vivement recommandé de consulter cette source officielle pour obtenir les informations de paiement à jour."
   }
 ]
