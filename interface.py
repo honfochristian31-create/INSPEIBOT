@@ -249,4 +249,4 @@ st.markdown("""
 <div class="footer">
     INSPEI &bull; Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur
 </div>
-""", unsafe_allow_html=True)v
+""", unsafe_allow_html=True)
