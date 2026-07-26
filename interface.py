@@ -136,9 +136,20 @@ def repondre(question, model, index, data, historique=[]):
     if question_lower in ["repete", "répète", "repetes", "répètes", "repeter", "répéter"]:
         return "Je suis à votre disposition pour toute question sur l'INSPEI. Que souhaitez-vous savoir ?"
     
+    # --- RÈGLE CONTEXTUELLE : "on compose quand" (si le sujet est l'INSPEI) ---
+    if ("compose" in question_lower or "composition" in question_lower or "quand" in question_lower):
+        if historique:
+            for msg in historique[-4:]:
+                if "inspei" in msg.get("content", "").lower():
+                    return "📅 **Concours INSPEI 2026 :**\n\nLa date du concours d'entrée est le **jeudi 10 septembre 2026**.\n\n📌 **Conditions** : 12/20 au baccalauréat et moins de 22 ans au 31 décembre 2026\n📌 **Inscription** : www.concours.enseignementsuperieur.gouv.bj\n📌 **Dépôt des dossiers** : début août 2026"
+    
     # --- RÈGLE RADICALE : "inspei compose quand" ---
     if "inspei" in question_lower and ("compose" in question_lower or "composition" in question_lower or "concours" in question_lower) and ("quand" in question_lower or "date" in question_lower):
         return "📅 **Concours INSPEI 2026 :**\n\nLa date du concours d'entrée est le **jeudi 10 septembre 2026**.\n\n📌 **Conditions** : 12/20 au baccalauréat et moins de 22 ans au 31 décembre 2026\n📌 **Inscription** : www.concours.enseignementsuperieur.gouv.bj\n📌 **Dépôt des dossiers** : début août 2026\n📌 **Centres d'examen** : Abomey (ENSTP/UNSTIM), Cotonou (CEG Gbégamey, Collège Catholique ND des Apôtres, CEG Ste Rita, CEG les Pylônes), Parakou (IFSIO)"
+    
+    # --- RÈGLE : "quel site" ---
+    if "site" in question_lower and ("officiel" in question_lower or "inspei" in question_lower):
+        return "🌐 **Site officiel de l'INSPEI :** https://siteinspei.netlify.app\n📝 **Site d'inscription aux concours :** www.concours.enseignementsuperieur.gouv.bj"
     
     # --- RÈGLE ULTRA PRIORITAIRE : "Comment aller et c'est où" ---
     if ("comment aller" in question_lower or "se rendre" in question_lower):
