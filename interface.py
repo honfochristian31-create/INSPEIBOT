@@ -129,15 +129,15 @@ def repondre(question, model, index, data, historique=[]):
         if ("ou" in question_lower or "où" in question_lower or "estou" in question_lower or "est ou" in question_lower or "c est ou" in question_lower or "c'est ou" in question_lower):
             return "📍 **Comment se rendre à l'INSPEI et où se trouve-t-il ?**\n\n**Où se trouve l'INSPEI ?**\nL'INSPEI est situé en République du Bénin, dans le Département du Zou, à **Abomey**, à environ 1 km de la place Goho, sur la route RNIE2 en allant vers Bohicon, à Sogbo-Aliho.\n\n**Comment y aller ?**\n\n🚗 **En voiture / taxi** : Prenez la route RNIE2 vers Bohicon. L'INSPEI est à gauche, à environ 1 km de la place Goho.\n\n🛵 **En taxi-moto (zémidjan)** : Dites au conducteur 'INSPEI, quartier Sogbo-Aliho' (c'est bien connu).\n\n🚌 **En bus / taxi-brousse** : Descendez à Abomey, puis prenez un taxi-moto jusqu'à l'INSPEI.\n\n📍 **Repère** : L'école est située dans le quartier Sogbo-Aliho.\n\n💡 **Depuis Cotonou** : Prenez un bus ou taxi-brousse direction Abomey, puis suivez les indications ci-dessus."
     
-    # --- RÈGLE : "Qu'est-ce qu'on fait à l'INSPEI" (évite l'hallucination) ---
-    if ("fait" in question_lower or "faire" in question_lower or "étudie" in question_lower or "apprend" in question_lower) and "inspei" in question_lower:
+    # --- RÈGLE PRIORITAIRE : "Qu'est-ce qu'on fait" (AVANT "C'est quoi") ---
+    if ("quoi" in question_lower or "qu'est-ce" in question_lower or "qu est ce" in question_lower) and ("fait" in question_lower or "faire" in question_lower or "étudie" in question_lower or "apprend" in question_lower) and "inspei" in question_lower:
         return "📚 **À l'INSPEI, on suit des Classes Préparatoires aux Études d'Ingénieur (CPEI).**\n\nLa formation dure **2 ans** (4 semestres) et prépare les bacheliers scientifiques aux concours des écoles d'ingénieurs de l'UNSTIM.\n\n📌 **Les matières enseignées par semestre :**\n\n**Semestre 1 (S1)** : Algorithmique, Thermodynamique, Maths 1, Chimie de l'Ingénieur, EPS, TEMC, Probabilités/Statistiques, Statique Graphique\n\n**Semestre 2 (S2)** : Analyse Numérique, Graphe/Optimisation, Maths 2, Cinématique/Dynamique, Langage (C/Python), RDM, Normes/Mesures, Anglais technique\n\n**Semestre 3 (S3)** : TEMC, Recherche Opérationnelle, Mécanique des Fluides, Maths 3, Physique des Matériaux, Géométrie Descriptive, Dessin Technique/DAO, Électricité Générale\n\n**Semestre 4 (S4)** : Maths 4, Matlab, MPA, Sciences Biologiques, Transfert Thermique, Ondes Électromagnétiques, Anglais Technique Avancé, EPS\n\n📌 **Débouchés** : Intégration dans les écoles d'ingénieurs (ENSGEP, ENSGMM, ENSTP)\n\n📍 **Adresse** : Abomey, quartier Sogbo-Aliho\n🌐 https://siteinspei.netlify.app"
     
     # --- RÈGLE : "Inspei" seul ---
     if question_lower.strip() in ["inspei", "inspéi", "insp"]:
         return "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est une école préparatoire aux grandes écoles d'ingénieurs du Bénin, située à Abomey. Que souhaitez-vous savoir ? (Admission, filières, écoles, concours, vie étudiante...) 😊"
     
-    # --- RÈGLE : "C'est quoi" ---
+    # --- RÈGLE : "C'est quoi" (définition générale) ---
     if ("quoi" in question_lower or "definition" in question_lower or "c'est quoi" in question_lower or "qu'est-ce" in question_lower) and "inspei" in question_lower:
         return "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est un établissement public rattaché à l'UNSTIM (Université Nationale des Sciences, Technologies, Ingénierie et Mathématiques). Il a été officiellement créé par l'arrêté N°719/MESRS/... du 23/12/2020, mais a démarré ses activités dès 2016-2017. Sa mission est de former des bacheliers scientifiques pour les grandes écoles d'ingénieurs du Bénin. La formation dure deux ans et débouche sur le CPEI."
     
@@ -159,7 +159,7 @@ def repondre(question, model, index, data, historique=[]):
     if ("préparer" in question_lower or "preparer" in question_lower or "réviser" in question_lower or "reviser" in question_lower or "annales" in question_lower or "s'entraîner" in question_lower or "entraîner" in question_lower) and ("concours" in question_lower or "inspei" in question_lower):
         return "📚 **Comment se préparer au concours INSPEI ?**\n\nVoici les ressources disponibles pour vous préparer :\n\n📌 **Annales des concours** (2017 à 2024) :\n• Mathématiques\n• Physique-Chimie-Technologie\n\n🌐 **Où les trouver ?**\n• Sur le site officiel des concours : www.concours.enseignementsuperieur.gouv.bj\n• Sur le site officiel de l'INSPEI : https://siteinspei.netlify.app (rubrique Ressources)\n\n📝 **Conseils de préparation :**\n• Réviser régulièrement les matières : Mathématiques, Physique, Chimie, Technologie\n• S'entraîner avec les annales des années précédentes\n• Travailler la gestion du temps (épreuves chronométrées)\n• Participer à des groupes de révision entre candidats\n\n📅 **Date du concours** : jeudi 10 septembre 2026\n\n💡 **Les annales sont disponibles gratuitement en ligne.**"
     
-    # --- RÈGLE : "Épreuves du concours" (élargie avec "composer" et "compser") ---
+    # --- RÈGLE : "Épreuves du concours" ---
     if "matiere" in question_lower or "matière" in question_lower or "epreuve" in question_lower or "épreuve" in question_lower:
         if ("concours" in question_lower or 
             "composer" in question_lower or 
