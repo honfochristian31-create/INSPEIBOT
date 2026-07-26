@@ -124,7 +124,7 @@ def repondre(question, model, index, data, historique=[]):
     if question_lower.strip() in ["inspei", "inspéi", "insp"]:
         return "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est une école préparatoire aux grandes écoles d'ingénieurs du Bénin, située à Abomey. Que souhaitez-vous savoir ? (Admission, filières, écoles, concours, vie étudiante...) 😊"
     
-    # --- RÈGLE : "C'est quoi" (définition) ---
+    # --- RÈGLE : "C'est quoi" ---
     if ("quoi" in question_lower or "definition" in question_lower or "c'est quoi" in question_lower or "qu'est-ce" in question_lower) and "inspei" in question_lower:
         return "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est un établissement public rattaché à l'UNSTIM (Université Nationale des Sciences, Technologies, Ingénierie et Mathématiques). Il a été officiellement créé par l'arrêté N°719/MESRS/... du 23/12/2020, mais a démarré ses activités dès 2016-2017. Sa mission est de former des bacheliers scientifiques pour les grandes écoles d'ingénieurs du Bénin. La formation dure deux ans et débouche sur le CPEI."
     
@@ -132,8 +132,7 @@ def repondre(question, model, index, data, historique=[]):
     if ("etudiant" in question_lower or "étudiant" in question_lower or "inscrire" in question_lower or "inscription" in question_lower or "postuler" in question_lower) and ("inspei" in question_lower or "là bas" in question_lower or "la bas" in question_lower):
         return "📝 **Comment devenir étudiant à l'INSPEI :**\n\nL'entrée à l'INSPEI se fait **exclusivement sur concours**. Voici les étapes :\n\n📌 **Étape 1 - Vérifier les conditions** :\n• Avoir 12/20 minimum au baccalauréat\n• Être âgé de moins de 22 ans au 31 décembre 2026\n\n📌 **Étape 2 - S'inscrire en ligne** :\n• Site : www.concours.enseignementsuperieur.gouv.bj\n• Période : début août 2026\n• Frais : 5000 FCFA\n\n📌 **Étape 3 - Déposer le dossier** :\n• Centres : INSPEI Abomey, ENS Natitingou, IFSIO Parakou, ENSET Lokossa, INMeS Cotonou, ENS Porto-Novo\n\n📌 **Étape 4 - Passer le concours** :\n• Date : jeudi 10 septembre 2026\n• Matières : Mathématiques, Physique, Chimie, Technologie\n\n📌 **Étape 5 - Résultats et sélection**\n\n💡 L'inscription seule ne suffit pas."
     
-    # --- RÈGLE : "On devient quoi après" (débouchés) - VERSION ULTRA LARGE ---
-    # Cette règle détecte les questions sur le devenir même sans mentionner "inspei"
+    # --- RÈGLE : "On devient quoi après" ---
     if ("on devient quoi" in question_lower or 
         "que faire après" in question_lower or 
         "après on fait quoi" in question_lower or
@@ -143,6 +142,10 @@ def repondre(question, model, index, data, historique=[]):
         ("que faire" in question_lower and "après" in question_lower)):
         return "🎓 **Que faire après l'INSPEI ?**\n\nAprès vos deux années de classes préparatoires à l'INSPEI, vous obtenez le **CPEI** (Certificat Préparatoire aux Études d'Ingénieur).\n\n📌 **Vous pouvez intégrer les écoles d'ingénieurs de l'UNSTIM :**\n\n🏛️ **ENSGEP** (Génie Energétique et Procédés)\n• Spécialités : Énergie, Thermique, Procédés industriels\n• Débouchés : Ingénieur en énergie, Chef d'usine, Bureau d'études\n\n🏛️ **ENSGMM** (Génie Mathématique et Modélisation)\n• Spécialités : Modélisation, Statistique-Finance, Informatique-Logistique\n• Débouchés : Data Scientist, Analyste financier, Logistique\n\n🏛️ **ENSTP** (Travaux Publics)\n• Spécialités : Génie civil, Construction, Infrastructures\n• Débouchés : Ingénieur BTP, Bureau d'études, Collectivités\n\n📌 **Cycle d'ingénieur** : 3 ans après l'INSPEI pour obtenir le diplôme d'ingénieur (Bac+5).\n\n💡 **Les débouchés sont nombreux** : Industrie, Énergie, Finance, Construction, Recherche...\n\n📍 **Adresse** : Abomey, quartier Sogbo-Aliho\n🌐 **Plus d'infos** : https://siteinspei.netlify.app"
     
+    # --- NOUVELLE RÈGLE : "Comment se préparer / avoir les épreuves" ---
+    if ("préparer" in question_lower or "preparer" in question_lower or "réviser" in question_lower or "reviser" in question_lower or "annales" in question_lower or "épreuves" in question_lower or "epreuves" in question_lower or "s'entraîner" in question_lower or "entraîner" in question_lower) and ("concours" in question_lower or "inspei" in question_lower):
+        return "📚 **Comment se préparer au concours INSPEI ?**\n\nVoici les ressources disponibles pour vous préparer :\n\n📌 **Annales des concours** (2017 à 2024) :\n• Mathématiques\n• Physique-Chimie-Technologie\n\n🌐 **Où les trouver ?**\n• Sur le site officiel des concours : www.concours.enseignementsuperieur.gouv.bj\n• Sur le site officiel de l'INSPEI : https://siteinspei.netlify.app (rubrique Ressources)\n\n📝 **Conseils de préparation :**\n• Réviser régulièrement les matières : Mathématiques, Physique, Chimie, Technologie\n• S'entraîner avec les annales des années précédentes\n• Travailler la gestion du temps (épreuves chronométrées)\n• Participer à des groupes de révision entre candidats\n\n📅 **Date du concours** : jeudi 10 septembre 2026\n\n💡 **Les annales sont disponibles gratuitement en ligne.**"
+    
     # --- RÈGLE : "Où" (localisation) ---
     if ("ou" in question_lower or "où" in question_lower or "situé" in question_lower or "adresse" in question_lower) and "inspei" in question_lower:
         if "concours" in question_lower or "epreuve" in question_lower or "compos" in question_lower:
@@ -150,7 +153,7 @@ def repondre(question, model, index, data, historique=[]):
         else:
             return "📍 **L'INSPEI est situé** :\n\nEn République du Bénin, dans le Département du Zou, à Abomey, à environ 1 km de la place Goho, sur la route RNIE2 en allant vers Bohicon, à Sogbo-Aliho."
     
-    # --- RÈGLE : "Comment on va là bas" (itinéraire) ---
+    # --- RÈGLE : "Comment on va là bas" ---
     if ("comment" in question_lower or "va" in question_lower or "aller" in question_lower or "se rendre" in question_lower) and ("là bas" in question_lower or "la bas" in question_lower):
         return "📍 **Comment se rendre à l'INSPEI :**\n\nL'INSPEI est situé à **Abomey, quartier Sogbo-Aliho**, à environ **1 km de la place Goho** sur la **route RNIE2** en direction de Bohicon.\n\n🚗 En voiture : Prenez la route RNIE2 vers Bohicon. L'INSPEI est à gauche.\n🛵 En taxi-moto : Dites 'INSPEI, quartier Sogbo-Aliho'\n🚌 En bus : Descendez à Abomey, puis prenez un taxi-moto."
     
