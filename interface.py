@@ -124,6 +124,24 @@ def repondre(question, model, index, data, historique=[]):
     # 1. RÈGLES SPÉCIFIQUES (ULTRA PRIORITAIRES)
     # ============================================================
     
+    # --- RÈGLE ULTRA RADICALE : Définition de l'INSPEI ---
+    # Cette règle capture TOUTE question qui demande la définition de l'INSPEI
+    # Elle est placée AVANT TOUTE AUTRE RÈGLE (même les confirmations)
+    if ("inspei" in question_lower and 
+        ("quoi" in question_lower or 
+         "signifie" in question_lower or 
+         "signification" in question_lower or 
+         "definition" in question_lower or 
+         "définition" in question_lower or 
+         "c'est quoi" in question_lower or 
+         "c est quoi" in question_lower or 
+         "qu'est-ce" in question_lower or 
+         "qu est ce" in question_lower or 
+         "que veut dire" in question_lower or 
+         "c'est" in question_lower or 
+         "c est" in question_lower)):
+        return "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est un établissement public rattaché à l'UNSTIM (Université Nationale des Sciences, Technologies, Ingénierie et Mathématiques). Il a été officiellement créé par l'arrêté N°719/MESRS/... du 23/12/2020, mais a démarré ses activités dès 2016-2017. Sa mission est de former des bacheliers scientifiques pour les grandes écoles d'ingénieurs du Bénin. La formation dure deux ans et débouche sur le CPEI."
+    
     # --- RÈGLE : confirmations ---
     mots_confirmation = ["ok", "oui", "non", "merci", "d'accord", "super", "parfait", "cool", "okay", "yes", "no", "si", "sisi"]
     if question_lower.strip() in mots_confirmation:
@@ -136,18 +154,6 @@ def repondre(question, model, index, data, historique=[]):
     # --- RÈGLE : "repete" ---
     if question_lower in ["repete", "répète", "repetes", "répètes", "repeter", "répéter"]:
         return "Je suis à votre disposition pour toute question sur l'INSPEI. Que souhaitez-vous savoir ?"
-    
-    # --- RÈGLE ULTRA PRIORITAIRE : "c'est quoi inspei" (définition) ---
-    # Cette règle est placée AVANT toutes les autres règles spécifiques
-    if ("c'est quoi" in question_lower or "c est quoi" in question_lower) and "inspei" in question_lower:
-        return "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est un établissement public rattaché à l'UNSTIM (Université Nationale des Sciences, Technologies, Ingénierie et Mathématiques). Il a été officiellement créé par l'arrêté N°719/MESRS/... du 23/12/2020, mais a démarré ses activités dès 2016-2017. Sa mission est de former des bacheliers scientifiques pour les grandes écoles d'ingénieurs du Bénin. La formation dure deux ans et débouche sur le CPEI."
-    
-    # --- RÈGLE : "quoi" + "inspei" (fallback pour les autres formulations) ---
-    if ("quoi" in question_lower or 
-        "qu'est-ce" in question_lower or 
-        "qu est ce" in question_lower or 
-        "definition" in question_lower) and "inspei" in question_lower:
-        return "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est un établissement public rattaché à l'UNSTIM (Université Nationale des Sciences, Technologies, Ingénierie et Mathématiques). Il a été officiellement créé par l'arrêté N°719/MESRS/... du 23/12/2020, mais a démarré ses activités dès 2016-2017. Sa mission est de former des bacheliers scientifiques pour les grandes écoles d'ingénieurs du Bénin. La formation dure deux ans et débouche sur le CPEI."
     
     # --- RÈGLE CONTEXTUELLE : "on compose quand" ---
     if ("compose" in question_lower or "composition" in question_lower or "quand" in question_lower):
