@@ -37,21 +37,17 @@ def corriger_orthographe(texte):
             mots_corriges.append(mot)
     return ' '.join(mots_corriges)
 
-# ---------- 2.5 NORMALISATION DE LA QUESTION ----------
+# ---------- 2.5 NORMALISATION ----------
 def normaliser_question(texte):
-    """Normalise la question pour capturer les formulations courantes"""
     texte = texte.lower()
-    # Remplacer les espaces dans les expressions figées
     texte = texte.replace("qu est ce", "qu'est-ce")
     texte = texte.replace("qu est", "qu'est")
     texte = texte.replace("ce qu on", "ce qu'on")
-    texte = texte.replace("ce que l on", "ce que l'on")
     texte = texte.replace("a l inspei", "à l'inspei")
     texte = texte.replace("a inspei", "à inspei")
-    texte = texte.replace("inspei", "inspei")  # garder tel quel
     return texte
 
-# ---------- 3. CHARGEMENT DU SYSTÈME ----------
+# ---------- 3. CHARGEMENT ----------
 @st.cache_resource
 def charger_systeme():
     try:
@@ -119,12 +115,12 @@ def repondre(question, model, index, data, historique=[]):
     if question_corrigee != question:
         question = question_corrigee
     
-    # --- NORMALISATION DE LA QUESTION (POUR CAPTURER "qu est ce") ---
+    # --- NORMALISATION ---
     question_normalisee = normaliser_question(question)
     question_lower = question_normalisee.lower().strip()
     
     # ============================================================
-    # 1. RÈGLES SPÉCIFIQUES (ULTRA PRIORITAIRES)
+    # 1. RÈGLES SPÉCIFIQUES
     # ============================================================
     
     # --- RÈGLE : confirmations ---
@@ -140,18 +136,17 @@ def repondre(question, model, index, data, historique=[]):
     if question_lower in ["repete", "répète", "repetes", "répètes", "repeter", "répéter"]:
         return "Je suis à votre disposition pour toute question sur l'INSPEI. Que souhaitez-vous savoir ?"
     
-    # --- RÈGLE ULTRA PRIORITAIRE : "Comment aller et c'est où" ---
+    # --- RÈGLE : "Comment aller et c'est où" ---
     if ("comment aller" in question_lower or "se rendre" in question_lower):
         if ("ou" in question_lower or "où" in question_lower or "estou" in question_lower or "est ou" in question_lower or "c est ou" in question_lower or "c'est ou" in question_lower):
             return "📍 **Comment se rendre à l'INSPEI et où se trouve-t-il ?**\n\n**Où se trouve l'INSPEI ?**\nL'INSPEI est situé en République du Bénin, dans le Département du Zou, à **Abomey**, à environ 1 km de la place Goho, sur la route RNIE2 en allant vers Bohicon, à Sogbo-Aliho.\n\n**Comment y aller ?**\n\n🚗 **En voiture / taxi** : Prenez la route RNIE2 vers Bohicon. L'INSPEI est à gauche, à environ 1 km de la place Goho.\n\n🛵 **En taxi-moto (zémidjan)** : Dites au conducteur 'INSPEI, quartier Sogbo-Aliho' (c'est bien connu).\n\n🚌 **En bus / taxi-brousse** : Descendez à Abomey, puis prenez un taxi-moto jusqu'à l'INSPEI.\n\n📍 **Repère** : L'école est située dans le quartier Sogbo-Aliho.\n\n💡 **Depuis Cotonou** : Prenez un bus ou taxi-brousse direction Abomey, puis suivez les indications ci-dessus."
     
-    # --- RÈGLE ULTRA LARGE : "Qu'est-ce qu'on fait" ---
-    # Cette règle capture TOUTES les questions sur ce qu'on fait à l'INSPEI
-    if ("fait" in question_lower or "faire" in question_lower or "étudie" in question_lower or "apprend" in question_lower or "enseigne" in question_lower or "formation" in question_lower) and "inspei" in question_lower:
+    # --- RÈGLE : "Qu'est-ce qu'on fait" ---
+    if ("fait" in question_lower or "faire" in question_lower or "étudie" in question_lower or "apprend" in question_lower or "enseigne" in question_lower) and "inspei" in question_lower:
         if ("quoi" in question_lower or "qu'est" in question_lower or "qu est" in question_lower or "que" in question_lower or "ce qu" in question_lower or "on" in question_lower):
             return "📚 **À l'INSPEI, on suit des Classes Préparatoires aux Études d'Ingénieur (CPEI).**\n\nLa formation dure **2 ans** (4 semestres) et prépare les bacheliers scientifiques aux concours des écoles d'ingénieurs de l'UNSTIM.\n\n📌 **Les matières enseignées par semestre :**\n\n**Semestre 1 (S1)** : Algorithmique, Thermodynamique, Maths 1, Chimie de l'Ingénieur, EPS, TEMC, Probabilités/Statistiques, Statique Graphique\n\n**Semestre 2 (S2)** : Analyse Numérique, Graphe/Optimisation, Maths 2, Cinématique/Dynamique, Langage (C/Python), RDM, Normes/Mesures, Anglais technique\n\n**Semestre 3 (S3)** : TEMC, Recherche Opérationnelle, Mécanique des Fluides, Maths 3, Physique des Matériaux, Géométrie Descriptive, Dessin Technique/DAO, Électricité Générale\n\n**Semestre 4 (S4)** : Maths 4, Matlab, MPA, Sciences Biologiques, Transfert Thermique, Ondes Électromagnétiques, Anglais Technique Avancé, EPS\n\n📌 **Débouchés** : Intégration dans les écoles d'ingénieurs (ENSGEP, ENSGMM, ENSTP)\n\n📍 **Adresse** : Abomey, quartier Sogbo-Aliho\n🌐 https://siteinspei.netlify.app"
     
-    # --- RÈGLE ULTRA LARGE 2 : "quoi" + "inspei" (même sans "fait") ---
+    # --- RÈGLE : "quoi" + "inspei" ---
     if ("quoi" in question_lower or "qu'est-ce" in question_lower or "qu'est ce" in question_lower) and "inspei" in question_lower:
         return "📚 **À l'INSPEI, on suit des Classes Préparatoires aux Études d'Ingénieur (CPEI).**\n\nLa formation dure **2 ans** (4 semestres) et prépare les bacheliers scientifiques aux concours des écoles d'ingénieurs de l'UNSTIM.\n\n📌 **Les matières enseignées par semestre :**\n\n**Semestre 1 (S1)** : Algorithmique, Thermodynamique, Maths 1, Chimie de l'Ingénieur, EPS, TEMC, Probabilités/Statistiques, Statique Graphique\n\n**Semestre 2 (S2)** : Analyse Numérique, Graphe/Optimisation, Maths 2, Cinématique/Dynamique, Langage (C/Python), RDM, Normes/Mesures, Anglais technique\n\n**Semestre 3 (S3)** : TEMC, Recherche Opérationnelle, Mécanique des Fluides, Maths 3, Physique des Matériaux, Géométrie Descriptive, Dessin Technique/DAO, Électricité Générale\n\n**Semestre 4 (S4)** : Maths 4, Matlab, MPA, Sciences Biologiques, Transfert Thermique, Ondes Électromagnétiques, Anglais Technique Avancé, EPS\n\n📌 **Débouchés** : Intégration dans les écoles d'ingénieurs (ENSGEP, ENSGMM, ENSTP)\n\n📍 **Adresse** : Abomey, quartier Sogbo-Aliho\n🌐 https://siteinspei.netlify.app"
     
@@ -159,7 +154,7 @@ def repondre(question, model, index, data, historique=[]):
     if question_lower.strip() in ["inspei", "inspéi", "insp"]:
         return "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est une école préparatoire aux grandes écoles d'ingénieurs du Bénin, située à Abomey. Que souhaitez-vous savoir ? (Admission, filières, écoles, concours, vie étudiante...) 😊"
     
-    # --- RÈGLE : "C'est quoi" (définition générale) ---
+    # --- RÈGLE : "C'est quoi" ---
     if ("quoi" in question_lower or "definition" in question_lower or "c'est quoi" in question_lower or "qu'est-ce" in question_lower) and "inspei" in question_lower:
         return "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est un établissement public rattaché à l'UNSTIM (Université Nationale des Sciences, Technologies, Ingénierie et Mathématiques). Il a été officiellement créé par l'arrêté N°719/MESRS/... du 23/12/2020, mais a démarré ses activités dès 2016-2017. Sa mission est de former des bacheliers scientifiques pour les grandes écoles d'ingénieurs du Bénin. La formation dure deux ans et débouche sur le CPEI."
     
@@ -177,9 +172,9 @@ def repondre(question, model, index, data, historique=[]):
         ("que faire" in question_lower and "après" in question_lower)):
         return "🎓 **Que faire après l'INSPEI ?**\n\nAprès vos deux années de classes préparatoires à l'INSPEI, vous obtenez le **CPEI** (Certificat Préparatoire aux Études d'Ingénieur).\n\n📌 **Vous pouvez intégrer les écoles d'ingénieurs de l'UNSTIM :**\n\n🏛️ **ENSGEP** (Génie Energétique et Procédés)\n• Spécialités : Énergie, Thermique, Procédés industriels\n• Débouchés : Ingénieur en énergie, Chef d'usine, Bureau d'études\n\n🏛️ **ENSGMM** (Génie Mathématique et Modélisation)\n• Spécialités : Modélisation, Statistique-Finance, Informatique-Logistique\n• Débouchés : Data Scientist, Analyste financier, Logistique\n\n🏛️ **ENSTP** (Travaux Publics)\n• Spécialités : Génie civil, Construction, Infrastructures\n• Débouchés : Ingénieur BTP, Bureau d'études, Collectivités\n\n📌 **Cycle d'ingénieur** : 3 ans après l'INSPEI pour obtenir le diplôme d'ingénieur (Bac+5).\n\n💡 **Les débouchés sont nombreux** : Industrie, Énergie, Finance, Construction, Recherche...\n\n📍 **Adresse** : Abomey, quartier Sogbo-Aliho\n🌐 **Plus d'infos** : https://siteinspei.netlify.app"
     
-    # --- RÈGLE : "Comment se préparer / avoir les épreuves" ---
+    # --- RÈGLE : "Comment se préparer" ---
     if ("préparer" in question_lower or "preparer" in question_lower or "réviser" in question_lower or "reviser" in question_lower or "annales" in question_lower or "s'entraîner" in question_lower or "entraîner" in question_lower) and ("concours" in question_lower or "inspei" in question_lower):
-        return "📚 **Comment se préparer au concours INSPEI ?**\n\nVoici les ressources disponibles pour vous préparer :\n\n📌 **Annales des concours** (2017 à 2024) :\n• Mathématiques\n• Physique-Chimie-Technologie\n\n🌐 **Où les trouver ?**\n• Sur le site officiel des concours : www.concours.enseignementsuperieur.gouv.bj\n• Sur le site officiel de l'INSPEI : https://siteinspei.netlify.app (rubrique Ressources)\n\n📝 **Conseils de préparation :**\n• Réviser régulièrement les matières : Mathématiques, Physique, Chimie, Technologie\n• S'entraîner avec les annales des années précédentes\n• Travailler la gestion du temps (épreuves chronométrées)\n• Participer à des groupes de révision entre candidats\n\n📅 **Date du concours** : jeudi 10 septembre 2026\n\n💡 **Les annales sont disponibles gratuitement en ligne.**"
+        return "📚 **Comment se préparer au concours INSPEI ?**\n\n📌 **Annales des concours** (2017 à 2024) : Mathématiques, Physique-Chimie-Technologie\n\n🌐 **Où les trouver ?**\n• www.concours.enseignementsuperieur.gouv.bj\n• https://siteinspei.netlify.app (rubrique Ressources)\n\n📝 **Conseils :** Réviser régulièrement, s'entraîner avec les annales, travailler la gestion du temps.\n\n📅 **Date** : jeudi 10 septembre 2026"
     
     # --- RÈGLE : "Épreuves du concours" ---
     if "matiere" in question_lower or "matière" in question_lower or "epreuve" in question_lower or "épreuve" in question_lower:
@@ -189,16 +184,16 @@ def repondre(question, model, index, data, historique=[]):
             "compos" in question_lower or 
             "compose" in question_lower or 
             "composition" in question_lower):
-            return "📚 **Épreuves du concours INSPEI 2026 :**\n\nVous composez **2 épreuves écrites** :\n\n📌 **Épreuve 1** : Mathématiques\n📌 **Épreuve 2** : Sciences Physiques, Chimie et Technologie\n\n📅 Date : jeudi 10 septembre 2026\n🌐 Inscription : www.concours.enseignementsuperieur.gouv.bj\n📖 Plus d'infos : https://siteinspei.netlify.app"
+            return "📚 **Épreuves du concours INSPEI 2026 :**\n\nVous composez **2 épreuves écrites** :\n\n📌 **Épreuve 1** : Mathématiques\n📌 **Épreuve 2** : Sciences Physiques, Chimie et Technologie\n\n📅 Date : jeudi 10 septembre 2026\n🌐 Inscription : www.concours.enseignementsuperieur.gouv.bj"
     
-    # --- RÈGLE : "Matières enseignées à l'INSPEI" (formation) ---
+    # --- RÈGLE : "Matières enseignées" ---
     if "matiere" in question_lower or "matière" in question_lower:
         if "semestre" in question_lower or "programme" in question_lower or "formation" in question_lower:
-            return "📚 **Matières enseignées à l'INSPEI :**\n\nLa formation dure **2 ans** (4 semestres).\n\n📌 **Semestre 1 (S1)** :\n• Algorithmique (Algo)\n• Thermodynamique\n• Mathématiques 1\n• Chimie de l'Ingénieur\n• EPS (Education Physique et Sportive)\n• TEMC (Techniques d'Expression et de Communication)\n• Probabilités et Statistiques\n• Statique Graphique et Analytique\n\n📌 **Semestre 2 (S2)** :\n• Analyse Numérique\n• Graphe et Optimisation\n• Mathématiques 2\n• Cinématique et Dynamique\n• Langage (C, Python)\n• RDM (Résistance des Matériaux)\n• Normes et Mesures\n• Anglais technique\n\n📌 **Semestre 3 (S3)** :\n• TEMC (Techniques d'Expression et de Communication)\n• Recherche Opérationnelle\n• Mécanique des Fluides\n• Mathématiques 3\n• Physique des Matériaux\n• Géométrie Descriptive\n• Dessin Technique et DAO\n• Électricité Générale\n\n📌 **Semestre 4 (S4)** :\n• Mathématiques 4\n• Matlab\n• MPA (Modélisation des Phénomènes Aléatoires)\n• Sciences Biologiques pour l'Ingénieur\n• Transfert Thermique\n• Ondes Électromagnétiques\n• Anglais Technique Avancé\n• EPS (Education Physique et Sportive)\n\n📖 Plus d'infos : https://siteinspei.netlify.app"
+            return "📚 **Matières enseignées à l'INSPEI :**\n\n📌 **Semestre 1** : Algorithmique, Thermodynamique, Maths 1, Chimie de l'Ingénieur, EPS, TEMC, Probabilités/Statistiques, Statique Graphique\n\n📌 **Semestre 2** : Analyse Numérique, Graphe/Optimisation, Maths 2, Cinématique/Dynamique, Langage (C/Python), RDM, Normes/Mesures, Anglais technique\n\n📌 **Semestre 3** : TEMC, Recherche Opérationnelle, Mécanique des Fluides, Maths 3, Physique des Matériaux, Géométrie Descriptive, Dessin Technique/DAO, Électricité Générale\n\n📌 **Semestre 4** : Maths 4, Matlab, MPA, Sciences Biologiques, Transfert Thermique, Ondes Électromagnétiques, Anglais Technique Avancé, EPS"
     
-    # --- RÈGLE : "Comment aller à INSPEI" (itinéraire) ---
+    # --- RÈGLE : "Comment aller" ---
     if ("comment aller" in question_lower or "comment se rendre" in question_lower or "comment venir" in question_lower) and "inspei" in question_lower:
-        return "📍 **Comment se rendre à l'INSPEI :**\n\nL'INSPEI est situé à **Abomey, quartier Sogbo-Aliho**, à environ **1 km de la place Goho** sur la **route RNIE2** en direction de Bohicon.\n\n🚗 **En voiture / taxi** : Prenez la route RNIE2 vers Bohicon. L'INSPEI est à gauche, à environ 1 km de la place Goho.\n\n🛵 **En taxi-moto (zémidjan)** : Dites 'INSPEI, quartier Sogbo-Aliho' (c'est bien connu).\n\n🚌 **En bus / taxi-brousse** : Descendez à Abomey, puis prenez un taxi-moto jusqu'à l'INSPEI.\n\n📍 **Repère** : L'école est située dans le quartier Sogbo-Aliho.\n\n💡 Si vous venez de Cotonou, prenez un bus ou taxi-brousse direction Abomey, puis suivez les indications ci-dessus."
+        return "📍 **Comment se rendre à l'INSPEI :**\n\nL'INSPEI est situé à **Abomey, quartier Sogbo-Aliho**, à environ **1 km de la place Goho** sur la **route RNIE2** en direction de Bohicon.\n\n🚗 **En voiture / taxi** : Prenez la route RNIE2 vers Bohicon. L'INSPEI est à gauche, à environ 1 km de la place Goho.\n\n🛵 **En taxi-moto (zémidjan)** : Dites 'INSPEI, quartier Sogbo-Aliho'.\n\n🚌 **En bus / taxi-brousse** : Descendez à Abomey, puis prenez un taxi-moto jusqu'à l'INSPEI."
     
     # --- RÈGLE : "Où" (localisation) ---
     if ("ou" in question_lower or "où" in question_lower or "situé" in question_lower or "adresse" in question_lower) and "inspei" in question_lower:
@@ -207,13 +202,13 @@ def repondre(question, model, index, data, historique=[]):
         else:
             return "📍 **L'INSPEI est situé** :\n\nEn République du Bénin, dans le Département du Zou, à Abomey, à environ 1 km de la place Goho, sur la route RNIE2 en allant vers Bohicon, à Sogbo-Aliho."
     
-    # --- RÈGLE : "Comment on va là bas" (itinéraire) ---
+    # --- RÈGLE : "Comment on va là bas" ---
     if ("comment" in question_lower or "va" in question_lower or "aller" in question_lower or "se rendre" in question_lower) and ("là bas" in question_lower or "la bas" in question_lower):
         return "📍 **Comment se rendre à l'INSPEI :**\n\nL'INSPEI est situé à **Abomey, quartier Sogbo-Aliho**, à environ **1 km de la place Goho** sur la **route RNIE2** en direction de Bohicon.\n\n🚗 En voiture : Prenez la route RNIE2 vers Bohicon. L'INSPEI est à gauche.\n🛵 En taxi-moto : Dites 'INSPEI, quartier Sogbo-Aliho'\n🚌 En bus : Descendez à Abomey, puis prenez un taxi-moto."
     
-    # --- RÈGLE : "C'est quand le concours" ---
-    if ("quand" in question_lower or "date" in question_lower) and "concours" in question_lower:
-        return "📅 **Concours INSPEI 2026** :\n\nLa date du concours d'entrée est le **jeudi 10 septembre 2026**.\n\n📌 Conditions : 12/20 au baccalauréat et moins de 22 ans au 31/12/2026\n📌 Inscription : www.concours.enseignementsuperieur.gouv.bj"
+    # --- RÈGLE : "C'est quand le concours" (élargie avec "compose") ---
+    if ("quand" in question_lower or "date" in question_lower or "compose" in question_lower or "composition" in question_lower) and ("concours" in question_lower or "inspei" in question_lower):
+        return "📅 **Concours INSPEI 2026 :**\n\nLa date du concours d'entrée est le **jeudi 10 septembre 2026**.\n\n📌 Conditions : 12/20 au baccalauréat et moins de 22 ans au 31/12/2026\n📌 Inscription : www.concours.enseignementsuperieur.gouv.bj\n📌 Dépôt des dossiers : début août 2026\n📌 Centres d'examen : Abomey (ENSTP/UNSTIM), Cotonou (CEG Gbégamey, CEG Ste Rita, CEG les Pylônes), Parakou (IFSIO)"
     
     # --- RÈGLE : "Où s'inscrire" ---
     if ("s'inscrire" in question_lower or "inscription" in question_lower) and ("concours" in question_lower or "inspei" in question_lower):
@@ -221,18 +216,18 @@ def repondre(question, model, index, data, historique=[]):
     
     # --- RÈGLE : "Les écoles" ---
     if ("école" in question_lower or "ecole" in question_lower) and "inspei" in question_lower:
-        return "🎓 **Écoles d'ingénieurs de l'UNSTIM :**\n\n🏛️ **ENSGEP** : Génie Energétique et Procédés\n🏛️ **ENSGMM** : Génie Mathématique et Modélisation\n🏛️ **ENSTP** : Travaux Publics\n\nToutes sont situées à Abomey et accessibles après l'INSPEI."
+        return "🎓 **Écoles d'ingénieurs de l'UNSTIM :**\n\n🏛️ **ENSGEP** : Génie Energétique et Procédés\n🏛️ **ENSGMM** : Génie Mathématique et Modélisation\n🏛️ **ENSTP** : Travaux Publics\n\nToutes sont situées à Abomey."
     
     # --- RÈGLE : "Les administrateurs" ---
     if "administrateur" in question_lower or "admin" in question_lower or "direction" in question_lower or "responsable" in question_lower:
-        return "👨‍🏫 **Équipe dirigeante de l'INSPEI :**\n\n• Dr (MC) AKOWANOU Christian D. (Directeur)\n• Dr. Bernard N. TOKPOHOZIN (CSSE)\n• GBEGNITO Wilfried Hodonou (Secrétaire général)\n• Comptable • Chef matériel • AKPAVOU Chédrac (Conducteur de Bus)"
+        return "👨‍🏫 **Équipe dirigeante de l'INSPEI :**\n\n• Dr (MC) AKOWANOU Christian D. (Directeur)\n• Dr. Bernard N. TOKPOHOZIN (CSSE)\n• GBEGNITO Wilfried Hodonou (Secrétaire général)"
     
     # --- Si la question est trop courte ---
     if len(question.strip().split()) <= 1:
         return "Pouvez-vous préciser votre question sur l'INSPEI ? Je suis là pour vous renseigner sur les admissions, les filières, les écoles, la vie étudiante, etc."
     
     # ============================================================
-    # 2. RECHERCHE DANS LA BASE DE DONNÉES (JSON)
+    # 2. RECHERCHE DANS LA BASE DE DONNÉES
     # ============================================================
     resultats = rechercher(question, model, index, data, k=3)
     
