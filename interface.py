@@ -146,6 +146,16 @@ def repondre(question, model, index, data, historique=[]):
     if est_question_definition(question_lower):
         return DEFINITION_INSPEI
     
+    # --- RÈGLE : CONDITIONS D'ADMISSION (NOUVEAU) ---
+    if ("condition" in question_lower or "admission" in question_lower or 
+        "entrer" in question_lower or "admis" in question_lower or "requis" in question_lower) and "inspei" in question_lower:
+        return "📋 **Conditions d'admission à l'INSPEI :**\n\nPour être admis à l'INSPEI, vous devez :\n• Avoir un baccalauréat scientifique avec une moyenne d'au moins **12/20**\n• Être âgé de moins de **22 ans** au 31 décembre de l'année du concours\n• Réussir le concours d'entrée (épreuves écrites de Mathématiques et Sciences Physiques-Chimie-Technologie)\n\n🌐 Plus de détails sur les conditions et les dispenses : https://siteinspei.netlify.app"
+    
+    # --- RÈGLE : PROCÉDURE D'INSCRIPTION (NOUVEAU) ---
+    if ("inscrire" in question_lower or "inscription" in question_lower or 
+        "déposer" in question_lower or "dossier" in question_lower) and "inspei" in question_lower:
+        return "📝 **Procédure d'inscription à l'INSPEI :**\n\n1️⃣ **Inscription en ligne** sur le site officiel des concours : www.concours.enseignementsuperieur.gouv.bj\n2️⃣ **Paiement** des frais d'inscription (environ 5000 FCFA)\n3️⃣ **Dépôt du dossier physique** dans l'un des centres agréés (INSPEI Abomey, ENS Natitingou, IFSIO Parakou, ENSET Lokossa, INMeS Cotonou, ENS Porto-Novo) **début août**\n\n📌 **Pièces à fournir** :\n• Copie du baccalauréat\n• Copie de la carte d'identité\n• Copie du certificat de naissance\n• Reçu de paiement\n• Photo d'identité (selon les consignes)\n\n🌐 Dates exactes et formulaires : https://siteinspei.netlify.app"
+    
     # --- RÈGLE : ÉPREUVES DU CONCOURS (contenu) ---
     if ("matiere" in question_lower or "matière" in question_lower or "epreuve" in question_lower or "épreuve" in question_lower):
         if ("concours" in question_lower or 
@@ -199,6 +209,7 @@ def repondre(question, model, index, data, historique=[]):
     
     # --- RÈGLE : "Devenir étudiant" ---
     if ("etudiant" in question_lower or "étudiant" in question_lower or "inscrire" in question_lower or "inscription" in question_lower or "postuler" in question_lower) and ("inspei" in question_lower or "là bas" in question_lower or "la bas" in question_lower):
+        # Cette règle peut être redondante avec la nouvelle règle d'inscription, on la garde pour les questions plus générales
         return "📝 **Comment devenir étudiant à l'INSPEI :**\n\nL'entrée à l'INSPEI se fait **exclusivement sur concours**. Voici les étapes :\n\n📌 **Étape 1 - Vérifier les conditions** :\n• Avoir 12/20 minimum au baccalauréat\n• Être âgé de moins de 22 ans au 31 décembre 2026\n\n📌 **Étape 2 - S'inscrire en ligne** :\n• Site : www.concours.enseignementsuperieur.gouv.bj\n• Période : début août 2026\n• Frais : 5000 FCFA\n\n📌 **Étape 3 - Déposer le dossier** :\n• Centres : INSPEI Abomey, ENS Natitingou, IFSIO Parakou, ENSET Lokossa, INMeS Cotonou, ENS Porto-Novo\n\n📌 **Étape 4 - Passer le concours** :\n• Date : jeudi 10 septembre 2026\n• Matières : Mathématiques, Physique, Chimie, Technologie\n\n📌 **Étape 5 - Résultats et sélection**\n\n💡 L'inscription seule ne suffit pas."
     
     # --- RÈGLE : "On devient quoi après" ---
@@ -219,11 +230,10 @@ def repondre(question, model, index, data, historique=[]):
     if ("comment aller" in question_lower or "comment se rendre" in question_lower or "comment venir" in question_lower) and "inspei" in question_lower:
         return "📍 **Comment se rendre à l'INSPEI :**\n\nL'INSPEI est situé à **Abomey, quartier Sogbo-Aliho**, à environ **1 km de la place Goho** sur la **route RNIE2** en direction de Bohicon.\n\n🚗 **En voiture / taxi** : Prenez la route RNIE2 vers Bohicon. L'INSPEI est à gauche, à environ 1 km de la place Goho.\n\n🛵 **En taxi-moto (zémidjan)** : Dites 'INSPEI, quartier Sogbo-Aliho'.\n\n🚌 **En bus / taxi-brousse** : Descendez à Abomey, puis prenez un taxi-moto jusqu'à l'INSPEI."
     
-    # --- RÈGLE : "Où se déroule la composition / les épreuves ?" (NOUVEAU) ---
+    # --- RÈGLE : "Où se déroule la composition / les épreuves ?" ---
     if ("ou" in question_lower or "où" in question_lower or "lieu" in question_lower or "adresse" in question_lower):
         if ("composition" in question_lower or "compose" in question_lower or "composer" in question_lower or
             "concours" in question_lower or "epreuve" in question_lower or "épreuve" in question_lower):
-            # On renvoie les centres d'examen
             return "📍 **Où se déroulent les épreuves écrites (composition) du concours INSPEI ?**\n\nLes épreuves ont lieu dans plusieurs centres répartis sur le territoire béninois :\n\n🏛️ **Abomey** : ENSTP/UNSTIM\n🏛️ **Cotonou** : CEG Gbégamey, Collège Catholique ND des Apôtres, CEG Ste Rita, CEG les Pylônes\n🏛️ **Parakou** : IFSIO\n\n📌 D'autres centres peuvent être ajoutés. Consultez votre convocation pour le centre exact.\n\n🌐 Plus d'informations : https://siteinspei.netlify.app"
     
     # --- RÈGLE : "Où" (localisation de l'école) ---
@@ -401,7 +411,8 @@ def generer_titre(question):
         "responsable": "Administration",
         "compos": "Concours",
         "composition": "Concours",
-        "épreuve": "Concours"
+        "épreuve": "Concours",
+        "condition": "Conditions"
     }
     for mot, titre in mots_cles.items():
         if mot in question_lower:
