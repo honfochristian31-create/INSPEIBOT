@@ -136,14 +136,14 @@ def repondre(question, model, index, data, historique=[]):
     if question_lower in ["repete", "répète", "repetes", "répètes", "repeter", "répéter"]:
         return "Je suis à votre disposition pour toute question sur l'INSPEI. Que souhaitez-vous savoir ?"
     
+    # --- RÈGLE RADICALE : "inspei compose quand" ---
+    if "inspei" in question_lower and ("compose" in question_lower or "composition" in question_lower or "concours" in question_lower) and ("quand" in question_lower or "date" in question_lower):
+        return "📅 **Concours INSPEI 2026 :**\n\nLa date du concours d'entrée est le **jeudi 10 septembre 2026**.\n\n📌 **Conditions** : 12/20 au baccalauréat et moins de 22 ans au 31 décembre 2026\n📌 **Inscription** : www.concours.enseignementsuperieur.gouv.bj\n📌 **Dépôt des dossiers** : début août 2026\n📌 **Centres d'examen** : Abomey (ENSTP/UNSTIM), Cotonou (CEG Gbégamey, Collège Catholique ND des Apôtres, CEG Ste Rita, CEG les Pylônes), Parakou (IFSIO)"
+    
     # --- RÈGLE ULTRA PRIORITAIRE : "Comment aller et c'est où" ---
     if ("comment aller" in question_lower or "se rendre" in question_lower):
         if ("ou" in question_lower or "où" in question_lower or "estou" in question_lower or "est ou" in question_lower or "c est ou" in question_lower or "c'est ou" in question_lower):
             return "📍 **Comment se rendre à l'INSPEI et où se trouve-t-il ?**\n\n**Où se trouve l'INSPEI ?**\nL'INSPEI est situé en République du Bénin, dans le Département du Zou, à **Abomey**, à environ 1 km de la place Goho, sur la route RNIE2 en allant vers Bohicon, à Sogbo-Aliho.\n\n**Comment y aller ?**\n\n🚗 **En voiture / taxi** : Prenez la route RNIE2 vers Bohicon. L'INSPEI est à gauche, à environ 1 km de la place Goho.\n\n🛵 **En taxi-moto (zémidjan)** : Dites au conducteur 'INSPEI, quartier Sogbo-Aliho' (c'est bien connu).\n\n🚌 **En bus / taxi-brousse** : Descendez à Abomey, puis prenez un taxi-moto jusqu'à l'INSPEI.\n\n📍 **Repère** : L'école est située dans le quartier Sogbo-Aliho.\n\n💡 **Depuis Cotonou** : Prenez un bus ou taxi-brousse direction Abomey, puis suivez les indications ci-dessus."
-    
-    # --- RÈGLE ULTRA LARGE : "Date de composition" (CAPTURE "compose quand") ---
-    if ("compose" in question_lower or "composition" in question_lower) and ("quand" in question_lower or "date" in question_lower) and "inspei" in question_lower:
-        return "📅 **Concours INSPEI 2026 :**\n\nLa date du concours d'entrée est le **jeudi 10 septembre 2026**.\n\n📌 Conditions : 12/20 au baccalauréat et moins de 22 ans au 31/12/2026\n📌 Inscription : www.concours.enseignementsuperieur.gouv.bj\n📌 Dépôt des dossiers : début août 2026\n📌 Centres d'examen : Abomey (ENSTP/UNSTIM), Cotonou (CEG Gbégamey, CEG Ste Rita, CEG les Pylônes), Parakou (IFSIO)"
     
     # --- RÈGLE : "Qu'est-ce qu'on fait" ---
     if ("fait" in question_lower or "faire" in question_lower or "étudie" in question_lower or "apprend" in question_lower or "enseigne" in question_lower) and "inspei" in question_lower:
@@ -176,9 +176,9 @@ def repondre(question, model, index, data, historique=[]):
         ("que faire" in question_lower and "après" in question_lower)):
         return "🎓 **Que faire après l'INSPEI ?**\n\nAprès vos deux années de classes préparatoires à l'INSPEI, vous obtenez le **CPEI** (Certificat Préparatoire aux Études d'Ingénieur).\n\n📌 **Vous pouvez intégrer les écoles d'ingénieurs de l'UNSTIM :**\n\n🏛️ **ENSGEP** (Génie Energétique et Procédés)\n• Spécialités : Énergie, Thermique, Procédés industriels\n• Débouchés : Ingénieur en énergie, Chef d'usine, Bureau d'études\n\n🏛️ **ENSGMM** (Génie Mathématique et Modélisation)\n• Spécialités : Modélisation, Statistique-Finance, Informatique-Logistique\n• Débouchés : Data Scientist, Analyste financier, Logistique\n\n🏛️ **ENSTP** (Travaux Publics)\n• Spécialités : Génie civil, Construction, Infrastructures\n• Débouchés : Ingénieur BTP, Bureau d'études, Collectivités\n\n📌 **Cycle d'ingénieur** : 3 ans après l'INSPEI pour obtenir le diplôme d'ingénieur (Bac+5).\n\n💡 **Les débouchés sont nombreux** : Industrie, Énergie, Finance, Construction, Recherche...\n\n📍 **Adresse** : Abomey, quartier Sogbo-Aliho\n🌐 **Plus d'infos** : https://siteinspei.netlify.app"
     
-    # --- RÈGLE : "C'est quand le concours" (avec "compose") ---
-    if ("quand" in question_lower or "date" in question_lower) and ("concours" in question_lower or "inspei" in question_lower):
-        return "📅 **Concours INSPEI 2026 :**\n\nLa date du concours d'entrée est le **jeudi 10 septembre 2026**.\n\n📌 Conditions : 12/20 au baccalauréat et moins de 22 ans au 31/12/2026\n📌 Inscription : www.concours.enseignementsuperieur.gouv.bj\n📌 Dépôt des dossiers : début août 2026"
+    # --- RÈGLE : "Comment se préparer" ---
+    if ("préparer" in question_lower or "preparer" in question_lower or "réviser" in question_lower or "reviser" in question_lower or "annales" in question_lower or "s'entraîner" in question_lower or "entraîner" in question_lower) and ("concours" in question_lower or "inspei" in question_lower):
+        return "📚 **Comment se préparer au concours INSPEI ?**\n\n📌 **Annales des concours** (2017 à 2024) : Mathématiques, Physique-Chimie-Technologie\n\n🌐 **Où les trouver ?**\n• www.concours.enseignementsuperieur.gouv.bj\n• https://siteinspei.netlify.app (rubrique Ressources)\n\n📝 **Conseils :** Réviser régulièrement, s'entraîner avec les annales, travailler la gestion du temps.\n\n📅 **Date** : jeudi 10 septembre 2026"
     
     # --- RÈGLE : "Épreuves du concours" ---
     if "matiere" in question_lower or "matière" in question_lower or "epreuve" in question_lower or "épreuve" in question_lower:
