@@ -17,13 +17,10 @@ client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 spell = SpellChecker(language='fr')
 
 def corriger_orthographe(texte):
-    """Corrige l'orthographe d'une phrase en français."""
     if not texte or len(texte.strip()) <= 2:
         return texte
-    
     mots = texte.split()
     mots_corriges = []
-    
     for mot in mots:
         mot_propre = mot.strip('.,;!?()[]{}"\'')
         if mot_propre and len(mot_propre) > 1 and not mot_propre.isnumeric():
@@ -38,7 +35,6 @@ def corriger_orthographe(texte):
                 mots_corriges.append(mot)
         else:
             mots_corriges.append(mot)
-    
     return ' '.join(mots_corriges)
 
 # ---------- 3. CHARGEMENT DU SYSTÈME ----------
@@ -116,6 +112,10 @@ def repondre(question, model, index, data, historique=[]):
     if question_lower.strip() in mots_confirmation:
         return "Parfait ! 😊 N'hésitez pas si vous avez d'autres questions sur l'INSPEI, les admissions, les filières ou les écoles d'ingénieurs."
     
+    # --- RÈGLE : "c'est tout" (fin de conversation) ---
+    if "c'est tout" in question_lower or "cest tout" in question_lower or "c est tout" in question_lower:
+        return "Oui, c'est tout pour ce sujet. 😊 Si vous voulez plus d'informations sur un point précis (admission, concours, matières, vie étudiante...), n'hésitez pas à me demander !"
+    
     # --- RÈGLE : "repete" ou "répète" ---
     if question_lower in ["repete", "répète", "repetes", "répètes", "repeter", "répéter"]:
         return "Je suis à votre disposition pour toute question sur l'INSPEI. Que souhaitez-vous savoir ?"
@@ -124,22 +124,17 @@ def repondre(question, model, index, data, historique=[]):
     if question_lower.strip() in ["inspei", "inspéi", "insp"]:
         return "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est une école préparatoire aux grandes écoles d'ingénieurs du Bénin, située à Abomey. Que souhaitez-vous savoir ? (Admission, filières, écoles, concours, vie étudiante...) 😊"
     
-    # --- RÈGLE : "On devient quoi" (débouchés) - PRIORITAIRE ---
-    if "on devient" in question_lower or "deviens" in question_lower or "devenir" in question_lower:
-        if "inspei" in question_lower or "école" in question_lower or "après" in question_lower:
-            return "🎓 **Que faire après l'INSPEI ?**\n\nAprès vos deux années de classes préparatoires à l'INSPEI, vous obtenez le **CPEI** (Certificat Préparatoire aux Études d'Ingénieur).\n\n📌 **Vous pouvez intégrer les écoles d'ingénieurs de l'UNSTIM :**\n\n🏛️ **ENSGEP** (Génie Energétique et Procédés)\n• Spécialités : Énergie, Thermique, Procédés industriels\n• Débouchés : Ingénieur en énergie, Chef d'usine, Bureau d'études\n\n🏛️ **ENSGMM** (Génie Mathématique et Modélisation)\n• Spécialités : Modélisation, Statistique-Finance, Informatique-Logistique\n• Débouchés : Data Scientist, Analyste financier, Logistique\n\n🏛️ **ENSTP** (Travaux Publics)\n• Spécialités : Génie civil, Construction, Infrastructures\n• Débouchés : Ingénieur BTP, Bureau d'études, Collectivités\n\n📌 **Cycle d'ingénieur** : 3 ans après l'INSPEI pour obtenir le diplôme d'ingénieur (Bac+5).\n\n💡 **Les débouchés sont nombreux** : Industrie, Énergie, Finance, Construction, Recherche..."
-    
-    # --- RÈGLE : "Débouchés / Que faire après" ---
-    if ("après" in question_lower or "débouché" in question_lower or "métier" in question_lower or "travail" in question_lower or "profession" in question_lower) and ("inspei" in question_lower or "école" in question_lower or "étudiant" in question_lower):
-        return "🎓 **Que faire après l'INSPEI ?**\n\nAprès vos deux années de classes préparatoires à l'INSPEI, vous obtenez le **CPEI** (Certificat Préparatoire aux Études d'Ingénieur).\n\n📌 **Vous pouvez intégrer les écoles d'ingénieurs de l'UNSTIM :**\n\n🏛️ **ENSGEP** (Génie Energétique et Procédés)\n• Spécialités : Énergie, Thermique, Procédés industriels\n• Débouchés : Ingénieur en énergie, Chef d'usine, Bureau d'études\n\n🏛️ **ENSGMM** (Génie Mathématique et Modélisation)\n• Spécialités : Modélisation, Statistique-Finance, Informatique-Logistique\n• Débouchés : Data Scientist, Analyste financier, Logistique\n\n🏛️ **ENSTP** (Travaux Publics)\n• Spécialités : Génie civil, Construction, Infrastructures\n• Débouchés : Ingénieur BTP, Bureau d'études, Collectivités\n\n📌 **Cycle d'ingénieur** : 3 ans après l'INSPEI pour obtenir le diplôme d'ingénieur (Bac+5).\n\n💡 **Les débouchés sont nombreux** : Industrie, Énergie, Finance, Construction, Recherche..."
-    
     # --- RÈGLE PRIORITAIRE : "C'est quoi" (définition) ---
     if ("quoi" in question_lower or "definition" in question_lower or "c'est quoi" in question_lower or "qu'est-ce" in question_lower) and "inspei" in question_lower:
         return "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est un établissement public rattaché à l'UNSTIM (Université Nationale des Sciences, Technologies, Ingénierie et Mathématiques). Il a été officiellement créé par l'arrêté N°719/MESRS/... du 23/12/2020, mais a démarré ses activités dès 2016-2017. Sa mission est de former des bacheliers scientifiques pour les grandes écoles d'ingénieurs du Bénin. La formation dure deux ans et débouche sur le CPEI."
     
-    # --- RÈGLE PRIORITAIRE : "Devenir étudiant" (inscription) - AVANT l'itinéraire ---
+    # --- RÈGLE PRIORITAIRE : "Devenir étudiant" (inscription) ---
     if ("etudiant" in question_lower or "étudiant" in question_lower or "inscrire" in question_lower or "inscription" in question_lower or "postuler" in question_lower) and ("inspei" in question_lower or "là bas" in question_lower or "la bas" in question_lower):
         return "📝 **Comment devenir étudiant à l'INSPEI :**\n\nL'entrée à l'INSPEI se fait **exclusivement sur concours**. Voici les étapes :\n\n📌 **Étape 1 - Vérifier les conditions** :\n• Avoir 12/20 minimum au baccalauréat\n• Être âgé de moins de 22 ans au 31 décembre 2026\n\n📌 **Étape 2 - S'inscrire en ligne** :\n• Site : www.concours.enseignementsuperieur.gouv.bj\n• Période : début août 2026\n• Frais : 5000 FCFA\n\n📌 **Étape 3 - Déposer le dossier** :\n• Centres : INSPEI Abomey, ENS Natitingou, IFSIO Parakou, ENSET Lokossa, INMeS Cotonou, ENS Porto-Novo\n\n📌 **Étape 4 - Passer le concours** :\n• Date : jeudi 10 septembre 2026\n• Matières : Mathématiques, Physique, Chimie, Technologie\n\n📌 **Étape 5 - Résultats et sélection**\n\n💡 L'inscription seule ne suffit pas."
+    
+    # --- RÈGLE : "On devenir quoi après" (débouchés) - Version complète ---
+    if ("après" in question_lower or "devenir" in question_lower or "faire" in question_lower or "débouché" in question_lower) and ("inspei" in question_lower or "école" in question_lower):
+        return "🎓 **Que faire après l'INSPEI ?**\n\nAprès vos deux années de classes préparatoires à l'INSPEI, vous obtenez le **CPEI** (Certificat Préparatoire aux Études d'Ingénieur).\n\n📌 **Vous pouvez intégrer les écoles d'ingénieurs de l'UNSTIM :**\n\n🏛️ **ENSGEP** (Génie Energétique et Procédés)\n• Spécialités : Énergie, Thermique, Procédés industriels\n• Débouchés : Ingénieur en énergie, Chef d'usine, Bureau d'études\n\n🏛️ **ENSGMM** (Génie Mathématique et Modélisation)\n• Spécialités : Modélisation, Statistique-Finance, Informatique-Logistique\n• Débouchés : Data Scientist, Analyste financier, Logistique\n\n🏛️ **ENSTP** (Travaux Publics)\n• Spécialités : Génie civil, Construction, Infrastructures\n• Débouchés : Ingénieur BTP, Bureau d'études, Collectivités\n\n📌 **Cycle d'ingénieur** : 3 ans après l'INSPEI pour obtenir le diplôme d'ingénieur (Bac+5).\n\n💡 **Les débouchés sont nombreux** : Industrie, Énergie, Finance, Construction, Recherche...\n\n📍 **Adresse** : Abomey, quartier Sogbo-Aliho\n🌐 **Plus d'infos** : https://siteinspei.netlify.app"
     
     # --- RÈGLE : "Où" (localisation) ---
     if ("ou" in question_lower or "où" in question_lower or "situé" in question_lower or "adresse" in question_lower) and "inspei" in question_lower:
@@ -148,7 +143,7 @@ def repondre(question, model, index, data, historique=[]):
         else:
             return "📍 **L'INSPEI est situé** :\n\nEn République du Bénin, dans le Département du Zou, à Abomey, à environ 1 km de la place Goho, sur la route RNIE2 en allant vers Bohicon, à Sogbo-Aliho."
     
-    # --- RÈGLE : "Comment on va là bas" (itinéraire) - EN SECOND ---
+    # --- RÈGLE : "Comment on va là bas" (itinéraire) ---
     if ("comment" in question_lower or "va" in question_lower or "aller" in question_lower or "se rendre" in question_lower) and ("là bas" in question_lower or "la bas" in question_lower):
         return "📍 **Comment se rendre à l'INSPEI :**\n\nL'INSPEI est situé à **Abomey, quartier Sogbo-Aliho**, à environ **1 km de la place Goho** sur la **route RNIE2** en direction de Bohicon.\n\n🚗 En voiture : Prenez la route RNIE2 vers Bohicon. L'INSPEI est à gauche.\n🛵 En taxi-moto : Dites 'INSPEI, quartier Sogbo-Aliho'\n🚌 En bus : Descendez à Abomey, puis prenez un taxi-moto."
     
