@@ -16,6 +16,9 @@ client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 # ---------- 2. CORRECTEUR ORTHOGRAPHIQUE ----------
 spell = SpellChecker(language='fr')
 
+# --- AJOUT : mots à ne pas corriger (acronymes, noms propres) ---
+MOTS_PROTEGES = {"inspei", "unstim", "ensgep", "ensgmm", "enstp", "cpei"}
+
 def corriger_orthographe(texte):
     if not texte or len(texte.strip()) <= 2:
         return texte
@@ -24,15 +27,19 @@ def corriger_orthographe(texte):
     for mot in mots:
         mot_propre = mot.strip('.,;!?()[]{}"\'')
         if mot_propre and len(mot_propre) > 1 and not mot_propre.isnumeric():
-            correction = spell.correction(mot_propre)
-            if correction and correction != mot_propre:
-                if mot != mot_propre:
-                    ponctuation = mot.replace(mot_propre, '')
-                    mots_corriges.append(correction + ponctuation)
-                else:
-                    mots_corriges.append(correction)
-            else:
+            # Ne pas corriger les mots protégés
+            if mot_propre.lower() in MOTS_PROTEGES:
                 mots_corriges.append(mot)
+            else:
+                correction = spell.correction(mot_propre)
+                if correction and correction != mot_propre:
+                    if mot != mot_propre:
+                        ponctuation = mot.replace(mot_propre, '')
+                        mots_corriges.append(correction + ponctuation)
+                    else:
+                        mots_corriges.append(correction)
+                else:
+                    mots_corriges.append(mot)
         else:
             mots_corriges.append(mot)
     return ' '.join(mots_corriges)
@@ -153,10 +160,7 @@ def repondre(question, model, index, data, historique=[]):
             return "📚 **Épreuves du concours INSPEI 2026 :**\n\nVous composez **2 épreuves écrites** :\n\n📌 **Épreuve 1** : Mathématiques\n📌 **Épreuve 2** : Sciences Physiques, Chimie et Technologie\n\n📅 Date : jeudi 10 septembre 2026\n🌐 Inscription : www.concours.enseignementsuperieur.gouv.bj\n📖 Plus d'infos : https://siteinspei.netlify.app"
     
     # --- RÈGLE : MATIÈRES ENSEIGNÉES (FORMATION) ---
-    # Cette règle capture les questions sur les matières qu'on étudie à l'INSPEI
-    # Elle est placée AVANT la date du concours
     if "matiere" in question_lower or "matière" in question_lower:
-        # Mots-clés qui indiquent une question sur la formation
         mots_formation = ["semestre", "programme", "formation", "retrouv", "retrouve", "enseigné", "enseignées", "étudie", "apprend", "cours", "matière"]
         if any(mot in question_lower for mot in mots_formation):
             return "📚 **Matières enseignées à l'INSPEI :**\n\nLa formation dure **2 ans** (4 semestres).\n\n📌 **Semestre 1 (S1)** :\n• Algorithmique (Algo)\n• Thermodynamique\n• Mathématiques 1\n• Chimie de l'Ingénieur\n• EPS (Education Physique et Sportive)\n• TEMC (Techniques d'Expression et de Communication)\n• Probabilités et Statistiques\n• Statique Graphique et Analytique\n\n📌 **Semestre 2 (S2)** :\n• Analyse Numérique\n• Graphe et Optimisation\n• Mathématiques 2\n• Cinématique et Dynamique\n• Langage (C, Python)\n• RDM (Résistance des Matériaux)\n• Normes et Mesures\n• Anglais technique\n\n📌 **Semestre 3 (S3)** :\n• TEMC (Techniques d'Expression et de Communication)\n• Recherche Opérationnelle\n• Mécanique des Fluides\n• Mathématiques 3\n• Physique des Matériaux\n• Géométrie Descriptive\n• Dessin Technique et DAO\n• Électricité Générale\n\n📌 **Semestre 4 (S4)** :\n• Mathématiques 4\n• Matlab\n• MPA (Modélisation des Phénomènes Aléatoires)\n• Sciences Biologiques pour l'Ingénieur\n• Transfert Thermique\n• Ondes Électromagnétiques\n• Anglais Technique Avancé\n• EPS (Education Physique et Sportive)\n\n📖 Plus d'infos : https://siteinspei.netlify.app"
