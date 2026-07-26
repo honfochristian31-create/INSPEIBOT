@@ -103,7 +103,15 @@ def repondre(question, model, index, data, historique=[]):
     if "inspei" in question_lower and "quand" in question_lower:
         return "📅 **Concours INSPEI 2026** :\n\nLe concours d'entrée à l'INSPEI aura lieu le **jeudi 10 septembre 2026**.\n\n📌 **Conditions** : 12/20 au baccalauréat et moins de 22 ans au 31 décembre 2026.\n📌 **Dépôt des dossiers** : début août 2026.\n📌 **Centres d'examen** : Abomey (ENSTP/UNSTIM), Cotonou (CEG Gbégamey, Collège Catholique ND des Apôtres, CEG Ste Rita, CEG les Pylônes) et Parakou (IFSIO).\n\nSource : Arrêté N°2026-0224/..."
     
-    # --- RÈGLE : "Épreuves et matières" ---
+    # --- RÈGLE : "Où s'inscrire / site d'inscription" (évite l'hallucination) ---
+    if ("s'inscrire" in question_lower or "inscription" in question_lower or "site" in question_lower) and ("concours" in question_lower or "inspei" in question_lower):
+        return "📝 **Inscription au concours INSPEI 2026** :\n\n🌐 **Site officiel d'inscription** : www.concours.enseignementsuperieur.gouv.bj\n\n📌 **Dépôt des dossiers** : début août 2026\n📍 **Centres de dépôt** : INSPEI Abomey, ENS Natitingou, IFSIO Parakou, ENSET Lokossa, INMeS Cotonou, ENS Porto-Novo\n\n📞 **Contact** : inspei@unstim.edu.bj\n🌐 **Site officiel de l'INSPEI** : https://siteinspei.netlify.app"
+    
+    # --- RÈGLE : "Comment aller / se rendre" (itinéraire) ---
+    if ("aller" in question_lower or "se rendre" in question_lower or "venir" in question_lower or "transport" in question_lower) and ("inspei" in question_lower or "là bas" in question_lower or "école" in question_lower):
+        return "📍 **Comment se rendre à l'INSPEI** :\n\nL'INSPEI est situé à **Abomey, quartier Sogbo-Aliho**, à environ 1 km de la place Goho sur la route RNIE2 en direction de Bohicon.\n\n🚗 **En voiture / taxi** : Depuis Abomey, prenez la route RNIE2 vers Bohicon. L'INSPEI est situé à gauche, à environ 1 km de la place Goho.\n\n🛵 **En taxi-moto (zémidjan)** : Dites au conducteur de vous déposer à l'INSPEI, quartier Sogbo-Aliho (c'est bien connu).\n\n🚌 **En bus / taxi-brousse** : Descendez à Abomey, puis prenez un taxi-moto jusqu'à l'INSPEI.\n\n📌 **Repère** : L'école est dans l'enceinte de l'ENEAM d'Abomey.\n\nSi vous voulez d'autres indications, précisez votre point de départ ! 😊"
+    
+    # --- RÈGLE : "Épreuves et matières du concours" ---
     if ("epreuves" in question_lower or "épreuves" in question_lower or "matieres" in question_lower or "matières" in question_lower) and ("concours" in question_lower or "inspei" in question_lower):
         return "📚 **Épreuves et matières du concours INSPEI 2026** :\n\nLes épreuves du concours d'entrée à l'INSPEI portent sur les matières suivantes :\n\n📐 **Mathématiques** : Algèbre, Analyse, Géométrie, Probabilités\n⚛️ **Physique** : Mécanique, Électricité, Optique, Thermodynamique\n🧪 **Chimie** : Chimie générale, Chimie organique, Chimie des solutions\n🛠️ **Technologie** : Sciences de l'ingénieur, Mécanique, Électrotechnique\n\n📌 **Format** : Épreuves écrites\n📌 **Date** : jeudi 10 septembre 2026\n📌 **Inscription** : www.concours.enseignementsuperieur.gouv.bj"
     
@@ -124,6 +132,10 @@ def repondre(question, model, index, data, historique=[]):
             else:
                 return "Pouvez-vous préciser de quoi vous parlez ? (concours, école, événement, etc.)"
         
+        if question_lower in ["là bas", "y aller"]:
+            if "inspei" in dernier_sujet or "école" in dernier_sujet:
+                return "📍 **Comment se rendre à l'INSPEI** :\n\nL'INSPEI est situé à Abomey, quartier Sogbo-Aliho, à environ 1 km de la place Goho sur la route RNIE2 (direction Bohicon).\n\n🚗 **En voiture** : Suivez la RNIE2 depuis Abomey vers Bohicon.\n🛵 **En taxi-moto** : Demandez à être déposé à l'INSPEI, quartier Sogbo-Aliho.\n📌 **Repère** : L'école est dans l'enceinte de l'ENEAM d'Abomey."
+        
         if question_lower in ["quand", "et quand", "à quelle date", "date"]:
             if "concours" in dernier_sujet or "composition" in dernier_sujet or "epreuve" in dernier_sujet:
                 return "Le concours INSPEI 2026 aura lieu le **jeudi 10 septembre 2026**."
@@ -142,7 +154,7 @@ def repondre(question, model, index, data, historique=[]):
             else:
                 return "Que voulez-vous savoir d'autre ?"
     
-    # --- RÈGLE : "travailler" ---
+    # --- RÈGLE : "travailler" (conseils pour les études) ---
     if "travailler" in question_lower or ("étude" in question_lower and "réussir" in question_lower):
         return "Pour réussir à l'INSPEI, voici quelques conseils :\n\n📚 **Organisez-vous** : établissez un emploi du temps quotidien.\n📝 **Révisez régulièrement** : les classes préparatoires exigent un travail constant.\n👨‍🏫 **Demandez de l'aide** : n'hésitez pas à solliciter vos enseignants.\n⏰ **Prenez des pauses** : le repos est essentiel.\n🎯 **Fixez-vous des objectifs** : restez motivé pour les concours.\n\nL'INSPEI est exigeant, mais avec de la discipline, vous réussirez ! 💪"
     
