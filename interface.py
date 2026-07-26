@@ -99,9 +99,8 @@ def repondre(question, model, index, data, historique=[]):
     if question_lower.strip() in ["inspei", "inspéi", "insp"]:
         return "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est une école préparatoire aux grandes écoles d'ingénieurs du Bénin, située à Abomey. Que souhaitez-vous savoir ? (Admission, filières, écoles, concours, vie étudiante...) 😊"
     
-    # --- RÈGLE PRIORITAIRE : "Comment être étudiant" (procédures) ---
-    # Cette règle doit être AVANT la règle d'itinéraire
-    if ("être étudiant" in question_lower or "devenir étudiant" in question_lower or "étudiant" in question_lower) and ("inspei" in question_lower or "là bas" in question_lower or "la bas" in question_lower):
+    # --- RÈGLE PRIORITAIRE : "Comment être étudiant / s'inscrire" (procédures) ---
+    if ("être étudiant" in question_lower or "devenir étudiant" in question_lower or "étudiant" in question_lower or "s'inscrire" in question_lower or "inscription" in question_lower or "inscrire" in question_lower) and ("inspei" in question_lower or "là bas" in question_lower or "la bas" in question_lower):
         return "📝 **Comment devenir étudiant à l'INSPEI :**\n\nL'entrée à l'INSPEI se fait **exclusivement sur concours**. Voici les étapes :\n\n📌 **Étape 1 - Vérifier les conditions** :\n• Avoir 12/20 minimum au baccalauréat\n• Être âgé de moins de 22 ans au 31 décembre 2026\n\n📌 **Étape 2 - S'inscrire en ligne** :\n• Site : www.concours.enseignementsuperieur.gouv.bj\n• Période : début août 2026\n• Frais : 5000 FCFA\n\n📌 **Étape 3 - Déposer le dossier** :\n• Centres : INSPEI Abomey, ENS Natitingou, IFSIO Parakou, ENSET Lokossa, INMeS Cotonou, ENS Porto-Novo\n\n📌 **Étape 4 - Passer le concours** :\n• Date : jeudi 10 septembre 2026\n• Matières : Mathématiques, Physique, Chimie, Technologie\n• Épreuves écrites\n\n📌 **Étape 5 - Résultats et sélection** :\n• Basée sur les résultats du concours\n• Les admis peuvent s'inscrire\n\n📌 **Étape 6 - Rentrée** :\n• Début des cours : généralement en octobre\n\n📍 **Adresse** : Abomey, quartier Sogbo-Aliho\n\n💡 **Important** : L'inscription seule ne suffit pas. Il faut passer et réussir le concours."
     
     # --- RÈGLE : "Commencer les cours" ---
