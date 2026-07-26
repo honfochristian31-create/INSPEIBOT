@@ -155,9 +155,14 @@ def repondre(question, model, index, data, historique=[]):
     if ("préparer" in question_lower or "preparer" in question_lower or "réviser" in question_lower or "reviser" in question_lower or "annales" in question_lower or "s'entraîner" in question_lower or "entraîner" in question_lower) and ("concours" in question_lower or "inspei" in question_lower):
         return "📚 **Comment se préparer au concours INSPEI ?**\n\nVoici les ressources disponibles pour vous préparer :\n\n📌 **Annales des concours** (2017 à 2024) :\n• Mathématiques\n• Physique-Chimie-Technologie\n\n🌐 **Où les trouver ?**\n• Sur le site officiel des concours : www.concours.enseignementsuperieur.gouv.bj\n• Sur le site officiel de l'INSPEI : https://siteinspei.netlify.app (rubrique Ressources)\n\n📝 **Conseils de préparation :**\n• Réviser régulièrement les matières : Mathématiques, Physique, Chimie, Technologie\n• S'entraîner avec les annales des années précédentes\n• Travailler la gestion du temps (épreuves chronométrées)\n• Participer à des groupes de révision entre candidats\n\n📅 **Date du concours** : jeudi 10 septembre 2026\n\n💡 **Les annales sont disponibles gratuitement en ligne.**"
     
-    # --- RÈGLE : "Épreuves du concours" ---
-    if "epreuve" in question_lower or "épreuve" in question_lower:
-        if "concours" in question_lower or "composer" in question_lower or "compos" in question_lower or "compose" in question_lower or "composition" in question_lower:
+    # --- RÈGLE : "Épreuves du concours" (ÉLARGIE avec "composer" et "compser") ---
+    if "matiere" in question_lower or "matière" in question_lower or "epreuve" in question_lower or "épreuve" in question_lower:
+        if ("concours" in question_lower or 
+            "composer" in question_lower or 
+            "compser" in question_lower or
+            "compos" in question_lower or 
+            "compose" in question_lower or 
+            "composition" in question_lower):
             return "📚 **Épreuves du concours INSPEI 2026 :**\n\nVous composez **2 épreuves écrites** :\n\n📌 **Épreuve 1** : Mathématiques\n📌 **Épreuve 2** : Sciences Physiques, Chimie et Technologie\n\n📅 Date : jeudi 10 septembre 2026\n🌐 Inscription : www.concours.enseignementsuperieur.gouv.bj\n📖 Plus d'infos : https://siteinspei.netlify.app"
     
     # --- RÈGLE : "Matières enseignées à l'INSPEI" ---
