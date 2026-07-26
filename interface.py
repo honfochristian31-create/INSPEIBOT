@@ -99,6 +99,10 @@ def repondre(question, model, index, data, historique=[]):
     if question_lower.strip() in ["inspei", "inspéi", "insp"]:
         return "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est une école préparatoire aux grandes écoles d'ingénieurs du Bénin, située à Abomey. Que souhaitez-vous savoir ? (Admission, filières, écoles, concours, vie étudiante...) 😊"
     
+    # --- RÈGLE : "Comment on va là bas" (itinéraire) ---
+    if ("comment" in question_lower or "va" in question_lower) and ("la bas" in question_lower or "là bas" in question_lower):
+        return "📍 **Comment se rendre à l'INSPEI :**\n\nL'INSPEI est situé à **Abomey, quartier Sogbo-Aliho**, à environ **1 km de la place Goho** sur la **route RNIE2** en direction de Bohicon.\n\n🚗 **En voiture / taxi** : Depuis Abomey, prenez la route RNIE2 vers Bohicon. L'INSPEI est à gauche, à environ 1 km de la place Goho.\n\n🛵 **En taxi-moto (zémidjan)** : Dites au conducteur 'INSPEI, quartier Sogbo-Aliho' (c'est bien connu).\n\n🚌 **En bus / taxi-brousse** : Descendez à Abomey, puis prenez un taxi-moto jusqu'à l'INSPEI.\n\n📌 **Repère** : L'école est dans l'enceinte de l'ENEAM d'Abomey."
+    
     # --- RÈGLE : "C'est quand le concours" (date uniquement) ---
     if ("quand" in question_lower or "date" in question_lower) and "concours" in question_lower:
         return "📅 **Concours INSPEI 2026** :\n\nLa date du concours d'entrée est le **jeudi 10 septembre 2026**.\n\n📌 **Conditions** : 12/20 au baccalauréat et moins de 22 ans au 31/12/2026\n📌 **Inscription** : www.concours.enseignementsuperieur.gouv.bj\n📌 **Lieux** : Abomey (ENSTP/UNSTIM), Cotonou (CEG Gbégamey, CEG Ste Rita, CEG les Pylônes), Parakou (IFSIO)"
