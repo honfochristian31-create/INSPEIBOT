@@ -146,7 +146,7 @@ def repondre(question, model, index, data, historique=[]):
     if est_question_definition(question_lower):
         return DEFINITION_INSPEI
     
-    # --- RÈGLE : ÉPREUVES DU CONCOURS ---
+    # --- RÈGLE : ÉPREUVES DU CONCOURS (contenu) ---
     if ("matiere" in question_lower or "matière" in question_lower or "epreuve" in question_lower or "épreuve" in question_lower):
         if ("concours" in question_lower or 
             "composer" in question_lower or 
@@ -211,7 +211,7 @@ def repondre(question, model, index, data, historique=[]):
         ("que faire" in question_lower and "après" in question_lower)):
         return "🎓 **Que faire après l'INSPEI ?**\n\nAprès vos deux années de classes préparatoires à l'INSPEI, vous obtenez le **CPEI** (Certificat Préparatoire aux Études d'Ingénieur).\n\n📌 **Vous pouvez intégrer les écoles d'ingénieurs de l'UNSTIM :**\n\n🏛️ **ENSGEP** (Génie Energétique et Procédés)\n• Spécialités : Énergie, Thermique, Procédés industriels\n• Débouchés : Ingénieur en énergie, Chef d'usine, Bureau d'études\n\n🏛️ **ENSGMM** (Génie Mathématique et Modélisation)\n• Spécialités : Modélisation, Statistique-Finance, Informatique-Logistique\n• Débouchés : Data Scientist, Analyste financier, Logistique\n\n🏛️ **ENSTP** (Travaux Publics)\n• Spécialités : Génie civil, Construction, Infrastructures\n• Débouchés : Ingénieur BTP, Bureau d'études, Collectivités\n\n📌 **Cycle d'ingénieur** : 3 ans après l'INSPEI pour obtenir le diplôme d'ingénieur (Bac+5).\n\n💡 **Les débouchés sont nombreux** : Industrie, Énergie, Finance, Construction, Recherche...\n\n📍 **Adresse** : Abomey, quartier Sogbo-Aliho\n🌐 **Plus d'infos** : https://siteinspei.netlify.app"
     
-    # --- RÈGLE : "Comment se préparer" (avec renvoi vers Netlify) ---
+    # --- RÈGLE : "Comment se préparer" (renvoi vers Netlify) ---
     if ("préparer" in question_lower or "preparer" in question_lower or "réviser" in question_lower or "reviser" in question_lower or "annales" in question_lower or "s'entraîner" in question_lower or "entraîner" in question_lower) and ("concours" in question_lower or "inspei" in question_lower):
         return "📚 **Pour vous préparer au concours INSPEI, toutes les ressources officielles sont disponibles sur le site dédié :**\n\n🌐 **https://siteinspei.netlify.app** (rubrique **Ressources**)\n\nVous y trouverez :\n• Les annales des concours (Mathématiques, Physique-Chimie-Technologie) de 2017 à 2024\n• Des conseils de révision\n• Des informations sur les programmes\n\n📌 **Site d'inscription :** www.concours.enseignementsuperieur.gouv.bj\n\n📅 **Date du concours :** jeudi 10 septembre 2026"
     
@@ -219,11 +219,16 @@ def repondre(question, model, index, data, historique=[]):
     if ("comment aller" in question_lower or "comment se rendre" in question_lower or "comment venir" in question_lower) and "inspei" in question_lower:
         return "📍 **Comment se rendre à l'INSPEI :**\n\nL'INSPEI est situé à **Abomey, quartier Sogbo-Aliho**, à environ **1 km de la place Goho** sur la **route RNIE2** en direction de Bohicon.\n\n🚗 **En voiture / taxi** : Prenez la route RNIE2 vers Bohicon. L'INSPEI est à gauche, à environ 1 km de la place Goho.\n\n🛵 **En taxi-moto (zémidjan)** : Dites 'INSPEI, quartier Sogbo-Aliho'.\n\n🚌 **En bus / taxi-brousse** : Descendez à Abomey, puis prenez un taxi-moto jusqu'à l'INSPEI."
     
-    # --- RÈGLE : "Où" (localisation) ---
+    # --- RÈGLE : "Où se déroule la composition / les épreuves ?" (NOUVEAU) ---
+    if ("ou" in question_lower or "où" in question_lower or "lieu" in question_lower or "adresse" in question_lower):
+        if ("composition" in question_lower or "compose" in question_lower or "composer" in question_lower or
+            "concours" in question_lower or "epreuve" in question_lower or "épreuve" in question_lower):
+            # On renvoie les centres d'examen
+            return "📍 **Où se déroulent les épreuves écrites (composition) du concours INSPEI ?**\n\nLes épreuves ont lieu dans plusieurs centres répartis sur le territoire béninois :\n\n🏛️ **Abomey** : ENSTP/UNSTIM\n🏛️ **Cotonou** : CEG Gbégamey, Collège Catholique ND des Apôtres, CEG Ste Rita, CEG les Pylônes\n🏛️ **Parakou** : IFSIO\n\n📌 D'autres centres peuvent être ajoutés. Consultez votre convocation pour le centre exact.\n\n🌐 Plus d'informations : https://siteinspei.netlify.app"
+    
+    # --- RÈGLE : "Où" (localisation de l'école) ---
     if ("ou" in question_lower or "où" in question_lower or "situé" in question_lower or "adresse" in question_lower) and "inspei" in question_lower:
-        if "concours" in question_lower or "epreuve" in question_lower or "compos" in question_lower:
-            return "📅 **Lieu du concours INSPEI 2026** :\n\n📍 Abomey : ENSTP/UNSTIM\n📍 Cotonou : CEG Gbégamey, Collège Catholique ND des Apôtres, CEG Ste Rita, CEG les Pylônes\n📍 Parakou : IFSIO"
-        else:
+        if "concours" not in question_lower and "epreuve" not in question_lower and "compos" not in question_lower:
             return "📍 **L'INSPEI est situé** :\n\nEn République du Bénin, dans le Département du Zou, à Abomey, à environ 1 km de la place Goho, sur la route RNIE2 en allant vers Bohicon, à Sogbo-Aliho."
     
     # --- RÈGLE : "Comment on va là bas" ---
@@ -260,10 +265,8 @@ def repondre(question, model, index, data, historique=[]):
         seuil = 0.45
     
     if resultats and resultats[0]['similarite'] > seuil:
-        # Vérifier si la réponse contient des mentions d'entretien ou d'oral et la filtrer
         reponse_trouvee = resultats[0]['reponse']
         if "entretien" in reponse_trouvee.lower() or "oral" in reponse_trouvee.lower():
-            # Remplacer par un message correct
             return "❌ **Le concours INSPEI ne comporte pas d'épreuve orale ni d'entretien.**\n\nLa sélection se fait uniquement sur les **épreuves écrites**. Consultez le site officiel pour plus d'informations : https://siteinspei.netlify.app"
         else:
             return reponse_trouvee
