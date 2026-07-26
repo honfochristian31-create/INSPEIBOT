@@ -37,6 +37,19 @@ def corriger_orthographe(texte):
             mots_corriges.append(mot)
     return ' '.join(mots_corriges)
 
+# ---------- 2.5 NORMALISATION DE LA QUESTION ----------
+def normaliser_question(texte):
+    """Normalise la question pour capturer les formulations courantes"""
+    texte = texte.lower()
+    # Remplacer les espaces dans les expressions figées
+    texte = texte.replace("qu est ce", "qu'est-ce")
+    texte = texte.replace("qu est", "qu'est")
+    texte = texte.replace("ce qu on", "ce qu'on")
+    texte = texte.replace("ce que l on", "ce que l'on")
+    texte = texte.replace("a l inspei", "à l'inspei")
+    texte = texte.replace("a inspei", "à inspei")
+    return texte
+
 # ---------- 3. CHARGEMENT DU SYSTÈME ----------
 @st.cache_resource
 def charger_systeme():
@@ -105,7 +118,9 @@ def repondre(question, model, index, data, historique=[]):
     if question_corrigee != question:
         question = question_corrigee
     
-    question_lower = question.lower().strip()
+    # --- NORMALISATION DE LA QUESTION (POUR CAPTURER "qu est ce") ---
+    question_normalisee = normaliser_question(question)
+    question_lower = question_normalisee.lower().strip()
     
     # ============================================================
     # 1. RÈGLES SPÉCIFIQUES (ULTRA PRIORITAIRES)
@@ -129,8 +144,10 @@ def repondre(question, model, index, data, historique=[]):
         if ("ou" in question_lower or "où" in question_lower or "estou" in question_lower or "est ou" in question_lower or "c est ou" in question_lower or "c'est ou" in question_lower):
             return "📍 **Comment se rendre à l'INSPEI et où se trouve-t-il ?**\n\n**Où se trouve l'INSPEI ?**\nL'INSPEI est situé en République du Bénin, dans le Département du Zou, à **Abomey**, à environ 1 km de la place Goho, sur la route RNIE2 en allant vers Bohicon, à Sogbo-Aliho.\n\n**Comment y aller ?**\n\n🚗 **En voiture / taxi** : Prenez la route RNIE2 vers Bohicon. L'INSPEI est à gauche, à environ 1 km de la place Goho.\n\n🛵 **En taxi-moto (zémidjan)** : Dites au conducteur 'INSPEI, quartier Sogbo-Aliho' (c'est bien connu).\n\n🚌 **En bus / taxi-brousse** : Descendez à Abomey, puis prenez un taxi-moto jusqu'à l'INSPEI.\n\n📍 **Repère** : L'école est située dans le quartier Sogbo-Aliho.\n\n💡 **Depuis Cotonou** : Prenez un bus ou taxi-brousse direction Abomey, puis suivez les indications ci-dessus."
     
-    # --- RÈGLE ULTRA LARGE : "Qu'est-ce qu'on fait" (capture TOUTES les formulations) ---
-    if ("fait" in question_lower or "faire" in question_lower or "étudie" in question_lower or "apprend" in question_lower or "enseigne" in question_lower or "formation" in question_lower) and "inspei" in question_lower:
+    # --- RÈGLE PRIORITAIRE : "Qu'est-ce qu'on fait" (AVANT "C'est quoi") ---
+    # Cette règle capture toute question qui parle de ce qu'on fait à l'INSPEI
+    if ("fait" in question_lower or "faire" in question_lower or "étudie" in question_lower or "apprend" in question_lower or "enseigne" in question_lower) and "inspei" in question_lower:
+        # Si la question contient un mot interrogatif ou "on"
         if ("quoi" in question_lower or "qu'est" in question_lower or "qu est" in question_lower or "que" in question_lower or "ce qu" in question_lower or "on" in question_lower):
             return "📚 **À l'INSPEI, on suit des Classes Préparatoires aux Études d'Ingénieur (CPEI).**\n\nLa formation dure **2 ans** (4 semestres) et prépare les bacheliers scientifiques aux concours des écoles d'ingénieurs de l'UNSTIM.\n\n📌 **Les matières enseignées par semestre :**\n\n**Semestre 1 (S1)** : Algorithmique, Thermodynamique, Maths 1, Chimie de l'Ingénieur, EPS, TEMC, Probabilités/Statistiques, Statique Graphique\n\n**Semestre 2 (S2)** : Analyse Numérique, Graphe/Optimisation, Maths 2, Cinématique/Dynamique, Langage (C/Python), RDM, Normes/Mesures, Anglais technique\n\n**Semestre 3 (S3)** : TEMC, Recherche Opérationnelle, Mécanique des Fluides, Maths 3, Physique des Matériaux, Géométrie Descriptive, Dessin Technique/DAO, Électricité Générale\n\n**Semestre 4 (S4)** : Maths 4, Matlab, MPA, Sciences Biologiques, Transfert Thermique, Ondes Électromagnétiques, Anglais Technique Avancé, EPS\n\n📌 **Débouchés** : Intégration dans les écoles d'ingénieurs (ENSGEP, ENSGMM, ENSTP)\n\n📍 **Adresse** : Abomey, quartier Sogbo-Aliho\n🌐 https://siteinspei.netlify.app"
     
