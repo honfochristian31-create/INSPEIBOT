@@ -46,6 +46,8 @@ def normaliser_question(texte):
     texte = texte.replace("a l inspei", "à l'inspei")
     texte = texte.replace("a inspei", "à inspei")
     texte = texte.replace("c est quoi", "c'est quoi")
+    texte = texte.replace("inspei signifie", "inspei signifie")
+    texte = texte.replace("signifie", "signifie")
     return texte
 
 # ---------- 3. CHARGEMENT ----------
@@ -105,7 +107,23 @@ def reponse_salutation():
     ]
     return random.choice(responses)
 
-# ---------- 6. RÉPONSE PRINCIPALE ----------
+# ---------- 6. DÉFINITION CORRECTE DE L'INSPEI ----------
+DEFINITION_INSPEI = """L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est un établissement public rattaché à l'UNSTIM (Université Nationale des Sciences, Technologies, Ingénierie et Mathématiques). Il a été officiellement créé par l'arrêté N°719/MESRS/... du 23/12/2020, mais a démarré ses activités dès 2016-2017. Sa mission est de former des bacheliers scientifiques pour les grandes écoles d'ingénieurs du Bénin. La formation dure deux ans et débouche sur le CPEI."""
+
+# ---------- 7. RÈGLE ULTRA RADICALE : Définition de l'INSPEI ----------
+def est_question_definition(question_lower):
+    """Vérifie si la question demande la définition de l'INSPEI"""
+    mots_definition = [
+        "quoi", "signifie", "signification", "definition", "définition", 
+        "c'est quoi", "c est quoi", "qu'est-ce", "qu est ce", 
+        "que veut dire", "c'est", "c est", "sens", "abrégé", "abréviation",
+        "signifie quoi", "quoi signifie", "est quoi", "qu'est-ce que"
+    ]
+    if "inspei" not in question_lower:
+        return False
+    return any(mot in question_lower for mot in mots_definition)
+
+# ---------- 8. RÉPONSE PRINCIPALE ----------
 def repondre(question, model, index, data, historique=[]):
     # 0. Salutations
     if est_salutation(question) and len(historique) == 0:
@@ -121,16 +139,11 @@ def repondre(question, model, index, data, historique=[]):
     question_lower = question_normalisee.lower().strip()
     
     # ============================================================
-    # 1. RÈGLE ULTRA RADICALE : Définition de l'INSPEI
+    # RÈGLE ULTRA RADICALE : DÉFINITION DE L'INSPEI
+    # Cette règle est en TOUT PREMIER (avant les confirmations)
     # ============================================================
-    # Cette règle capture TOUTE question qui demande ce qu'est l'INSPEI
-    # Elle est placée AVANT TOUTE AUTRE RÈGLE
-    if "inspei" in question_lower:
-        mots_definition = ["quoi", "signifie", "signification", "definition", "définition", 
-                          "c'est quoi", "c est quoi", "qu'est-ce", "qu est ce", 
-                          "que veut dire", "c'est", "c est", "sens", "abrégé", "abréviation"]
-        if any(mot in question_lower for mot in mots_definition):
-            return "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est un établissement public rattaché à l'UNSTIM (Université Nationale des Sciences, Technologies, Ingénierie et Mathématiques). Il a été officiellement créé par l'arrêté N°719/MESRS/... du 23/12/2020, mais a démarré ses activités dès 2016-2017. Sa mission est de former des bacheliers scientifiques pour les grandes écoles d'ingénieurs du Bénin. La formation dure deux ans et débouche sur le CPEI."
+    if est_question_definition(question_lower):
+        return DEFINITION_INSPEI
     
     # --- RÈGLE : confirmations ---
     mots_confirmation = ["ok", "oui", "non", "merci", "d'accord", "super", "parfait", "cool", "okay", "yes", "no", "si", "sisi"]
@@ -268,12 +281,16 @@ def repondre(question, model, index, data, historique=[]):
     messages = [
         {"role": "system", "content": f"""Tu es un conseiller pédagogique expert de l'INSPEI au Bénin.
 
+⚠️ IMPORTANT : L'INSPEI EST L'INSTITUT NATIONAL SUPÉRIEUR DES CLASSES PRÉPARATOIRES AUX ÉTUDES D'INGÉNIEUR.
+CE N'EST PAS UNE ÉCOLE DE PRESSE OU DE COMMUNICATION.
+
 {contexte}
 
 RÈGLES :
 1. Réponds uniquement avec les informations du contexte.
 2. Si l'information n'est pas dans le contexte, dis : "Je ne dispose pas de cette information. Consultez le site officiel."
-3. Continue naturellement la conversation."""},
+3. Continue naturellement la conversation.
+4. Ne dis JAMAIS que l'INSPEI est lié à la presse, à la communication ou à l'information."""},
         {"role": "user", "content": question}
     ]
     
@@ -287,25 +304,18 @@ RÈGLES :
         reponse_texte = reponse_ia.choices[0].message.content
         
         # ============================================================
-        # 3. VÉRIFICATION POST-GÉNÉRATION (FILET DE SÉCURITÉ)
+        # 4. FILET DE SÉCURITÉ : DÉFINITION DE L'INSPEI
         # ============================================================
-        # Si la question parle de la définition de l'INSPEI, on force la bonne réponse
-        if "inspei" in question_lower:
-            mots_definition = ["quoi", "signifie", "signification", "definition", "définition", 
-                              "c'est quoi", "c est quoi", "qu'est-ce", "qu est ce", 
-                              "que veut dire", "c'est", "c est", "sens", "abrégé", "abréviation"]
-            if any(mot in question_lower for mot in mots_definition):
-                # On vérifie si la réponse de l'IA contient "classes préparatoires" (la bonne réponse)
-                if "classes préparatoires" not in reponse_texte.lower():
-                    # Si la réponse de l'IA est fausse, on la remplace
-                    return "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est un établissement public rattaché à l'UNSTIM (Université Nationale des Sciences, Technologies, Ingénierie et Mathématiques). Il a été officiellement créé par l'arrêté N°719/MESRS/... du 23/12/2020, mais a démarré ses activités dès 2016-2017. Sa mission est de former des bacheliers scientifiques pour les grandes écoles d'ingénieurs du Bénin. La formation dure deux ans et débouche sur le CPEI."
+        if est_question_definition(question_lower):
+            if "classes préparatoires" not in reponse_texte.lower() or "ingénieur" not in reponse_texte.lower():
+                return DEFINITION_INSPEI
         
         return reponse_texte
         
     except Exception as e:
         return "Désolé, une erreur s'est produite. Veuillez réessayer."
 
-# ---------- 7. INTERFACE STREAMLIT ----------
+# ---------- 9. INTERFACE STREAMLIT ----------
 st.set_page_config(page_title="Assistant INSPEI", page_icon="🎓", layout="wide")
 
 st.markdown("""
@@ -327,7 +337,7 @@ if not data:
     st.warning("⚠️ Aucune donnée chargée. Vérifiez que le fichier data/inspei.json existe.")
     st.stop()
 
-# ---------- 8. GESTION DES CONVERSATIONS ----------
+# ---------- 10. GESTION DES CONVERSATIONS ----------
 if "conversations" not in st.session_state:
     st.session_state.conversations = []
     st.session_state.current_convo_id = None
@@ -389,7 +399,7 @@ def generer_titre(question):
         return f"INSPEI - {' '.join(mots).capitalize()}"
     return "INSPEI - Nouvelle conversation"
 
-# ---------- 9. BARRE LATÉRALE ----------
+# ---------- 11. BARRE LATÉRALE ----------
 with st.sidebar:
     st.markdown("### 💬 Conversations")
     
@@ -415,7 +425,7 @@ with st.sidebar:
     else:
         st.info("Aucune conversation active.")
 
-# ---------- 10. ZONE PRINCIPALE ----------
+# ---------- 12. ZONE PRINCIPALE ----------
 if not st.session_state.conversations:
     nouvelle_conversation("INSPEI - Bienvenue")
 
@@ -428,7 +438,7 @@ for message in active_convo["messages"]:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# ---------- 11. INPUT ----------
+# ---------- 13. INPUT ----------
 if prompt := st.chat_input("Posez votre question..."):
     active_convo["messages"].append({"role": "user", "content": prompt})
     if len(active_convo["messages"]) == 1:
@@ -446,7 +456,7 @@ if prompt := st.chat_input("Posez votre question..."):
     active_convo["messages"].append({"role": "assistant", "content": reponse})
     st.rerun()
 
-# ---------- 12. PIED DE PAGE ----------
+# ---------- 14. PIED DE PAGE ----------
 st.markdown("""
 <div class="footer">
     INSPEI &bull; Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur
