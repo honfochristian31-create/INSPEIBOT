@@ -124,11 +124,10 @@ def repondre(question, model, index, data, historique=[]):
     if question_lower in ["repete", "répète", "repetes", "répètes", "repeter", "répéter"]:
         return "Je suis à votre disposition pour toute question sur l'INSPEI. Que souhaitez-vous savoir ?"
     
-    # --- RÈGLE ULTRA PRIORITAIRE : "Comment aller et c'est où" (itinéraire + localisation) ---
-    # Cette règle doit être AVANT toutes les autres règles spécifiques
+    # --- RÈGLE ULTRA PRIORITAIRE : "Comment aller et c'est où" ---
     if ("comment aller" in question_lower or "se rendre" in question_lower):
         if ("ou" in question_lower or "où" in question_lower or "estou" in question_lower or "est ou" in question_lower or "c est ou" in question_lower or "c'est ou" in question_lower):
-            return "📍 **Comment se rendre à l'INSPEI et où se trouve-t-il ?**\n\n**Où se trouve l'INSPEI ?**\nL'INSPEI est situé en République du Bénin, dans le Département du Zou, à **Abomey**, à environ 1 km de la place Goho, sur la route RNIE2 en allant vers Bohicon, à Sogbo-Aliho.\n\n**Comment y aller ?**\n\n🚗 **En voiture / taxi** : Prenez la route RNIE2 vers Bohicon. L'INSPEI est à gauche, à environ 1 km de la place Goho.\n\n🛵 **En taxi-moto (zémidjan)** : Dites au conducteur 'INSPEI, quartier Sogbo-Aliho' (c'est bien connu).\n\n🚌 **En bus / taxi-brousse** : Descendez à Abomey, puis prenez un taxi-moto jusqu'à l'INSPEI.\n\n📍 **Repère** : L'école est située dans le quartier Sogbo-Aliho, près de l'ENEAM d'Abomey.\n\n💡 **Depuis Cotonou** : Prenez un bus ou taxi-brousse direction Abomey, puis suivez les indications ci-dessus."
+            return "📍 **Comment se rendre à l'INSPEI et où se trouve-t-il ?**\n\n**Où se trouve l'INSPEI ?**\nL'INSPEI est situé en République du Bénin, dans le Département du Zou, à **Abomey**, à environ 1 km de la place Goho, sur la route RNIE2 en allant vers Bohicon, à Sogbo-Aliho.\n\n**Comment y aller ?**\n\n🚗 **En voiture / taxi** : Prenez la route RNIE2 vers Bohicon. L'INSPEI est à gauche, à environ 1 km de la place Goho.\n\n🛵 **En taxi-moto (zémidjan)** : Dites au conducteur 'INSPEI, quartier Sogbo-Aliho' (c'est bien connu).\n\n🚌 **En bus / taxi-brousse** : Descendez à Abomey, puis prenez un taxi-moto jusqu'à l'INSPEI.\n\n📍 **Repère** : L'école est située dans le quartier Sogbo-Aliho.\n\n💡 **Depuis Cotonou** : Prenez un bus ou taxi-brousse direction Abomey, puis suivez les indications ci-dessus."
     
     # --- RÈGLE : "Inspei" seul ---
     if question_lower.strip() in ["inspei", "inspéi", "insp"]:
@@ -168,7 +167,7 @@ def repondre(question, model, index, data, historique=[]):
     
     # --- RÈGLE : "Comment aller à INSPEI" (itinéraire) ---
     if ("comment aller" in question_lower or "comment se rendre" in question_lower or "comment venir" in question_lower) and "inspei" in question_lower:
-        return "📍 **Comment se rendre à l'INSPEI :**\n\nL'INSPEI est situé à **Abomey, quartier Sogbo-Aliho**, à environ **1 km de la place Goho** sur la **route RNIE2** en direction de Bohicon.\n\n🚗 **En voiture / taxi** : Prenez la route RNIE2 vers Bohicon. L'INSPEI est à gauche, à environ 1 km de la place Goho.\n\n🛵 **En taxi-moto (zémidjan)** : Dites 'INSPEI, quartier Sogbo-Aliho' (c'est bien connu).\n\n🚌 **En bus / taxi-brousse** : Descendez à Abomey, puis prenez un taxi-moto jusqu'à l'INSPEI.\n\n📍 **Repère** : L'école est située dans le quartier Sogbo-Aliho, près de l'ENEAM d'Abomey.\n\n💡 Si vous venez de Cotonou, prenez un bus ou taxi-brousse direction Abomey, puis suivez les indications ci-dessus."
+        return "📍 **Comment se rendre à l'INSPEI :**\n\nL'INSPEI est situé à **Abomey, quartier Sogbo-Aliho**, à environ **1 km de la place Goho** sur la **route RNIE2** en direction de Bohicon.\n\n🚗 **En voiture / taxi** : Prenez la route RNIE2 vers Bohicon. L'INSPEI est à gauche, à environ 1 km de la place Goho.\n\n🛵 **En taxi-moto (zémidjan)** : Dites 'INSPEI, quartier Sogbo-Aliho' (c'est bien connu).\n\n🚌 **En bus / taxi-brousse** : Descendez à Abomey, puis prenez un taxi-moto jusqu'à l'INSPEI.\n\n📍 **Repère** : L'école est située dans le quartier Sogbo-Aliho.\n\n💡 Si vous venez de Cotonou, prenez un bus ou taxi-brousse direction Abomey, puis suivez les indications ci-dessus."
     
     # --- RÈGLE : "Où" (localisation) ---
     if ("ou" in question_lower or "où" in question_lower or "situé" in question_lower or "adresse" in question_lower) and "inspei" in question_lower:
@@ -214,7 +213,7 @@ def repondre(question, model, index, data, historique=[]):
         return resultats[0]['reponse']
     
     # ============================================================
-    # 3. APPEL À GROQ (si pas de réponse dans la base)
+    # 3. APPEL À GROQ
     # ============================================================
     contexte = ""
     if historique:
@@ -249,16 +248,11 @@ RÈGLES :
         )
         reponse_texte = reponse_ia.choices[0].message.content
         
-        # ============================================================
-        # 4. VÉRIFICATION POST-GÉNÉRATION (comparaison avec la base)
-        # ============================================================
-        # On vérifie si la réponse de l'IA correspond à une réponse de la base
+        # --- VÉRIFICATION POST-GÉNÉRATION ---
         for item in data:
-            # Si la réponse de l'IA contient une réponse de la base
             if item['answer'].strip() in reponse_texte or reponse_texte.strip() in item['answer']:
                 return item['answer']
         
-        # Si la réponse de l'IA n'est pas dans la base, on la donne quand même
         return reponse_texte
         
     except Exception as e:
