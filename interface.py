@@ -99,15 +99,24 @@ def repondre(question, model, index, data, historique=[]):
     if question_lower.strip() in ["inspei", "inspéi", "insp"]:
         return "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est une école préparatoire aux grandes écoles d'ingénieurs du Bénin, située à Abomey. Que souhaitez-vous savoir ? (Admission, filières, écoles, concours, vie étudiante...) 😊"
     
-    # --- RÈGLE : "Comment on va là bas" (itinéraire) ---
-    if ("comment" in question_lower or "va" in question_lower) and ("la bas" in question_lower or "là bas" in question_lower):
-        return "📍 **Comment se rendre à l'INSPEI :**\n\nL'INSPEI est situé à **Abomey, quartier Sogbo-Aliho**, à environ **1 km de la place Goho** sur la **route RNIE2** en direction de Bohicon.\n\n🚗 **En voiture / taxi** : Depuis Abomey, prenez la route RNIE2 vers Bohicon. L'INSPEI est à gauche, à environ 1 km de la place Goho.\n\n🛵 **En taxi-moto (zémidjan)** : Dites au conducteur 'INSPEI, quartier Sogbo-Aliho' (c'est bien connu).\n\n🚌 **En bus / taxi-brousse** : Descendez à Abomey, puis prenez un taxi-moto jusqu'à l'INSPEI.\n\n📌 **Repère** : L'école est dans l'enceinte de l'ENEAM d'Abomey."
+    # --- RÈGLE : "Comment être étudiant" (procédures complètes) - PRIORITAIRE ---
+    if ("être étudiant" in question_lower or "devenir étudiant" in question_lower or "étudiant" in question_lower) and ("inspei" in question_lower or "là bas" in question_lower or "la bas" in question_lower):
+        return "📝 **Comment devenir étudiant à l'INSPEI :**\n\nL'entrée à l'INSPEI se fait **exclusivement sur concours**. Voici les étapes :\n\n📌 **Étape 1 - Vérifier les conditions** :\n• Avoir 12/20 minimum au baccalauréat\n• Être âgé de moins de 22 ans au 31 décembre 2026\n\n📌 **Étape 2 - S'inscrire en ligne** :\n• Site : www.concours.enseignementsuperieur.gouv.bj\n• Période : début août 2026\n• Frais : 5000 FCFA\n\n📌 **Étape 3 - Déposer le dossier** :\n• Centres : INSPEI Abomey, ENS Natitingou, IFSIO Parakou, ENSET Lokossa, INMeS Cotonou, ENS Porto-Novo\n\n📌 **Étape 4 - Passer le concours** :\n• Date : jeudi 10 septembre 2026\n• Matières : Mathématiques, Physique, Chimie, Technologie\n• Épreuves écrites\n\n📌 **Étape 5 - Résultats et sélection** :\n• Basée sur les résultats du concours\n• Les admis peuvent s'inscrire\n\n📌 **Étape 6 - Rentrée** :\n• Début des cours : généralement en octobre\n\n📍 **Adresse** : Abomey, quartier Sogbo-Aliho\n\n💡 **Important** : L'inscription seule ne suffit pas. Il faut passer et réussir le concours."
     
-    # --- RÈGLE : "C'est quand le concours" (date uniquement) ---
+    # --- RÈGLE : "Commencer les cours" (procédures d'inscription) ---
+    if ("commencer" in question_lower or "débuter" in question_lower or "rentrée" in question_lower) and ("cours" in question_lower or "études" in question_lower or "école" in question_lower):
+        if "inspei" in question_lower or "là bas" in question_lower:
+            return "📝 **Pour commencer les cours à l'INSPEI, voici les étapes à suivre :**\n\n📌 **Étape 1 - Vérifier les conditions** :\n• Avoir 12/20 minimum au baccalauréat\n• Être âgé de moins de 22 ans au 31 décembre 2026\n\n📌 **Étape 2 - S'inscrire au concours** :\n• Se rendre sur www.concours.enseignementsuperieur.gouv.bj\n• Période : début août 2026\n\n📌 **Étape 3 - Déposer le dossier** :\n• Dans les centres : INSPEI Abomey, ENS Natitingou, IFSIO Parakou, ENSET Lokossa, INMeS Cotonou, ENS Porto-Novo\n\n📌 **Étape 4 - Passer le concours** :\n• Épreuves écrites : jeudi 10 septembre 2026\n• Matières : Mathématiques, Physique, Chimie, Technologie\n\n📌 **Étape 5 - Attendre les résultats** :\n• Seuls les candidats sélectionnés pourront s'inscrire\n\n📌 **Étape 6 - Rentrée académique** :\n• Début des cours : généralement en octobre\n\n💡 **L'adresse de l'INSPEI** : Abomey, quartier Sogbo-Aliho, à 1 km de la place Goho sur la route RNIE2."
+    
+    # --- RÈGLE : "Comment on va là bas" (itinéraire) - EN DERNIER ---
+    if ("comment" in question_lower or "va" in question_lower or "aller" in question_lower) and ("la bas" in question_lower or "là bas" in question_lower):
+        return "📍 **Comment se rendre à l'INSPEI :**\n\nL'INSPEI est situé à **Abomey, quartier Sogbo-Aliho**, à environ **1 km de la place Goho** sur la **route RNIE2** en direction de Bohicon.\n\n🚗 **En voiture / taxi** : Depuis Abomey, prenez la route RNIE2 vers Bohicon. L'INSPEI est à gauche, à environ 1 km de la place Goho.\n\n🛵 **En taxi-moto (zémidjan)** : Dites au conducteur 'INSPEI, quartier Sogbo-Aliho' (c'est bien connu).\n\n🚌 **En bus / taxi-brousse** : Descendez à Abomey, puis prenez un taxi-moto jusqu'à l'INSPEI."
+    
+    # --- RÈGLE : "C'est quand le concours" ---
     if ("quand" in question_lower or "date" in question_lower) and "concours" in question_lower:
         return "📅 **Concours INSPEI 2026** :\n\nLa date du concours d'entrée est le **jeudi 10 septembre 2026**.\n\n📌 **Conditions** : 12/20 au baccalauréat et moins de 22 ans au 31/12/2026\n📌 **Inscription** : www.concours.enseignementsuperieur.gouv.bj\n📌 **Lieux** : Abomey (ENSTP/UNSTIM), Cotonou (CEG Gbégamey, CEG Ste Rita, CEG les Pylônes), Parakou (IFSIO)"
     
-    # --- RÈGLE : "Procédures à suivre" (démarches) ---
+    # --- RÈGLE : "Procédures à suivre" ---
     if "procédure" in question_lower or "démarche" in question_lower or "étapes" in question_lower:
         if "inspei" in question_lower or "concours" in question_lower:
             return "📝 **Procédures à suivre pour intégrer l'INSPEI** :\n\n📌 **Étape 1 - Conditions** :\n• Avoir 12/20 minimum au baccalauréat\n• Être âgé de moins de 22 ans au 31 décembre 2026\n\n📌 **Étape 2 - Inscription** :\n• Se rendre sur www.concours.enseignementsuperieur.gouv.bj\n• Début août 2026\n\n📌 **Étape 3 - Dépôt des dossiers** :\n• Dans les centres : INSPEI Abomey, ENS Natitingou, IFSIO Parakou, ENSET Lokossa, INMeS Cotonou, ENS Porto-Novo\n\n📌 **Étape 4 - Concours** :\n• Épreuves écrites en Mathématiques, Physique, Chimie et Technologie\n• Date : jeudi 10 septembre 2026\n\n📌 **Étape 5 - Sélection** :\n• Basée sur les résultats du concours"
@@ -124,15 +133,11 @@ def repondre(question, model, index, data, historique=[]):
     if ("s'inscrire" in question_lower or "inscription" in question_lower or "site" in question_lower) and ("concours" in question_lower or "inspei" in question_lower):
         return "📝 **Inscription au concours INSPEI 2026** :\n\n🌐 **Site officiel d'inscription** : www.concours.enseignementsuperieur.gouv.bj\n\n📌 **Dépôt des dossiers** : début août 2026\n📍 **Centres de dépôt** : INSPEI Abomey, ENS Natitingou, IFSIO Parakou, ENSET Lokossa, INMeS Cotonou, ENS Porto-Novo\n\n📞 **Contact** : inspei@unstim.edu.bj\n🌐 **Site officiel de l'INSPEI** : https://siteinspei.netlify.app"
     
-    # --- RÈGLE : "Comment aller / se rendre" (itinéraire) ---
-    if ("aller" in question_lower or "se rendre" in question_lower or "venir" in question_lower or "transport" in question_lower) and ("inspei" in question_lower or "école" in question_lower):
-        return "📍 **Comment se rendre à l'INSPEI** :\n\nL'INSPEI est situé à **Abomey, quartier Sogbo-Aliho**, à environ 1 km de la place Goho sur la route RNIE2 en direction de Bohicon.\n\n🚗 **En voiture / taxi** : Depuis Abomey, prenez la route RNIE2 vers Bohicon. L'INSPEI est situé à gauche, à environ 1 km de la place Goho.\n\n🛵 **En taxi-moto (zémidjan)** : Dites au conducteur de vous déposer à l'INSPEI, quartier Sogbo-Aliho (c'est bien connu).\n\n🚌 **En bus / taxi-brousse** : Descendez à Abomey, puis prenez un taxi-moto jusqu'à l'INSPEI.\n\n📌 **Repère** : L'école est dans l'enceinte de l'ENEAM d'Abomey.\n\nSi vous voulez d'autres indications, précisez votre point de départ ! 😊"
-    
     # --- RÈGLE : "Épreuves et matières du concours" ---
     if ("epreuves" in question_lower or "épreuves" in question_lower or "matieres" in question_lower or "matières" in question_lower) and ("concours" in question_lower or "inspei" in question_lower):
         return "📚 **Épreuves et matières du concours INSPEI 2026** :\n\nLes épreuves du concours d'entrée à l'INSPEI portent sur les matières suivantes :\n\n📐 **Mathématiques** : Algèbre, Analyse, Géométrie, Probabilités\n⚛️ **Physique** : Mécanique, Électricité, Optique, Thermodynamique\n🧪 **Chimie** : Chimie générale, Chimie organique, Chimie des solutions\n🛠️ **Technologie** : Sciences de l'ingénieur, Mécanique, Électrotechnique\n\n📌 **Format** : Épreuves écrites\n📌 **Date** : jeudi 10 septembre 2026\n📌 **Inscription** : www.concours.enseignementsuperieur.gouv.bj"
     
-    # --- RÈGLE : "C'est où" (sans mention d'INSPEI) ---
+    # --- RÈGLE : "C'est où" ---
     if question_lower in ["c'est où", "cest ou", "c est ou", "c'est ou"]:
         return "Si vous cherchez la localisation de l'INSPEI, il est situé à Abomey, quartier Sogbo-Aliho, à environ 1 km de la place Goho sur la route RNIE2. Si vous cherchez autre chose, précisez votre question."
     
@@ -153,7 +158,7 @@ def repondre(question, model, index, data, historique=[]):
             if "inscription" in dernier_sujet or "concours" in dernier_sujet or "déposer" in dernier_sujet:
                 return "📝 **Procédures d'inscription à l'INSPEI** :\n\n📌 **Étape 1** : Vérifier les conditions (12/20 au bac, moins de 22 ans)\n📌 **Étape 2** : S'inscrire en ligne sur www.concours.enseignementsuperieur.gouv.bj (début août 2026)\n📌 **Étape 3** : Déposer le dossier dans un centre (INSPEI Abomey, ENS Natitingou, IFSIO Parakou, ENSET Lokossa, INMeS Cotonou, ENS Porto-Novo)\n📌 **Étape 4** : Passer les épreuves écrites (jeudi 10 septembre 2026)\n📌 **Étape 5** : Attendre les résultats\n\n💡 **L'adresse de l'INSPEI** : Abomey, quartier Sogbo-Aliho, à 1 km de la place Goho."
             elif "inspei" in dernier_sujet or "école" in dernier_sujet:
-                return "📍 **Comment se rendre à l'INSPEI** :\n\nL'INSPEI est situé à Abomey, quartier Sogbo-Aliho, à environ 1 km de la place Goho sur la route RNIE2 (direction Bohicon).\n\n🚗 **En voiture** : Suivez la RNIE2 depuis Abomey vers Bohicon.\n🛵 **En taxi-moto** : Demandez à être déposé à l'INSPEI, quartier Sogbo-Aliho.\n📌 **Repère** : L'école est dans l'enceinte de l'ENEAM d'Abomey."
+                return "📍 **Comment se rendre à l'INSPEI** :\n\nL'INSPEI est situé à Abomey, quartier Sogbo-Aliho, à environ 1 km de la place Goho sur la route RNIE2 (direction Bohicon).\n\n🚗 **En voiture** : Suivez la RNIE2 depuis Abomey vers Bohicon.\n🛵 **En taxi-moto** : Demandez à être déposé à l'INSPEI, quartier Sogbo-Aliho."
             else:
                 return "📝 **Procédures pour intégrer l'INSPEI** :\n\n📌 **Étape 1 - Conditions** : 12/20 au bac et moins de 22 ans\n📌 **Étape 2 - Inscription** : www.concours.enseignementsuperieur.gouv.bj\n📌 **Étape 3 - Dépôt des dossiers** : début août 2026\n📌 **Étape 4 - Concours** : jeudi 10 septembre 2026\n\n📍 **L'adresse** : Abomey, quartier Sogbo-Aliho"
         
