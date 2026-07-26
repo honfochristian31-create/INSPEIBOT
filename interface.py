@@ -15,8 +15,6 @@ client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 # ---------- 2. CORRECTEUR ORTHOGRAPHIQUE ----------
 spell = SpellChecker(language='fr')
-
-# --- AJOUT : mots à ne pas corriger (acronymes, noms propres) ---
 MOTS_PROTEGES = {"inspei", "unstim", "ensgep", "ensgmm", "enstp", "cpei"}
 
 def corriger_orthographe(texte):
@@ -27,7 +25,6 @@ def corriger_orthographe(texte):
     for mot in mots:
         mot_propre = mot.strip('.,;!?()[]{}"\'')
         if mot_propre and len(mot_propre) > 1 and not mot_propre.isnumeric():
-            # Ne pas corriger les mots protégés
             if mot_propre.lower() in MOTS_PROTEGES:
                 mots_corriges.append(mot)
             else:
@@ -214,9 +211,9 @@ def repondre(question, model, index, data, historique=[]):
         ("que faire" in question_lower and "après" in question_lower)):
         return "🎓 **Que faire après l'INSPEI ?**\n\nAprès vos deux années de classes préparatoires à l'INSPEI, vous obtenez le **CPEI** (Certificat Préparatoire aux Études d'Ingénieur).\n\n📌 **Vous pouvez intégrer les écoles d'ingénieurs de l'UNSTIM :**\n\n🏛️ **ENSGEP** (Génie Energétique et Procédés)\n• Spécialités : Énergie, Thermique, Procédés industriels\n• Débouchés : Ingénieur en énergie, Chef d'usine, Bureau d'études\n\n🏛️ **ENSGMM** (Génie Mathématique et Modélisation)\n• Spécialités : Modélisation, Statistique-Finance, Informatique-Logistique\n• Débouchés : Data Scientist, Analyste financier, Logistique\n\n🏛️ **ENSTP** (Travaux Publics)\n• Spécialités : Génie civil, Construction, Infrastructures\n• Débouchés : Ingénieur BTP, Bureau d'études, Collectivités\n\n📌 **Cycle d'ingénieur** : 3 ans après l'INSPEI pour obtenir le diplôme d'ingénieur (Bac+5).\n\n💡 **Les débouchés sont nombreux** : Industrie, Énergie, Finance, Construction, Recherche...\n\n📍 **Adresse** : Abomey, quartier Sogbo-Aliho\n🌐 **Plus d'infos** : https://siteinspei.netlify.app"
     
-    # --- RÈGLE : "Comment se préparer" ---
+    # --- RÈGLE : "Comment se préparer" (avec renvoi vers Netlify) ---
     if ("préparer" in question_lower or "preparer" in question_lower or "réviser" in question_lower or "reviser" in question_lower or "annales" in question_lower or "s'entraîner" in question_lower or "entraîner" in question_lower) and ("concours" in question_lower or "inspei" in question_lower):
-        return "📚 **Comment se préparer au concours INSPEI ?**\n\n📌 **Annales des concours** (2017 à 2024) : Mathématiques, Physique-Chimie-Technologie\n\n🌐 **Où les trouver ?**\n• www.concours.enseignementsuperieur.gouv.bj\n• https://siteinspei.netlify.app (rubrique Ressources)\n\n📝 **Conseils :** Réviser régulièrement, s'entraîner avec les annales, travailler la gestion du temps.\n\n📅 **Date** : jeudi 10 septembre 2026"
+        return "📚 **Pour vous préparer au concours INSPEI, toutes les ressources officielles sont disponibles sur le site dédié :**\n\n🌐 **https://siteinspei.netlify.app** (rubrique **Ressources**)\n\nVous y trouverez :\n• Les annales des concours (Mathématiques, Physique-Chimie-Technologie) de 2017 à 2024\n• Des conseils de révision\n• Des informations sur les programmes\n\n📌 **Site d'inscription :** www.concours.enseignementsuperieur.gouv.bj\n\n📅 **Date du concours :** jeudi 10 septembre 2026"
     
     # --- RÈGLE : "Comment aller" ---
     if ("comment aller" in question_lower or "comment se rendre" in question_lower or "comment venir" in question_lower) and "inspei" in question_lower:
@@ -245,6 +242,10 @@ def repondre(question, model, index, data, historique=[]):
     if "administrateur" in question_lower or "admin" in question_lower or "direction" in question_lower or "responsable" in question_lower:
         return "👨‍🏫 **Équipe dirigeante de l'INSPEI :**\n\n• Dr (MC) AKOWANOU Christian D. (Directeur)\n• Dr. Bernard N. TOKPOHOZIN (CSSE)\n• GBEGNITO Wilfried Hodonou (Secrétaire général)"
     
+    # --- RÈGLE : "entretien" ou "oral" – il n'y a pas d'oral ---
+    if "entretien" in question_lower or "oral" in question_lower or "orale" in question_lower:
+        return "❌ **Le concours INSPEI ne comporte pas d'épreuve orale ni d'entretien.**\n\nLa sélection se fait uniquement sur les **épreuves écrites** (Mathématiques et Sciences Physiques-Chimie-Technologie). Les résultats sont ensuite classés par moyenne, sans étape d'entretien.\n\n📖 Pour plus d'informations : https://siteinspei.netlify.app"
+    
     # --- Si la question est trop courte ---
     if len(question.strip().split()) <= 1:
         return "Pouvez-vous préciser votre question sur l'INSPEI ? Je suis là pour vous renseigner sur les admissions, les filières, les écoles, la vie étudiante, etc."
@@ -259,7 +260,13 @@ def repondre(question, model, index, data, historique=[]):
         seuil = 0.45
     
     if resultats and resultats[0]['similarite'] > seuil:
-        return resultats[0]['reponse']
+        # Vérifier si la réponse contient des mentions d'entretien ou d'oral et la filtrer
+        reponse_trouvee = resultats[0]['reponse']
+        if "entretien" in reponse_trouvee.lower() or "oral" in reponse_trouvee.lower():
+            # Remplacer par un message correct
+            return "❌ **Le concours INSPEI ne comporte pas d'épreuve orale ni d'entretien.**\n\nLa sélection se fait uniquement sur les **épreuves écrites**. Consultez le site officiel pour plus d'informations : https://siteinspei.netlify.app"
+        else:
+            return reponse_trouvee
     
     # ============================================================
     # 3. APPEL À GROQ
@@ -284,11 +291,13 @@ CE N'EST PAS UNE ÉCOLE DE PRESSE OU DE COMMUNICATION.
 
 {contexte}
 
-RÈGLES :
+RÈGLES IMPÉRATIVES :
 1. Réponds uniquement avec les informations du contexte.
-2. Si l'information n'est pas dans le contexte, dis : "Je ne dispose pas de cette information. Consultez le site officiel."
-3. Continue naturellement la conversation.
-4. Ne dis JAMAIS que l'INSPEI est lié à la presse, à la communication ou à l'information."""},
+2. Si l'information n'est pas dans le contexte, dis : "Je ne dispose pas de cette information. Consultez le site officiel : https://siteinspei.netlify.app"
+3. Le concours INSPEI ne comporte PAS d'épreuve orale ni d'entretien. La sélection se fait uniquement sur les épreuves écrites.
+4. Toutes les ressources pour la préparation (annales, conseils) sont disponibles sur https://siteinspei.netlify.app (rubrique Ressources).
+5. Ne mentionne JAMAIS de livres ou de sites de révision non officiels.
+6. Continue naturellement la conversation."""},
         {"role": "user", "content": question}
     ]
     
@@ -305,6 +314,10 @@ RÈGLES :
         if est_question_definition(question_lower):
             if "classes préparatoires" not in reponse_texte.lower() or "ingénieur" not in reponse_texte.lower():
                 return DEFINITION_INSPEI
+        
+        # Vérifier si la réponse de Groq mentionne un entretien ou oral et la corriger
+        if "entretien" in reponse_texte.lower() or "oral" in reponse_texte.lower():
+            return "❌ **Le concours INSPEI ne comporte pas d'épreuve orale ni d'entretien.**\n\nLa sélection se fait uniquement sur les **épreuves écrites** (Mathématiques et Sciences Physiques-Chimie-Technologie). Pour plus d'informations, consultez le site officiel : https://siteinspei.netlify.app"
         
         return reponse_texte
         
