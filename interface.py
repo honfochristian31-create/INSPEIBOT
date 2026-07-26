@@ -46,6 +46,7 @@ def normaliser_question(texte):
     texte = texte.replace("a l inspei", "à l'inspei")
     texte = texte.replace("a inspei", "à inspei")
     texte = texte.replace("c est quoi", "c'est quoi")
+    texte = texte.replace("qu on", "qu'on")
     return texte
 
 # ---------- 3. CHARGEMENT ----------
@@ -137,12 +138,11 @@ def repondre(question, model, index, data, historique=[]):
     # 1. RÈGLES ULTRA PRIORITAIRES
     # ============================================================
     
-    # --- RÈGLE : DÉFINITION DE L'INSPEI ---
+    # --- RÈGLE : DÉFINITION ---
     if est_question_definition(question_lower):
         return DEFINITION_INSPEI
     
-    # --- RÈGLE : ÉPREUVES DU CONCOURS (MATIERES A COMPOSER) ---
-    # Cette règle doit être AVANT la règle "date du concours"
+    # --- RÈGLE : ÉPREUVES DU CONCOURS ---
     if ("matiere" in question_lower or "matière" in question_lower or "epreuve" in question_lower or "épreuve" in question_lower):
         if ("concours" in question_lower or 
             "composer" in question_lower or 
@@ -151,6 +151,15 @@ def repondre(question, model, index, data, historique=[]):
             "compose" in question_lower or 
             "composition" in question_lower):
             return "📚 **Épreuves du concours INSPEI 2026 :**\n\nVous composez **2 épreuves écrites** :\n\n📌 **Épreuve 1** : Mathématiques\n📌 **Épreuve 2** : Sciences Physiques, Chimie et Technologie\n\n📅 Date : jeudi 10 septembre 2026\n🌐 Inscription : www.concours.enseignementsuperieur.gouv.bj\n📖 Plus d'infos : https://siteinspei.netlify.app"
+    
+    # --- RÈGLE : MATIÈRES ENSEIGNÉES (FORMATION) ---
+    # Cette règle capture les questions sur les matières qu'on étudie à l'INSPEI
+    # Elle est placée AVANT la date du concours
+    if "matiere" in question_lower or "matière" in question_lower:
+        # Mots-clés qui indiquent une question sur la formation
+        mots_formation = ["semestre", "programme", "formation", "retrouv", "retrouve", "enseigné", "enseignées", "étudie", "apprend", "cours", "matière"]
+        if any(mot in question_lower for mot in mots_formation):
+            return "📚 **Matières enseignées à l'INSPEI :**\n\nLa formation dure **2 ans** (4 semestres).\n\n📌 **Semestre 1 (S1)** :\n• Algorithmique (Algo)\n• Thermodynamique\n• Mathématiques 1\n• Chimie de l'Ingénieur\n• EPS (Education Physique et Sportive)\n• TEMC (Techniques d'Expression et de Communication)\n• Probabilités et Statistiques\n• Statique Graphique et Analytique\n\n📌 **Semestre 2 (S2)** :\n• Analyse Numérique\n• Graphe et Optimisation\n• Mathématiques 2\n• Cinématique et Dynamique\n• Langage (C, Python)\n• RDM (Résistance des Matériaux)\n• Normes et Mesures\n• Anglais technique\n\n📌 **Semestre 3 (S3)** :\n• TEMC (Techniques d'Expression et de Communication)\n• Recherche Opérationnelle\n• Mécanique des Fluides\n• Mathématiques 3\n• Physique des Matériaux\n• Géométrie Descriptive\n• Dessin Technique et DAO\n• Électricité Générale\n\n📌 **Semestre 4 (S4)** :\n• Mathématiques 4\n• Matlab\n• MPA (Modélisation des Phénomènes Aléatoires)\n• Sciences Biologiques pour l'Ingénieur\n• Transfert Thermique\n• Ondes Électromagnétiques\n• Anglais Technique Avancé\n• EPS (Education Physique et Sportive)\n\n📖 Plus d'infos : https://siteinspei.netlify.app"
     
     # --- RÈGLE : DATE DU CONCOURS ---
     if ("quand" in question_lower or "date" in question_lower) and ("concours" in question_lower or "inspei" in question_lower):
@@ -204,11 +213,6 @@ def repondre(question, model, index, data, historique=[]):
     # --- RÈGLE : "Comment se préparer" ---
     if ("préparer" in question_lower or "preparer" in question_lower or "réviser" in question_lower or "reviser" in question_lower or "annales" in question_lower or "s'entraîner" in question_lower or "entraîner" in question_lower) and ("concours" in question_lower or "inspei" in question_lower):
         return "📚 **Comment se préparer au concours INSPEI ?**\n\n📌 **Annales des concours** (2017 à 2024) : Mathématiques, Physique-Chimie-Technologie\n\n🌐 **Où les trouver ?**\n• www.concours.enseignementsuperieur.gouv.bj\n• https://siteinspei.netlify.app (rubrique Ressources)\n\n📝 **Conseils :** Réviser régulièrement, s'entraîner avec les annales, travailler la gestion du temps.\n\n📅 **Date** : jeudi 10 septembre 2026"
-    
-    # --- RÈGLE : "Matières enseignées" (formation) ---
-    if "matiere" in question_lower or "matière" in question_lower:
-        if "semestre" in question_lower or "programme" in question_lower or "formation" in question_lower:
-            return "📚 **Matières enseignées à l'INSPEI :**\n\nLa formation dure **2 ans** (4 semestres).\n\n📌 **Semestre 1 (S1)** :\n• Algorithmique (Algo)\n• Thermodynamique\n• Mathématiques 1\n• Chimie de l'Ingénieur\n• EPS (Education Physique et Sportive)\n• TEMC (Techniques d'Expression et de Communication)\n• Probabilités et Statistiques\n• Statique Graphique et Analytique\n\n📌 **Semestre 2 (S2)** :\n• Analyse Numérique\n• Graphe et Optimisation\n• Mathématiques 2\n• Cinématique et Dynamique\n• Langage (C, Python)\n• RDM (Résistance des Matériaux)\n• Normes et Mesures\n• Anglais technique\n\n📌 **Semestre 3 (S3)** :\n• TEMC (Techniques d'Expression et de Communication)\n• Recherche Opérationnelle\n• Mécanique des Fluides\n• Mathématiques 3\n• Physique des Matériaux\n• Géométrie Descriptive\n• Dessin Technique et DAO\n• Électricité Générale\n\n📌 **Semestre 4 (S4)** :\n• Mathématiques 4\n• Matlab\n• MPA (Modélisation des Phénomènes Aléatoires)\n• Sciences Biologiques pour l'Ingénieur\n• Transfert Thermique\n• Ondes Électromagnétiques\n• Anglais Technique Avancé\n• EPS (Education Physique et Sportive)\n\n📖 Plus d'infos : https://siteinspei.netlify.app"
     
     # --- RÈGLE : "Comment aller" ---
     if ("comment aller" in question_lower or "comment se rendre" in question_lower or "comment venir" in question_lower) and "inspei" in question_lower:
