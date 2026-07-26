@@ -46,8 +46,6 @@ def normaliser_question(texte):
     texte = texte.replace("a l inspei", "à l'inspei")
     texte = texte.replace("a inspei", "à inspei")
     texte = texte.replace("c est quoi", "c'est quoi")
-    texte = texte.replace("inspei signifie", "inspei signifie")
-    texte = texte.replace("signifie", "signifie")
     return texte
 
 # ---------- 3. CHARGEMENT ----------
@@ -107,23 +105,20 @@ def reponse_salutation():
     ]
     return random.choice(responses)
 
-# ---------- 6. DÉFINITION CORRECTE DE L'INSPEI ----------
+# ---------- 6. DÉFINITION ----------
 DEFINITION_INSPEI = """L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est un établissement public rattaché à l'UNSTIM (Université Nationale des Sciences, Technologies, Ingénierie et Mathématiques). Il a été officiellement créé par l'arrêté N°719/MESRS/... du 23/12/2020, mais a démarré ses activités dès 2016-2017. Sa mission est de former des bacheliers scientifiques pour les grandes écoles d'ingénieurs du Bénin. La formation dure deux ans et débouche sur le CPEI."""
 
-# ---------- 7. RÈGLE ULTRA RADICALE : Définition de l'INSPEI ----------
 def est_question_definition(question_lower):
-    """Vérifie si la question demande la définition de l'INSPEI"""
     mots_definition = [
         "quoi", "signifie", "signification", "definition", "définition", 
         "c'est quoi", "c est quoi", "qu'est-ce", "qu est ce", 
-        "que veut dire", "c'est", "c est", "sens", "abrégé", "abréviation",
-        "signifie quoi", "quoi signifie", "est quoi", "qu'est-ce que"
+        "que veut dire", "c'est", "c est", "sens", "abrégé", "abréviation"
     ]
     if "inspei" not in question_lower:
         return False
     return any(mot in question_lower for mot in mots_definition)
 
-# ---------- 8. RÉPONSE PRINCIPALE ----------
+# ---------- 7. RÉPONSE PRINCIPALE ----------
 def repondre(question, model, index, data, historique=[]):
     # 0. Salutations
     if est_salutation(question) and len(historique) == 0:
@@ -139,11 +134,27 @@ def repondre(question, model, index, data, historique=[]):
     question_lower = question_normalisee.lower().strip()
     
     # ============================================================
-    # RÈGLE ULTRA RADICALE : DÉFINITION DE L'INSPEI
-    # Cette règle est en TOUT PREMIER (avant les confirmations)
+    # 1. RÈGLES ULTRA PRIORITAIRES
     # ============================================================
+    
+    # --- RÈGLE : DÉFINITION DE L'INSPEI ---
     if est_question_definition(question_lower):
         return DEFINITION_INSPEI
+    
+    # --- RÈGLE : ÉPREUVES DU CONCOURS (MATIERES A COMPOSER) ---
+    # Cette règle doit être AVANT la règle "date du concours"
+    if ("matiere" in question_lower or "matière" in question_lower or "epreuve" in question_lower or "épreuve" in question_lower):
+        if ("concours" in question_lower or 
+            "composer" in question_lower or 
+            "compser" in question_lower or
+            "compos" in question_lower or 
+            "compose" in question_lower or 
+            "composition" in question_lower):
+            return "📚 **Épreuves du concours INSPEI 2026 :**\n\nVous composez **2 épreuves écrites** :\n\n📌 **Épreuve 1** : Mathématiques\n📌 **Épreuve 2** : Sciences Physiques, Chimie et Technologie\n\n📅 Date : jeudi 10 septembre 2026\n🌐 Inscription : www.concours.enseignementsuperieur.gouv.bj\n📖 Plus d'infos : https://siteinspei.netlify.app"
+    
+    # --- RÈGLE : DATE DU CONCOURS ---
+    if ("quand" in question_lower or "date" in question_lower) and ("concours" in question_lower or "inspei" in question_lower):
+        return "📅 **Concours INSPEI 2026 :**\n\nLa date du concours d'entrée est le **jeudi 10 septembre 2026**.\n\n📌 Conditions : 12/20 au baccalauréat et moins de 22 ans au 31 décembre 2026\n📌 Inscription : www.concours.enseignementsuperieur.gouv.bj\n📌 Dépôt des dossiers : début août 2026"
     
     # --- RÈGLE : confirmations ---
     mots_confirmation = ["ok", "oui", "non", "merci", "d'accord", "super", "parfait", "cool", "okay", "yes", "no", "si", "sisi"]
@@ -161,17 +172,6 @@ def repondre(question, model, index, data, historique=[]):
     # --- RÈGLE : "Inspei" seul ---
     if question_lower.strip() in ["inspei", "inspéi", "insp"]:
         return "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est une école préparatoire aux grandes écoles d'ingénieurs du Bénin, située à Abomey. Que souhaitez-vous savoir ? (Admission, filières, écoles, concours, vie étudiante...) 😊"
-    
-    # --- RÈGLE CONTEXTUELLE : "on compose quand" ---
-    if ("compose" in question_lower or "composition" in question_lower or "quand" in question_lower):
-        if historique:
-            for msg in historique[-4:]:
-                if "inspei" in msg.get("content", "").lower():
-                    return "📅 **Concours INSPEI 2026 :**\n\nLa date du concours d'entrée est le **jeudi 10 septembre 2026**.\n\n📌 **Conditions** : 12/20 au baccalauréat et moins de 22 ans au 31 décembre 2026\n📌 **Inscription** : www.concours.enseignementsuperieur.gouv.bj\n📌 **Dépôt des dossiers** : début août 2026"
-    
-    # --- RÈGLE RADICALE : "inspei compose quand" ---
-    if "inspei" in question_lower and ("compose" in question_lower or "composition" in question_lower or "concours" in question_lower) and ("quand" in question_lower or "date" in question_lower):
-        return "📅 **Concours INSPEI 2026 :**\n\nLa date du concours d'entrée est le **jeudi 10 septembre 2026**.\n\n📌 **Conditions** : 12/20 au baccalauréat et moins de 22 ans au 31 décembre 2026\n📌 **Inscription** : www.concours.enseignementsuperieur.gouv.bj\n📌 **Dépôt des dossiers** : début août 2026\n📌 **Centres d'examen** : Abomey (ENSTP/UNSTIM), Cotonou (CEG Gbégamey, Collège Catholique ND des Apôtres, CEG Ste Rita, CEG les Pylônes), Parakou (IFSIO)"
     
     # --- RÈGLE : "quel site" ---
     if "site" in question_lower and ("officiel" in question_lower or "inspei" in question_lower):
@@ -205,20 +205,10 @@ def repondre(question, model, index, data, historique=[]):
     if ("préparer" in question_lower or "preparer" in question_lower or "réviser" in question_lower or "reviser" in question_lower or "annales" in question_lower or "s'entraîner" in question_lower or "entraîner" in question_lower) and ("concours" in question_lower or "inspei" in question_lower):
         return "📚 **Comment se préparer au concours INSPEI ?**\n\n📌 **Annales des concours** (2017 à 2024) : Mathématiques, Physique-Chimie-Technologie\n\n🌐 **Où les trouver ?**\n• www.concours.enseignementsuperieur.gouv.bj\n• https://siteinspei.netlify.app (rubrique Ressources)\n\n📝 **Conseils :** Réviser régulièrement, s'entraîner avec les annales, travailler la gestion du temps.\n\n📅 **Date** : jeudi 10 septembre 2026"
     
-    # --- RÈGLE : "Épreuves du concours" ---
-    if "matiere" in question_lower or "matière" in question_lower or "epreuve" in question_lower or "épreuve" in question_lower:
-        if ("concours" in question_lower or 
-            "composer" in question_lower or 
-            "compser" in question_lower or
-            "compos" in question_lower or 
-            "compose" in question_lower or 
-            "composition" in question_lower):
-            return "📚 **Épreuves du concours INSPEI 2026 :**\n\nVous composez **2 épreuves écrites** :\n\n📌 **Épreuve 1** : Mathématiques\n📌 **Épreuve 2** : Sciences Physiques, Chimie et Technologie\n\n📅 Date : jeudi 10 septembre 2026\n🌐 Inscription : www.concours.enseignementsuperieur.gouv.bj"
-    
-    # --- RÈGLE : "Matières enseignées" ---
+    # --- RÈGLE : "Matières enseignées" (formation) ---
     if "matiere" in question_lower or "matière" in question_lower:
         if "semestre" in question_lower or "programme" in question_lower or "formation" in question_lower:
-            return "📚 **Matières enseignées à l'INSPEI :**\n\n📌 **Semestre 1** : Algorithmique, Thermodynamique, Maths 1, Chimie de l'Ingénieur, EPS, TEMC, Probabilités/Statistiques, Statique Graphique\n\n📌 **Semestre 2** : Analyse Numérique, Graphe/Optimisation, Maths 2, Cinématique/Dynamique, Langage (C/Python), RDM, Normes/Mesures, Anglais technique\n\n📌 **Semestre 3** : TEMC, Recherche Opérationnelle, Mécanique des Fluides, Maths 3, Physique des Matériaux, Géométrie Descriptive, Dessin Technique/DAO, Électricité Générale\n\n📌 **Semestre 4** : Maths 4, Matlab, MPA, Sciences Biologiques, Transfert Thermique, Ondes Électromagnétiques, Anglais Technique Avancé, EPS"
+            return "📚 **Matières enseignées à l'INSPEI :**\n\nLa formation dure **2 ans** (4 semestres).\n\n📌 **Semestre 1 (S1)** :\n• Algorithmique (Algo)\n• Thermodynamique\n• Mathématiques 1\n• Chimie de l'Ingénieur\n• EPS (Education Physique et Sportive)\n• TEMC (Techniques d'Expression et de Communication)\n• Probabilités et Statistiques\n• Statique Graphique et Analytique\n\n📌 **Semestre 2 (S2)** :\n• Analyse Numérique\n• Graphe et Optimisation\n• Mathématiques 2\n• Cinématique et Dynamique\n• Langage (C, Python)\n• RDM (Résistance des Matériaux)\n• Normes et Mesures\n• Anglais technique\n\n📌 **Semestre 3 (S3)** :\n• TEMC (Techniques d'Expression et de Communication)\n• Recherche Opérationnelle\n• Mécanique des Fluides\n• Mathématiques 3\n• Physique des Matériaux\n• Géométrie Descriptive\n• Dessin Technique et DAO\n• Électricité Générale\n\n📌 **Semestre 4 (S4)** :\n• Mathématiques 4\n• Matlab\n• MPA (Modélisation des Phénomènes Aléatoires)\n• Sciences Biologiques pour l'Ingénieur\n• Transfert Thermique\n• Ondes Électromagnétiques\n• Anglais Technique Avancé\n• EPS (Education Physique et Sportive)\n\n📖 Plus d'infos : https://siteinspei.netlify.app"
     
     # --- RÈGLE : "Comment aller" ---
     if ("comment aller" in question_lower or "comment se rendre" in question_lower or "comment venir" in question_lower) and "inspei" in question_lower:
@@ -303,9 +293,7 @@ RÈGLES :
         )
         reponse_texte = reponse_ia.choices[0].message.content
         
-        # ============================================================
-        # 4. FILET DE SÉCURITÉ : DÉFINITION DE L'INSPEI
-        # ============================================================
+        # --- FILET DE SÉCURITÉ : DÉFINITION ---
         if est_question_definition(question_lower):
             if "classes préparatoires" not in reponse_texte.lower() or "ingénieur" not in reponse_texte.lower():
                 return DEFINITION_INSPEI
@@ -315,7 +303,7 @@ RÈGLES :
     except Exception as e:
         return "Désolé, une erreur s'est produite. Veuillez réessayer."
 
-# ---------- 9. INTERFACE STREAMLIT ----------
+# ---------- 8. INTERFACE STREAMLIT ----------
 st.set_page_config(page_title="Assistant INSPEI", page_icon="🎓", layout="wide")
 
 st.markdown("""
@@ -337,7 +325,7 @@ if not data:
     st.warning("⚠️ Aucune donnée chargée. Vérifiez que le fichier data/inspei.json existe.")
     st.stop()
 
-# ---------- 10. GESTION DES CONVERSATIONS ----------
+# ---------- 9. GESTION DES CONVERSATIONS ----------
 if "conversations" not in st.session_state:
     st.session_state.conversations = []
     st.session_state.current_convo_id = None
@@ -399,7 +387,7 @@ def generer_titre(question):
         return f"INSPEI - {' '.join(mots).capitalize()}"
     return "INSPEI - Nouvelle conversation"
 
-# ---------- 11. BARRE LATÉRALE ----------
+# ---------- 10. BARRE LATÉRALE ----------
 with st.sidebar:
     st.markdown("### 💬 Conversations")
     
@@ -425,7 +413,7 @@ with st.sidebar:
     else:
         st.info("Aucune conversation active.")
 
-# ---------- 12. ZONE PRINCIPALE ----------
+# ---------- 11. ZONE PRINCIPALE ----------
 if not st.session_state.conversations:
     nouvelle_conversation("INSPEI - Bienvenue")
 
@@ -438,7 +426,7 @@ for message in active_convo["messages"]:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# ---------- 13. INPUT ----------
+# ---------- 12. INPUT ----------
 if prompt := st.chat_input("Posez votre question..."):
     active_convo["messages"].append({"role": "user", "content": prompt})
     if len(active_convo["messages"]) == 1:
@@ -456,7 +444,7 @@ if prompt := st.chat_input("Posez votre question..."):
     active_convo["messages"].append({"role": "assistant", "content": reponse})
     st.rerun()
 
-# ---------- 14. PIED DE PAGE ----------
+# ---------- 13. PIED DE PAGE ----------
 st.markdown("""
 <div class="footer">
     INSPEI &bull; Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur
