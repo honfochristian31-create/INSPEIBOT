@@ -107,6 +107,10 @@ def repondre(question, model, index, data, historique=[]):
     
     question_lower = question.lower().strip()
     
+    # ============================================================
+    # 1. RÈGLES SPÉCIFIQUES (pour éviter les hallucinations courantes)
+    # ============================================================
+    
     # --- RÈGLE : confirmations (OK, OUI, NON, MERCI, etc.) ---
     mots_confirmation = ["ok", "oui", "non", "merci", "d'accord", "super", "parfait", "cool", "okay", "yes", "no", "si", "sisi"]
     if question_lower.strip() in mots_confirmation:
@@ -146,7 +150,7 @@ def repondre(question, model, index, data, historique=[]):
     if ("préparer" in question_lower or "preparer" in question_lower or "réviser" in question_lower or "reviser" in question_lower or "annales" in question_lower or "s'entraîner" in question_lower or "entraîner" in question_lower) and ("concours" in question_lower or "inspei" in question_lower):
         return "📚 **Comment se préparer au concours INSPEI ?**\n\nVoici les ressources disponibles pour vous préparer :\n\n📌 **Annales des concours** (2017 à 2024) :\n• Mathématiques\n• Physique-Chimie-Technologie\n\n🌐 **Où les trouver ?**\n• Sur le site officiel des concours : www.concours.enseignementsuperieur.gouv.bj\n• Sur le site officiel de l'INSPEI : https://siteinspei.netlify.app (rubrique Ressources)\n\n📝 **Conseils de préparation :**\n• Réviser régulièrement les matières : Mathématiques, Physique, Chimie, Technologie\n• S'entraîner avec les annales des années précédentes\n• Travailler la gestion du temps (épreuves chronométrées)\n• Participer à des groupes de révision entre candidats\n\n📅 **Date du concours** : jeudi 10 septembre 2026\n\n💡 **Les annales sont disponibles gratuitement en ligne.**"
     
-    # --- RÈGLE : "Épreuves du concours" ---
+    # --- RÈGLE : "Épreuves du concours" (VERSION SIMPLIFIÉE) ---
     if "epreuve" in question_lower or "épreuve" in question_lower:
         if "concours" in question_lower or "composer" in question_lower or "compos" in question_lower or "compose" in question_lower or "composition" in question_lower:
             return "📚 **Épreuves du concours INSPEI 2026 :**\n\nVous composez **2 épreuves écrites** :\n\n📌 **Épreuve 1** : Mathématiques\n📌 **Épreuve 2** : Sciences Physiques, Chimie et Technologie\n\n📅 Date : jeudi 10 septembre 2026\n🌐 Inscription : www.concours.enseignementsuperieur.gouv.bj\n📖 Plus d'infos : https://siteinspei.netlify.app"
@@ -156,9 +160,9 @@ def repondre(question, model, index, data, historique=[]):
         if "semestre" in question_lower or "programme" in question_lower or "formation" in question_lower:
             return "📚 **Matières enseignées à l'INSPEI (formation) :**\n\nLa formation dure 2 ans (4 semestres).\n\n📌 **Semestre 1** : Algorithmique, Thermodynamique, Maths 1, Chimie de l'Ingénieur, EPS, TEMC, Probabilités/Statistiques, Statique Graphique\n\n📌 **Semestre 2** : Analyse Numérique, Graphe/Optimisation, Maths 2, Cinématique/Dynamique, Langage (C/Python), RDM, Normes/Mesures, Anglais technique\n\n📌 **Semestre 3** : TEMC, Recherche Opérationnelle, Mécanique des Fluides, Maths 3, Physique des Matériaux, Géométrie Descriptive, Dessin Technique/DAO, Électricité Générale\n\n📌 **Semestre 4** : Maths 4, Matlab, MPA, Sciences Biologiques, Transfert Thermique, Ondes Électromagnétiques, Anglais Technique Avancé, EPS\n\n📖 Plus d'infos : https://siteinspei.netlify.app"
     
-    # --- RÈGLE : "Comment aller à INSPEI" (itinéraire) ---
+    # --- RÈGLE : "Comment aller à INSPEI" (itinéraire) - ÉVITE L'HALLUCINATION "Cotonou" ---
     if ("comment aller" in question_lower or "comment se rendre" in question_lower or "comment venir" in question_lower) and "inspei" in question_lower:
-        return "📍 **Comment se rendre à l'INSPEI :**\n\nL'INSPEI est situé à **Abomey, quartier Sogbo-Aliho**, à environ **1 km de la place Goho** sur la **route RNIE2** en direction de Bohicon.\n\n🚗 **En voiture / taxi** : Prenez la route RNIE2 vers Bohicon. L'INSPEI est à gauche, à environ 1 km de la place Goho.\n\n🛵 **En taxi-moto (zémidjan)** : Dites 'INSPEI, quartier Sogbo-Aliho' (c'est bien connu).\n\n🚌 **En bus / taxi-brousse** : Descendez à Abomey, puis prenez un taxi-moto jusqu'à l'INSPEI.\n\n💡 Si vous venez de Cotonou, prenez un bus ou taxi-brousse direction Abomey, puis suivez les indications ci-dessus."
+        return "📍 **Comment se rendre à l'INSPEI :**\n\nL'INSPEI est situé à **Abomey, quartier Sogbo-Aliho**, à environ **1 km de la place Goho** sur la **route RNIE2** en direction de Bohicon.\n\n🚗 **En voiture / taxi** : Prenez la route RNIE2 vers Bohicon. L'INSPEI est à gauche, à environ 1 km de la place Goho.\n\n🛵 **En taxi-moto (zémidjan)** : Dites 'INSPEI, quartier Sogbo-Aliho' (c'est bien connu).\n\n🚌 **En bus / taxi-brousse** : Descendez à Abomey, puis prenez un taxi-moto jusqu'à l'INSPEI.\n\n📍 **Repère** : L'école est située dans le quartier Sogbo-Aliho, près de l'ENEAM d'Abomey.\n\n💡 Si vous venez de Cotonou, prenez un bus ou taxi-brousse direction Abomey, puis suivez les indications ci-dessus."
     
     # --- RÈGLE : "Où" (localisation) ---
     if ("ou" in question_lower or "où" in question_lower or "situé" in question_lower or "adresse" in question_lower) and "inspei" in question_lower:
@@ -191,7 +195,9 @@ def repondre(question, model, index, data, historique=[]):
     if len(question.strip().split()) <= 1:
         return "Pouvez-vous préciser votre question sur l'INSPEI ? Je suis là pour vous renseigner sur les admissions, les filières, les écoles, la vie étudiante, etc."
     
-    # --- RECHERCHE NORMALE ---
+    # ============================================================
+    # 2. RECHERCHE DANS LA BASE DE DONNÉES (JSON)
+    # ============================================================
     resultats = rechercher(question, model, index, data, k=3)
     
     seuil = 0.60
@@ -201,7 +207,9 @@ def repondre(question, model, index, data, historique=[]):
     if resultats and resultats[0]['similarite'] > seuil:
         return resultats[0]['reponse']
     
-    # --- GROQ ---
+    # ============================================================
+    # 3. APPEL À GROQ (si pas de réponse dans la base)
+    # ============================================================
     contexte = ""
     if historique:
         for msg in historique[-6:]:
@@ -227,13 +235,25 @@ RÈGLES :
     ]
     
     try:
-        reponse = client.chat.completions.create(
+        reponse_ia = client.chat.completions.create(
             model="llama-3.1-8b-instant",
             messages=messages,
             temperature=0.5,
             max_tokens=500
         )
-        return reponse.choices[0].message.content
+        reponse_texte = reponse_ia.choices[0].message.content
+        
+        # ============================================================
+        # 4. VÉRIFICATION DE LA RÉPONSE DE L'IA (post-génération)
+        # On vérifie si la réponse de l'IA correspond à une réponse de la base
+        # ============================================================
+        for item in data:
+            if item['answer'].strip() in reponse_texte or reponse_texte.strip() in item['answer']:
+                return item['answer']
+        
+        # Si la réponse de l'IA n'est pas dans la base, on la donne quand même
+        return reponse_texte
+        
     except Exception as e:
         return "Désolé, une erreur s'est produite. Veuillez réessayer."
 
