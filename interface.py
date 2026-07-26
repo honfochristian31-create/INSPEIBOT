@@ -121,26 +121,16 @@ def repondre(question, model, index, data, historique=[]):
     question_lower = question_normalisee.lower().strip()
     
     # ============================================================
-    # 1. RÈGLES SPÉCIFIQUES (ULTRA PRIORITAIRES)
+    # 1. RÈGLE ULTRA RADICALE : Définition de l'INSPEI
     # ============================================================
-    
-    # --- RÈGLE ULTRA RADICALE : Définition de l'INSPEI ---
-    # Cette règle capture TOUTE question qui demande la définition de l'INSPEI
-    # Elle est placée AVANT TOUTE AUTRE RÈGLE (même les confirmations)
-    if ("inspei" in question_lower and 
-        ("quoi" in question_lower or 
-         "signifie" in question_lower or 
-         "signification" in question_lower or 
-         "definition" in question_lower or 
-         "définition" in question_lower or 
-         "c'est quoi" in question_lower or 
-         "c est quoi" in question_lower or 
-         "qu'est-ce" in question_lower or 
-         "qu est ce" in question_lower or 
-         "que veut dire" in question_lower or 
-         "c'est" in question_lower or 
-         "c est" in question_lower)):
-        return "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est un établissement public rattaché à l'UNSTIM (Université Nationale des Sciences, Technologies, Ingénierie et Mathématiques). Il a été officiellement créé par l'arrêté N°719/MESRS/... du 23/12/2020, mais a démarré ses activités dès 2016-2017. Sa mission est de former des bacheliers scientifiques pour les grandes écoles d'ingénieurs du Bénin. La formation dure deux ans et débouche sur le CPEI."
+    # Cette règle capture TOUTE question qui demande ce qu'est l'INSPEI
+    # Elle est placée AVANT TOUTE AUTRE RÈGLE
+    if "inspei" in question_lower:
+        mots_definition = ["quoi", "signifie", "signification", "definition", "définition", 
+                          "c'est quoi", "c est quoi", "qu'est-ce", "qu est ce", 
+                          "que veut dire", "c'est", "c est", "sens", "abrégé", "abréviation"]
+        if any(mot in question_lower for mot in mots_definition):
+            return "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est un établissement public rattaché à l'UNSTIM (Université Nationale des Sciences, Technologies, Ingénierie et Mathématiques). Il a été officiellement créé par l'arrêté N°719/MESRS/... du 23/12/2020, mais a démarré ses activités dès 2016-2017. Sa mission est de former des bacheliers scientifiques pour les grandes écoles d'ingénieurs du Bénin. La formation dure deux ans et débouche sur le CPEI."
     
     # --- RÈGLE : confirmations ---
     mots_confirmation = ["ok", "oui", "non", "merci", "d'accord", "super", "parfait", "cool", "okay", "yes", "no", "si", "sisi"]
@@ -154,6 +144,10 @@ def repondre(question, model, index, data, historique=[]):
     # --- RÈGLE : "repete" ---
     if question_lower in ["repete", "répète", "repetes", "répètes", "repeter", "répéter"]:
         return "Je suis à votre disposition pour toute question sur l'INSPEI. Que souhaitez-vous savoir ?"
+    
+    # --- RÈGLE : "Inspei" seul ---
+    if question_lower.strip() in ["inspei", "inspéi", "insp"]:
+        return "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est une école préparatoire aux grandes écoles d'ingénieurs du Bénin, située à Abomey. Que souhaitez-vous savoir ? (Admission, filières, écoles, concours, vie étudiante...) 😊"
     
     # --- RÈGLE CONTEXTUELLE : "on compose quand" ---
     if ("compose" in question_lower or "composition" in question_lower or "quand" in question_lower):
@@ -179,10 +173,6 @@ def repondre(question, model, index, data, historique=[]):
     if ("fait" in question_lower or "faire" in question_lower or "étudie" in question_lower or "apprend" in question_lower or "enseigne" in question_lower) and "inspei" in question_lower:
         if ("quoi" in question_lower or "qu'est" in question_lower or "qu est" in question_lower or "que" in question_lower or "ce qu" in question_lower or "on" in question_lower):
             return "📚 **À l'INSPEI, on suit des Classes Préparatoires aux Études d'Ingénieur (CPEI).**\n\nLa formation dure **2 ans** (4 semestres) et prépare les bacheliers scientifiques aux concours des écoles d'ingénieurs de l'UNSTIM.\n\n📌 **Les matières enseignées par semestre :**\n\n**Semestre 1 (S1)** : Algorithmique, Thermodynamique, Maths 1, Chimie de l'Ingénieur, EPS, TEMC, Probabilités/Statistiques, Statique Graphique\n\n**Semestre 2 (S2)** : Analyse Numérique, Graphe/Optimisation, Maths 2, Cinématique/Dynamique, Langage (C/Python), RDM, Normes/Mesures, Anglais technique\n\n**Semestre 3 (S3)** : TEMC, Recherche Opérationnelle, Mécanique des Fluides, Maths 3, Physique des Matériaux, Géométrie Descriptive, Dessin Technique/DAO, Électricité Générale\n\n**Semestre 4 (S4)** : Maths 4, Matlab, MPA, Sciences Biologiques, Transfert Thermique, Ondes Électromagnétiques, Anglais Technique Avancé, EPS\n\n📌 **Débouchés** : Intégration dans les écoles d'ingénieurs (ENSGEP, ENSGMM, ENSTP)\n\n📍 **Adresse** : Abomey, quartier Sogbo-Aliho\n🌐 https://siteinspei.netlify.app"
-    
-    # --- RÈGLE : "Inspei" seul ---
-    if question_lower.strip() in ["inspei", "inspéi", "insp"]:
-        return "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est une école préparatoire aux grandes écoles d'ingénieurs du Bénin, située à Abomey. Que souhaitez-vous savoir ? (Admission, filières, écoles, concours, vie étudiante...) 😊"
     
     # --- RÈGLE : "Devenir étudiant" ---
     if ("etudiant" in question_lower or "étudiant" in question_lower or "inscrire" in question_lower or "inscription" in question_lower or "postuler" in question_lower) and ("inspei" in question_lower or "là bas" in question_lower or "la bas" in question_lower):
@@ -296,10 +286,19 @@ RÈGLES :
         )
         reponse_texte = reponse_ia.choices[0].message.content
         
-        # --- VÉRIFICATION POST-GÉNÉRATION ---
-        for item in data:
-            if item['answer'].strip() in reponse_texte or reponse_texte.strip() in item['answer']:
-                return item['answer']
+        # ============================================================
+        # 3. VÉRIFICATION POST-GÉNÉRATION (FILET DE SÉCURITÉ)
+        # ============================================================
+        # Si la question parle de la définition de l'INSPEI, on force la bonne réponse
+        if "inspei" in question_lower:
+            mots_definition = ["quoi", "signifie", "signification", "definition", "définition", 
+                              "c'est quoi", "c est quoi", "qu'est-ce", "qu est ce", 
+                              "que veut dire", "c'est", "c est", "sens", "abrégé", "abréviation"]
+            if any(mot in question_lower for mot in mots_definition):
+                # On vérifie si la réponse de l'IA contient "classes préparatoires" (la bonne réponse)
+                if "classes préparatoires" not in reponse_texte.lower():
+                    # Si la réponse de l'IA est fausse, on la remplace
+                    return "L'INSPEI est l'Institut National Supérieur des Classes Préparatoires aux Etudes d'Ingénieur. C'est un établissement public rattaché à l'UNSTIM (Université Nationale des Sciences, Technologies, Ingénierie et Mathématiques). Il a été officiellement créé par l'arrêté N°719/MESRS/... du 23/12/2020, mais a démarré ses activités dès 2016-2017. Sa mission est de former des bacheliers scientifiques pour les grandes écoles d'ingénieurs du Bénin. La formation dure deux ans et débouche sur le CPEI."
         
         return reponse_texte
         
